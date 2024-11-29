@@ -16,4 +16,7 @@ export class NavbarComponent {
     this.router.navigate(['/login']);
   }
 
+  navigateToAbout(): void {
+    this.router.navigate(['/about']);
+  }
 }
