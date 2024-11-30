@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { NavbarComponent } from "../../home/navbar/navbar.component";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FooterComponent } from "../../home/footer/footer.component";
+import { FooterComponent } from "../../shared/footer/footer.component";
+import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ import { FooterComponent } from "../../home/footer/footer.component";
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule, NavbarComponent, MatSlideToggleModule, FooterComponent],
+    MatCardModule, HomeNavbarComponent, MatSlideToggleModule, FooterComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'] // Corrected property name
 })
