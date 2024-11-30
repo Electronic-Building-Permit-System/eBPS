@@ -4,13 +4,12 @@ import { MatToolbarModule } from '@angular/material/toolbar'; // Import MatToolb
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-home-navbar',
   imports: [MatToolbarModule, MatButton],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './home-navbar.component.html',
+  styleUrl: './home-navbar.component.css'
 })
-export class NavbarComponent {
-
+export class HomeNavbarComponent {
   constructor(private router: Router) {}
 
   navigateToLogin() {
