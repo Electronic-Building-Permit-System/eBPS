@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from '../home/footer/footer.component';
-import { NavbarComponent } from '../home/navbar/navbar.component';
-
+import { HomeNavbarComponent } from '../shared/home-navbar/home-navbar.component';
 @Component({
   selector: 'app-about',
-  imports: [NavbarComponent , FooterComponent],
+  imports: [HomeNavbarComponent , FooterComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
