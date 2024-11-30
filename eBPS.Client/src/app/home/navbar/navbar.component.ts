@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
   constructor(private router: Router) {}
 
   navigateToLogin() {
@@ -19,4 +20,7 @@ export class NavbarComponent {
   navigateToAbout(): void {
     this.router.navigate(['/about']);
   }
+  navigateToHome() {
+    this.router.navigate(['/home']);
+    }
 }

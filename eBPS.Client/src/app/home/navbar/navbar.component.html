@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <span>
+  <span (click)="navigateToHome()">
     eBPS
   </span>
   <span class="spacer"></span>
-  <button mat-button>Home</button>
+  
   <button mat-button (click)="navigateToAbout()">About</button>
   <button mat-button>Contact</button>
   <button (click)="navigateToLogin()" mat-button>Log In</button>
