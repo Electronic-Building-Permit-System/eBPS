@@ -3,9 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { UserNavbarComponent } from '../shared/user-navbar/user-navbar.component';
+import { FooterComponent } from '../shared/footer/footer.component';
 @Component({
   selector: 'app-dashboard',
-  imports: [UserNavbarComponent,MatCardModule, MatTableModule, MatDividerModule],
+  imports: [UserNavbarComponent, FooterComponent, MatCardModule, MatTableModule, MatDividerModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
