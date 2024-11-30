@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { NavbarComponent } from "../../home/navbar/navbar.component";
-import { FooterComponent } from "../../home/footer/footer.component";
 import { Router } from '@angular/router';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule, NavbarComponent, FooterComponent],
+    MatCardModule, HomeNavbarComponent, FooterComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
