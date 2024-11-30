@@ -19,4 +19,7 @@ export class HomeNavbarComponent {
   navigateToAbout(): void {
     this.router.navigate(['/about']);
   }
+  navigateToHome() {
+    this.router.navigate(['/home']);
+    }
 }

@@ -3,24 +3,30 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
+import { NavbarComponent } from "../../home/navbar/navbar.component";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FooterComponent } from "../../home/footer/footer.component";
 
 @Component({
   selector: 'app-login',
-  imports:[ FormsModule,
+  imports: [FormsModule,
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule],
+    MatCardModule, NavbarComponent, MatSlideToggleModule, FooterComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'] // Corrected property name
 })
 export class LoginComponent {
-  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  loginForm: FormGroup;
+ 
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberMe: [false]
     });
   }
 
@@ -31,4 +37,8 @@ export class LoginComponent {
       console.log('Form is invalid');
     }
   }
+
+  navigateToSignUp() {
+    this.router.navigate(['/signup']);
+    }
 }
