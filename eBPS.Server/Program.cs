@@ -23,6 +23,8 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 builder.Services.AddFluentMigrator(builder.Configuration);
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -34,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Run FluentMigrator to apply migrations at startup (optional)
 using (var scope = app.Services.CreateScope())
