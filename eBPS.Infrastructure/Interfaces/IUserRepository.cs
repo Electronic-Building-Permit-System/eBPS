@@ -6,5 +6,6 @@ namespace eBPS.Infrastructure.Interfaces
     {
         Task<Users> GetByUsernameAsync(string username);
         Task AddUserAsync(Users user);
+        Task AddUserRolesAsync(int userId, int roleId);
     }
 }

@@ -23,9 +23,16 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         public async Task AddUserAsync(Users user)
         {
             var query = @"
-            INSERT INTO Users (Username, Email, PasswordHash, IsActive, CreatedAt)
-            VALUES (@Username, @Email, @PasswordHash, @IsActive, @CreatedAt)";
-            await _dbConnection.ExecuteAsync(query, user);
+            INSERT INTO Users (Username, Email, PasswordHash, IsActive, CreatedAt, FirstName, LastName, PhoneNumber)
+            VALUES (@Username, @Email, @PasswordHash, @IsActive, @CreatedAt, @FirstName, @LastName, @PhoneNumber);
+            SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            user.Id = await _dbConnection.ExecuteScalarAsync<int>(query, user);
+        }
+
+        public async Task AddUserRolesAsync(int userId, int roleId)
+        {
+            var query = @"INSERT INTO UserRoles (UserId, RoleId) VALUES (@UserId, @RoleId)";
+            await _dbConnection.ExecuteAsync(query, new { UserId = userId, RoleId = roleId });
         }
     }
 }

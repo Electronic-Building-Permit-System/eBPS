@@ -2,8 +2,13 @@ using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using eBPS.Infrastructure.DataAccess;
+using eBPS.Server;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register services
+builder.Services.ServiceRegistration();
+
 // Add services to the container.
 builder.Services.AddCors(options =>
 {

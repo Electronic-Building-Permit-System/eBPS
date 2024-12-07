@@ -33,6 +33,9 @@ namespace eBPS.Application.Services
             {
                 Username = userDto.Username,
                 Email = userDto.Email,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                PhoneNumber = userDto.PhoneNumber,
                 PasswordHash = passwordHash,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -40,6 +43,8 @@ namespace eBPS.Application.Services
 
             // Save the user to the database
             await _userRepository.AddUserAsync(user);
+            // Save the userRole to the database
+            await AssignRoleToUserAsync(user.Id, userDto.RoleId);
         }
 
         private string HashPassword(string password)
@@ -47,6 +52,11 @@ namespace eBPS.Application.Services
             using var sha256 = SHA256.Create();
             var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(bytes);
+        }
+        private async Task AssignRoleToUserAsync(int userId, int roleId)
+        {
+            // Insert the user-role relationship into the UserRoles table
+            await _userRepository.AddUserRolesAsync(userId, roleId);
         }
     }
 }
