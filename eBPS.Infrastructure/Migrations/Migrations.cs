@@ -91,6 +91,25 @@ namespace eBPS.Infrastructure.Migrations
                 Delete.Table("RefreshTokens");
             }
         }
+        [Migration(2024071201847)]
+        public class AddColumnsToUsersTable : Migration
+        {
+            public override void Up()
+            {
+                Alter.Table("Users")
+                    .AddColumn("FirstName").AsString(100).NotNullable().WithDefaultValue("Unknown") // Adding FirstName column
+                    .AddColumn("LastName").AsString(100).NotNullable().WithDefaultValue("Unknown") // Adding LastName column
+                    .AddColumn("PhoneNumber").AsString(10).Nullable(); // Adding PhoneNumber column
+            }
+
+            public override void Down()
+            {
+                Delete.Column("FirstName").FromTable("Users");
+                Delete.Column("LastName").FromTable("Users");
+                Delete.Column("PhoneNumber").FromTable("Users");
+            }
+        }
 
     }
 }
+
