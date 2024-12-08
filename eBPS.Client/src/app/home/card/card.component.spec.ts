@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CardComponent } from './card.component';
 
 describe('CardComponent', () => {
@@ -8,7 +7,7 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CardComponent]
+      imports: [CardComponent],  // Import the standalone component here
     })
     .compileComponents();
 
@@ -21,3 +20,4 @@ describe('CardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

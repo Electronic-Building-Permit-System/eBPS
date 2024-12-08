@@ -25,7 +25,7 @@ namespace eBPS.Server.Controllers
             try
             {
                 await _userService.RegisterUserAsync(userDto);
-                return Created("", new { Message = "User registered successfully." })
+                return Created("", new { Message = "User registered successfully." });
             }
             catch (Exception ex)
             {
