@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -18,16 +20,16 @@ namespace eBPS.Server.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("getName")] // Custom route for this endpoint
+        public IActionResult GetName()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return Ok("Hello Reeza and Sangeet!");
+        }
+
+        [HttpGet("getQualification")] // Custom route for this endpoint
+        public IActionResult GetQualification()
+        {
+            return Ok("BIM");
         }
     }
 }

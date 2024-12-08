@@ -1,6 +1,6 @@
 @eBPS.Server_HostAddress = http://localhost:5120
 
-GET {{eBPS.Server_HostAddress}}/weatherforecast/
+GET {{eBPS.Server_HostAddress}}/weatherforecast/getName
 Accept: application/json
 
 ###
