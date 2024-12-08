@@ -1,19 +1,23 @@
 ﻿using eBPS.Application.DTOs;
-using System.Text;
-using System.Security.Cryptography;
 using eBPS.Application.Interfaces;
 using eBPS.Infrastructure.Interfaces;
 using eBPS.Domain.Entities;
+using eBPS.Domain.Interfaces;
 
 namespace eBPS.Application.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
+        private readonly IRoleRepository _roleRepository;
+        private readonly IJwtTokenGenerator _jwtToken;
+        private readonly IPasswordHasher _passwordHasher;
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IJwtTokenGenerator jwtToken, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _jwtToken = jwtToken;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task RegisterUserAsync(RegisterUserDto userDto)
@@ -25,8 +29,15 @@ namespace eBPS.Application.Services
                 throw new Exception("Username already exists.");
             }
 
+            // Check if the role already exists
+            var existingRole = await _roleRepository.GetByRoleIdAsync(userDto.RoleId);
+            if (existingRole == null)
+            {
+                throw new Exception("Role doesn't exists.");
+            }
+
             // Hash the password
-            var passwordHash = HashPassword(userDto.Password);
+            var passwordHash = _passwordHasher.HashPassword(userDto.Password);
 
             // Create a new user
             var user = new Users
@@ -43,20 +54,24 @@ namespace eBPS.Application.Services
 
             // Save the user to the database
             await _userRepository.AddUserAsync(user);
+
             // Save the userRole to the database
-            await AssignRoleToUserAsync(user.Id, userDto.RoleId);
+            await _userRepository.AddUserRolesAsync(user.Id, userDto.RoleId);
         }
 
-        private string HashPassword(string password)
+
+        public async Task<string> LoginUserAsync(LoginUserDto loginDto)
         {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(bytes);
-        }
-        private async Task AssignRoleToUserAsync(int userId, int roleId)
-        {
-            // Insert the user-role relationship into the UserRoles table
-            await _userRepository.AddUserRolesAsync(userId, roleId);
+            var user = await _userRepository.GetByUsernameAsync(loginDto.Username);
+            if (user == null || !_passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash))
+            {
+                throw new Exception("Invalid username or password.");
+            }
+            if (user.IsActive == false)
+            {
+                throw new Exception("User is not active.");
+            }
+            return _jwtToken.GenerateJwtToken(user);
         }
     }
 }

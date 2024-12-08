@@ -1,6 +1,12 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces;
+using eBPS.Domain.Entities;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace eBPS.Server.Controllers
 {
@@ -20,6 +26,20 @@ namespace eBPS.Server.Controllers
             {
                 await _userService.RegisterUserAsync(userDto);
                 return Created("", new { Message = "User registered successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDto loginDto)
+        {
+            try
+            {
+                var token = await _userService.LoginUserAsync(loginDto);
+                return Ok(new { Token = token, Message = "Login successful." });
             }
             catch (Exception ex)
             {
