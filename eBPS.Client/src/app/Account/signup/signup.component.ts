@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
+import { UserService } from '../../services/account/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -22,19 +23,30 @@ export class SignupComponent {
   signupForm: FormGroup;
  
 
-  constructor(private fb: FormBuilder , private router: Router) {
+  constructor(private fb: FormBuilder , private router: Router, private userService: UserService) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      password: ['', Validators.required],
+      roleId: ['', Validators.required],
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.signupForm.valid) {
-      console.log('Sign Up Form Submitted', this.signupForm.value);
-    } else {
-      console.log('Sign Up Form is invalid');
+      this.userService.registerUser(this.signupForm.value).subscribe(
+        (response: { message: string }) => {
+          console.log('User registered successfully', response);
+          alert('User registered successfully!');
+        },
+        (error: { error: string }) => {
+          console.error('Error registering user', error);
+          alert('Registration failed!');
+        }
+      );
     }
   }
   navigateToLogin() {
