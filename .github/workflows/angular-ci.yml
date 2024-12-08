@@ -21,11 +21,20 @@ jobs:
       with:
         node-version: '22.x'  # Adjust according to the version you need
 
+    - name: Navigate to Angular Client folder
+      run: cd eBPS.Client  # Navigate to the directory containing the Angular app
+
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd eBPS.Client  # Ensure we're in the correct directory
+        npm install  # This will run in the eBPS.Client folder where package.json is located
 
     - name: Build Angular app
-      run: npm run build --prod
+      run: |
+        cd eBPS.Client  # Ensure we're in the correct directory
+        npm run build --prod  # Build Angular app in production mode
 
     - name: Run tests
-      run: npm run test -- --watch=false --browsers=ChromeHeadless
+      run: |
+        cd eBPS.Client  # Ensure we're in the correct directory
+        npm run test -- --watch=false --browsers=ChromeHeadless  # Run tests with headless Chrome
