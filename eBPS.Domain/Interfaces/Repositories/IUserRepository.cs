@@ -1,6 +1,6 @@
 ﻿using eBPS.Domain.Entities;
 
-namespace eBPS.Infrastructure.Interfaces
+namespace eBPS.Domain.Interfaces.Repositories
 {
     public interface IUserRepository
     {

@@ -10,13 +10,16 @@ namespace eBPS.Infrastructure.Migrations
             public override void Up()
             {
                 Create.Table("Users")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("Username").AsString(255).NotNullable().Unique()
-                .WithColumn("PasswordHash").AsString(255).NotNullable()
-                .WithColumn("Email").AsString(255).NotNullable().Unique()
-                .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true) // User account active status
-                .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentDateTime) // Account creation timestamp
-                .WithColumn("LastLoginAt").AsDateTime().Nullable(); // Last login timestamp (optional)
+                    .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                    .WithColumn("FirstName").AsString(100).NotNullable()
+                    .WithColumn("LastName").AsString(100).NotNullable()
+                    .WithColumn("PhoneNumber").AsString(10).Nullable()
+                    .WithColumn("Username").AsString(255).NotNullable().Unique()
+                    .WithColumn("Email").AsString(255).NotNullable().Unique()
+                    .WithColumn("PasswordHash").AsString(500).NotNullable()
+                    .WithColumn("CreatedDate").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime)
+                    .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
+                    .WithColumn("LastLoginAt").AsDateTime().Nullable();
             }
 
             public override void Down()
@@ -26,7 +29,7 @@ namespace eBPS.Infrastructure.Migrations
         }
 
         [Migration(202412070002)]
-        public class AddRoles : Migration
+        public class CreateRolesTable : Migration
         {
             public override void Up()
             {
@@ -43,73 +46,89 @@ namespace eBPS.Infrastructure.Migrations
         }
 
         [Migration(202412070003)]
-        public class AddUserRoles : Migration
+        public class CreateOrganizationsTable : Migration
         {
             public override void Up()
             {
-                Create.Table("UserRoles")
-                    .WithColumn("UserId").AsInt32().NotNullable()
-                    .WithColumn("RoleId").AsInt32().NotNullable();
+                Create.Table("Organizations")
+                    .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                    .WithColumn("Name").AsString(255).NotNullable().Unique()
+                    .WithColumn("CreatedDate").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime)
+                    .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true);
+            }
 
-                Create.ForeignKey("FK_UserRoles_Users")
-                    .FromTable("UserRoles").ForeignColumn("UserId")
+            public override void Down()
+            {
+                Delete.Table("Organizations");
+            }
+        }
+
+        [Migration(202412070004)]
+        public class CreateUserOrganizationsTable : Migration
+        {
+            public override void Up()
+            {
+                Create.Table("UserOrganizations")
+                    .WithColumn("UserId").AsInt32().NotNullable()
+                    .WithColumn("OrganizationId").AsInt32().NotNullable()
+                    .WithColumn("RoleId").AsInt32().NotNullable()
+                    .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
+                    .WithColumn("JoinedDate").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);
+
+                Create.PrimaryKey("PK_UserOrganizations")
+                    .OnTable("UserOrganizations")
+                    .Columns("UserId", "OrganizationId");
+
+                // Optionally, add foreign keys
+                Create.ForeignKey("FK_UserOrganizations_Users")
+                    .FromTable("UserOrganizations").ForeignColumn("UserId")
                     .ToTable("Users").PrimaryColumn("Id");
 
-                Create.ForeignKey("FK_UserRoles_Roles")
-                    .FromTable("UserRoles").ForeignColumn("RoleId")
+                Create.ForeignKey("FK_UserOrganizations_Organizations")
+                    .FromTable("UserOrganizations").ForeignColumn("OrganizationId")
+                    .ToTable("Organizations").PrimaryColumn("Id");
+
+                Create.ForeignKey("FK_UserOrganizations_Roles")
+                    .FromTable("UserOrganizations").ForeignColumn("RoleId")
                     .ToTable("Roles").PrimaryColumn("Id");
             }
 
             public override void Down()
             {
-                Delete.ForeignKey("FK_UserRoles_Users").OnTable("UserRoles");
-                Delete.ForeignKey("FK_UserRoles_Roles").OnTable("UserRoles");
-                Delete.Table("UserRoles");
+                Delete.ForeignKey("FK_UserOrganizations_Users").OnTable("UserOrganizations");
+                Delete.ForeignKey("FK_UserOrganizations_Organizations").OnTable("UserOrganizations");
+                Delete.ForeignKey("FK_UserOrganizations_Roles").OnTable("UserOrganizations");
+                Delete.PrimaryKey("PK_UserOrganizations").FromTable("UserOrganizations");
+                Delete.Table("UserOrganizations");
             }
         }
 
-        [Migration(202412070004)]
+        [Migration(202412070005)]
         public class AddRefreshTokens : Migration
         {
             public override void Up()
             {
-                Create.Table("RefreshTokens")
+                Create.Table("RefreshToken")
                     .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                     .WithColumn("UserId").AsInt32().NotNullable()
-                    .WithColumn("Token").AsString(512).NotNullable()
+                    .WithColumn("OrganizationId").AsInt32().NotNullable()
+                    .WithColumn("Token").AsString(500).NotNullable().Unique()
                     .WithColumn("ExpiresAt").AsDateTime().NotNullable()
-                    .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentDateTime);
+                    .WithColumn("RevokedAt").AsDateTime().Nullable()
+                    .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);
 
-                Create.ForeignKey("FK_RefreshTokens_Users")
-                    .FromTable("RefreshTokens").ForeignColumn("UserId")
-                    .ToTable("Users").PrimaryColumn("Id");
+                // Composite foreign key
+                Create.ForeignKey("FK_RefreshToken_UserOrganizations")
+                    .FromTable("RefreshToken").ForeignColumns("UserId", "OrganizationId")
+                    .ToTable("UserOrganizations").PrimaryColumns("UserId", "OrganizationId");
             }
 
             public override void Down()
             {
-                Delete.ForeignKey("FK_RefreshTokens_Users").OnTable("RefreshTokens");
-                Delete.Table("RefreshTokens");
+                Delete.ForeignKey("FK_RefreshToken_UserOrganizations").OnTable("RefreshToken");
+                Delete.Table("RefreshToken");
             }
         }
-        [Migration(2024071201847)]
-        public class AddColumnsToUsersTable : Migration
-        {
-            public override void Up()
-            {
-                Alter.Table("Users")
-                    .AddColumn("FirstName").AsString(100).NotNullable().WithDefaultValue("Unknown") // Adding FirstName column
-                    .AddColumn("LastName").AsString(100).NotNullable().WithDefaultValue("Unknown") // Adding LastName column
-                    .AddColumn("PhoneNumber").AsString(10).Nullable(); // Adding PhoneNumber column
-            }
-
-            public override void Down()
-            {
-                Delete.Column("FirstName").FromTable("Users");
-                Delete.Column("LastName").FromTable("Users");
-                Delete.Column("PhoneNumber").FromTable("Users");
-            }
-        }
-
     }
 }
 

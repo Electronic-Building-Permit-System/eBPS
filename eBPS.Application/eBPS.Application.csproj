@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eBPS.Domain\eBPS.Domain.csproj" />
-    <ProjectReference Include="..\eBPS.Infrastructure\eBPS.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

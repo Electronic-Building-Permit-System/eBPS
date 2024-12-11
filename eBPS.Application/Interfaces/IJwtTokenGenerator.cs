@@ -1,6 +1,6 @@
 ﻿using eBPS.Domain.Entities;
 
-namespace eBPS.Domain.Interfaces
+namespace eBPS.Application.Interfaces
 {
     public interface IJwtTokenGenerator
     {

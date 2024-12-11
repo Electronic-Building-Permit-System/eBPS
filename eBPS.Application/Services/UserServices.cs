@@ -1,8 +1,8 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces;
-using eBPS.Infrastructure.Interfaces;
 using eBPS.Domain.Entities;
 using eBPS.Domain.Interfaces;
+using eBPS.Domain.Interfaces.Repositories;
 
 namespace eBPS.Application.Services
 {
@@ -58,7 +58,6 @@ namespace eBPS.Application.Services
             // Save the userRole to the database
             await _userRepository.AddUserRolesAsync(user.Id, userDto.RoleId);
         }
-
 
         public async Task<string> LoginUserAsync(LoginUserDto loginDto)
         {

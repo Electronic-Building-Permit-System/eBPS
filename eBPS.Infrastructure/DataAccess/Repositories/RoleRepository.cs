@@ -1,7 +1,7 @@
 ﻿using eBPS.Domain.Entities;
-using eBPS.Infrastructure.Interfaces;
 using System.Data;
 using Dapper;
+using eBPS.Domain.Interfaces.Repositories;
 
 namespace eBPS.Infrastructure.DataAccess.Repositories
 {

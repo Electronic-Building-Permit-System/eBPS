@@ -1,11 +1,10 @@
 ﻿using eBPS.Application.Interfaces;
 using eBPS.Application.Services;
-using eBPS.Domain.Interfaces;
+using eBPS.Domain.Interfaces.Repositories;
 using eBPS.Infrastructure.DataAccess.Repositories;
-using eBPS.Infrastructure.Interfaces;
-using eBPS.Infrastructure.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace eBPS.Server
+namespace eBPS.Infrastructure.Services
 {
     public static class DependencyRegistration
     {

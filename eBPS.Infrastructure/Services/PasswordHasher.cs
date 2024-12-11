@@ -1,4 +1,4 @@
-﻿using eBPS.Domain.Interfaces;
+﻿using eBPS.Application.Interfaces;
 
 namespace eBPS.Infrastructure.Services
 {
