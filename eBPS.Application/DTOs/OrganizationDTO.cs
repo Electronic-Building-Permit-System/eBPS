@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace eBPS.Application.DTOs
 {
-    public class LoginUserDTO
+    public class OrganizationDTO
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
+
 }

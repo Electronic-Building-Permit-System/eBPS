@@ -1,8 +1,8 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './Account/login/login.component';
-import { SignupComponent } from './Account/signup/signup.component';
+import { LoginComponent } from './account/login/login.component';
+import { SignupComponent } from './account/signup/signup.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './shared/footer/footer.component';

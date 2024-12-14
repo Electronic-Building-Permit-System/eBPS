@@ -75,19 +75,22 @@ namespace eBPS.Infrastructure.Migrations
                     .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
                     .WithColumn("JoinedDate").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);
 
+                // Composite Primary Key
                 Create.PrimaryKey("PK_UserOrganizations")
                     .OnTable("UserOrganizations")
-                    .Columns("UserId", "OrganizationId");
+                    .Columns("UserId", "OrganizationId", "RoleId");
 
-                // Optionally, add foreign keys
+                // Foreign Key to Users
                 Create.ForeignKey("FK_UserOrganizations_Users")
                     .FromTable("UserOrganizations").ForeignColumn("UserId")
                     .ToTable("Users").PrimaryColumn("Id");
 
+                // Foreign Key to Organizations
                 Create.ForeignKey("FK_UserOrganizations_Organizations")
                     .FromTable("UserOrganizations").ForeignColumn("OrganizationId")
                     .ToTable("Organizations").PrimaryColumn("Id");
 
+                // Foreign Key to Roles
                 Create.ForeignKey("FK_UserOrganizations_Roles")
                     .FromTable("UserOrganizations").ForeignColumn("RoleId")
                     .ToTable("Roles").PrimaryColumn("Id");
@@ -112,6 +115,7 @@ namespace eBPS.Infrastructure.Migrations
                     .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                     .WithColumn("UserId").AsInt32().NotNullable()
                     .WithColumn("OrganizationId").AsInt32().NotNullable()
+                    .WithColumn("RoleId").AsInt32().NotNullable()
                     .WithColumn("Token").AsString(500).NotNullable().Unique()
                     .WithColumn("ExpiresAt").AsDateTime().NotNullable()
                     .WithColumn("RevokedAt").AsDateTime().Nullable()
@@ -119,8 +123,8 @@ namespace eBPS.Infrastructure.Migrations
 
                 // Composite foreign key
                 Create.ForeignKey("FK_RefreshToken_UserOrganizations")
-                    .FromTable("RefreshToken").ForeignColumns("UserId", "OrganizationId")
-                    .ToTable("UserOrganizations").PrimaryColumns("UserId", "OrganizationId");
+                    .FromTable("RefreshToken").ForeignColumns("UserId", "OrganizationId", "RoleId")
+                    .ToTable("UserOrganizations").PrimaryColumns("UserId", "OrganizationId", "RoleId");
             }
 
             public override void Down()

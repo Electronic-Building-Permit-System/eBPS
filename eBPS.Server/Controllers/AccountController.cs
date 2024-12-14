@@ -1,17 +1,11 @@
 ﻿using eBPS.Application.DTOs;
-using eBPS.Application.Interfaces;
-using eBPS.Domain.Entities;
-using Microsoft.AspNetCore.Identity.Data;
+using eBPS.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace eBPS.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -20,7 +14,7 @@ namespace eBPS.Server.Controllers
             _userService = userService;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto userDto)
+        public async Task<IActionResult> Register([FromBody] RegisterUserDTO userDto)
         {
             try
             {
@@ -34,7 +28,7 @@ namespace eBPS.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginUserDTO loginDto)
         {
             try
             {

@@ -1,11 +1,15 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces;
 using eBPS.Domain.Entities;
-using eBPS.Domain.Interfaces;
 using eBPS.Domain.Interfaces.Repositories;
 
 namespace eBPS.Application.Services
 {
+    public interface IUserService
+    {
+        Task RegisterUserAsync(RegisterUserDTO userDto);
+        Task<string> LoginUserAsync(LoginUserDTO userDto);
+    }
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
@@ -20,7 +24,7 @@ namespace eBPS.Application.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task RegisterUserAsync(RegisterUserDto userDto)
+        public async Task RegisterUserAsync(RegisterUserDTO userDto)
         {
             // Check if the user already exists
             var existingUser = await _userRepository.GetByUsernameAsync(userDto.Username);
@@ -59,7 +63,7 @@ namespace eBPS.Application.Services
             await _userRepository.AddUserRolesAsync(user.Id, userDto.RoleId);
         }
 
-        public async Task<string> LoginUserAsync(LoginUserDto loginDto)
+        public async Task<string> LoginUserAsync(LoginUserDTO loginDto)
         {
             var user = await _userRepository.GetByUsernameAsync(loginDto.Username);
             if (user == null || !_passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash))

@@ -8,10 +8,10 @@
       <mat-card-title class="center-title">Login</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
-          <!-- Email Field -->
+          <!-- Username Field -->
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" placeholder="Enter your email" />
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="user" type="username" placeholder="Enter your email" />
           </mat-form-field>
 
           <!-- Password Field -->
