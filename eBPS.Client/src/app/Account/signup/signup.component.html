@@ -37,8 +37,21 @@
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Role ID</mat-label>
-            <input matInput formControlName="roleId" type="number" placeholder="Enter your role ID" />
+            <mat-label>Roles</mat-label>
+            <mat-select formControlName="roleId" multiple>
+              <mat-option *ngFor="let role of roles" [value]="role.id">
+                {{ role.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Organizations</mat-label>
+            <mat-select formControlName="organizationId" multiple>
+              <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+                {{ organization.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
   
           <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">

@@ -6,9 +6,11 @@ using eBPS.Server;
 using eBPS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+// Retrieve the connection string from the configuration
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Register services
-builder.Services.ServiceRegistration();
+builder.Services.ServiceRegistration(connectionString);
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -23,7 +25,7 @@ builder.Services.AddCors(options =>
 
 // SqlServer Connection
 builder.Services.AddScoped<IDbConnection>(sp =>
-    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+    new SqlConnection(connectionString));
 
 // Add FluentMigrator to the DI container
 builder.Services.AddFluentMigrator(builder.Configuration);

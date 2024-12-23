@@ -18,7 +18,7 @@ namespace eBPS.Server.Controllers
         {
             try
             {
-                await _userService.RegisterUserAsync(userDto);
+                await _userService.RegisterUser(userDto);
                 return Created("", new { Message = "User registered successfully." });
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace eBPS.Server.Controllers
         {
             try
             {
-                var token = await _userService.LoginUserAsync(loginDto);
+                var token = await _userService.LoginUser(loginDto);
                 return Ok(new { Token = token, Message = "Login successful." });
             }
             catch (Exception ex)

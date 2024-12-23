@@ -133,6 +133,21 @@ namespace eBPS.Infrastructure.Migrations
                 Delete.Table("RefreshToken");
             }
         }
+
+        [Migration(202412142156)]
+        public class UpdteRolesTable : Migration
+        {
+            public override void Up()
+            {
+                Alter.Table("Roles")
+                    .AddColumn("IsActive").AsBoolean().Nullable();
+            }
+
+            public override void Down()
+            {
+                Delete.Column("IsActive").FromTable("Roles");
+            }
+        }
     }
 }
 

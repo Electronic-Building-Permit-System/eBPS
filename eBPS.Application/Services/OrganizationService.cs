@@ -1,12 +1,11 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Domain.Interfaces.Repositories;
 
 namespace eBPS.Application.Services
 {
     public interface IOrganizationService
     {
-        Task<IEnumerable<OrganizationDTO>> GetActiveOrganizationsAsync();
+        Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations();
     }
 
     public class OrganizationService : IOrganizationService
@@ -18,7 +17,7 @@ namespace eBPS.Application.Services
             _organizationRepository = organizationRepository;
         }
 
-        public async Task<IEnumerable<OrganizationDTO>> GetActiveOrganizationsAsync()
+        public async Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations()
         {
             return await _organizationRepository.GetActiveOrganizations();
         }

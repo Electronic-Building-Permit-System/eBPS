@@ -6,22 +6,21 @@ namespace eBPS.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrganizationsController : ControllerBase
+    public class RolesController : ControllerBase
     {
-        private readonly IOrganizationService _organizationService;
-
-        public OrganizationsController(IOrganizationService organizationService)
+        private readonly IRoleService _roleService;
+        public RolesController(IRoleService roleService)
         {
-            _organizationService = organizationService;
+            _roleService = roleService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrganizations()
+        public async Task<IActionResult> GetRoles()
         {
             try
             {
-                var organizations = await _organizationService.GetActiveOrganizations();
-                return Ok(organizations);
+                var roles = await _roleService.GetActiveRoles();
+                return Ok(roles);
             }
             catch (Exception ex)
             {

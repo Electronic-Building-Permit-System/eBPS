@@ -1,11 +1,12 @@
 ﻿using eBPS.Domain.Entities;
 
-namespace eBPS.Domain.Interfaces.Repositories
+namespace eBPS.Application.Interfaces.Repositories
 {
     public interface IUserRepository
     {
         Task<Users> GetByUsernameAsync(string username);
         Task AddUserAsync(Users user);
-        Task AddUserRolesAsync(int userId, int roleId);
+        Task AddUserOrganizationsAsync(int userId, int roleId, int orgId);
+        
     }
 }

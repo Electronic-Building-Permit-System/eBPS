@@ -10,7 +10,7 @@ import { HomeNavbarComponent } from './shared/home-navbar/home-navbar.component'
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: LoginComponent,
 
   },
   {path: 'home', component: HomeComponent},
