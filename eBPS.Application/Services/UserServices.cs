@@ -40,18 +40,18 @@ namespace eBPS.Application.Services
                     throw new Exception("Username already exists.");
                 }
 
-                //// Check if the role already exists
-                //var existingRole = await _roleRepository.GetByRoleIdAsync(userDto.RoleId);
-                //if (existingRole == null)
-                //{
-                //    throw new Exception("Role doesn't exists.");
-                //}
+                // Check if the role already exists
+                var existingRole = await _roleRepository.GetByRoleIdAsync(userDto.RoleId);
+                if (existingRole == null)
+                {
+                    throw new Exception("Role doesn't exists.");
+                }
 
-                //var existingOrg = await _organizationRepository.GetByOrgIdAsync(userDto.OrgId);
-                //if (existingRole == null)
-                //{
-                //    throw new Exception("Organization doesn't exists.");
-                //}
+                var existingOrg = await _organizationRepository.GetByOrgIdAsync(userDto.OrgId);
+                if (existingRole == null)
+                {
+                    throw new Exception("Organization doesn't exists.");
+                }
 
                 // Hash the password
                 var passwordHash = _passwordHasher.HashPassword(userDto.Password);
