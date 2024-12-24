@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeNavbarComponent } from './shared/home-navbar/home-navbar.component';
 import { LoginComponent } from './account/login/login.component';
+import { SignupComponent } from './account/signup/signup.component';
 export const routes: Routes = [
   {
     path: '',
@@ -16,5 +17,5 @@ export const routes: Routes = [
   { path: 'navbar', component: HomeNavbarComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'dashboard', component: DashboardComponent },
-
+  { path: 'signup', component: SignupComponent },
 ];
