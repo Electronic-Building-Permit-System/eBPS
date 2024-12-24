@@ -15,7 +15,6 @@ export const routes: Routes = [
   },
   {path: 'home', component: HomeComponent},
   {path: 'about', component: AboutComponent},
-  { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'navbar', component: HomeNavbarComponent },
   { path: 'footer', component: FooterComponent },

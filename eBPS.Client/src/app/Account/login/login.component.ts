@@ -10,6 +10,7 @@ import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.compon
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
     MatInputModule,
