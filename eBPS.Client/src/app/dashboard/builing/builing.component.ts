@@ -62,9 +62,9 @@ export class BuilingComponent implements OnInit {
     this.filteredDataSource = new MatTableDataSource(
       this.dataSource.filteredData.filter(
         (item: any) =>
-          item.applicationNumber.toLowerCase().includes(filterValue) ||
-          item.applicantName.toLowerCase().includes(filterValue)
-      )
+          item.applicationNumber.toLowerCase().startsWith(filterValue.toLowerCase()) ||
+        item.applicantName.toLowerCase().startsWith(filterValue.toLowerCase())
+       )
     );
       // Reassign paginator after filtering
       this.filteredDataSource.paginator = this.paginator;

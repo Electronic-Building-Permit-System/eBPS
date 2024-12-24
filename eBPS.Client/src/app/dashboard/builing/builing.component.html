@@ -16,19 +16,16 @@
   </mat-sidenav>
 
   <div class="table-container">
-    <div class="search-bar-container custom-search">
-      <mat-form-field appearance="fill" class="search-bar">
-        <mat-label>Search</mat-label>
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Search for Application"
-        />
-        <button mat-icon-button matSuffix>
+    <div class="custom-search-bar">
+      <div class="search-input-container">
+        <input class="search-input" type="text"  (keyup)="applyFilter($event)" placeholder="Search Applicant"  />
+        <button class="search-button">
           <mat-icon>search</mat-icon>
         </button>
-      </mat-form-field>
+      </div>
     </div>
+    
+    
     
     <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8 custom-table">
       <!-- Application Number Column -->

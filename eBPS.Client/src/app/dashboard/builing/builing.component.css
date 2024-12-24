@@ -59,59 +59,59 @@ tr.mat-row-selected .mat-cell {
 .mat-paginator .mat-paginator-icon {
   color: #0d47a1;
 }
-.custom-search {
+/*search bar*/
+.custom-search-bar {
   display: flex;
-  justify-content: flex-start; /* Aligns the search bar to the left */
+  justify-content: flex-start; /* Align to the left */
   align-items: center;
-  margin: 10px 0;
+  margin: 20px;
 }
 
-.search-bar {
-  width: 100%;
-  max-width: 260px; /* Makes the search bar smaller */
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  
+.search-input-container {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 50px; /* Rounded edges */
+  padding: 5px 10px; /* Inner padding for spacing */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-mat-form-field.search-bar {
-  background-color: #ffffff;
-  border-radius: 20px;
+.search-input {
+  border: none; /* No border */
+  outline: none; /* Remove focus outline */
+  background: transparent; /* Transparent background */
+  font-size: 14px;
+  color: #6b6b6b; /* Subtle gray text */
+  padding: 5px 10px;
+  flex-grow: 1; /* Let input take available space */
 }
 
-mat-form-field.search-bar .mat-form-field-wrapper {
-  padding: 0 10px;
+.search-input::placeholder {
+  color: #9c9c9c; /* Subtle placeholder color */
 }
 
-mat-form-field.search-bar .mat-form-field-flex {
-  border-radius: 20px;
-  border: 1px solid #dcdcdc;
-  background-color: #f9f9f9;
+.search-button {
+  background-color: #bdbdbd; /* Gray button background */
+  border: none; /* Remove border */
+  border-radius: 50%; /* Circular button */
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 5px; /* Space between input and button */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Button shadow */
 }
 
-mat-form-field.search-bar .mat-form-field-label {
-  color: #757575;
+.search-button mat-icon {
+  color: white; /* White search icon */
+  font-size: 20px;
 }
 
-mat-form-field.search-bar.mat-focused .mat-form-field-label {
-  color: #3f51b5; /* Primary color for focused state */
+.search-button:hover {
+  background-color: #80f5ce; /* Slightly darker gray on hover */
 }
-
-mat-form-field.search-bar.mat-focused .mat-form-field-flex {
-  border-color: #3f51b5; /* Primary color for focused state */
-}
-
-mat-icon {
-  color: #757575;
-}
-
-button.mat-icon-button {
-  padding: 0;
-  margin-right: -8px;
-}
-
-
 
 /* Column borders inside the table */
 .mat-cell,
