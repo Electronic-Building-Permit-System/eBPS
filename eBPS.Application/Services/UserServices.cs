@@ -40,17 +40,24 @@ namespace eBPS.Application.Services
                     throw new Exception("Username already exists.");
                 }
 
-                // Check if the role already exists
-                var existingRole = await _roleRepository.GetByRoleIdAsync(userDto.RoleId);
-                if (existingRole == null)
+                /// Validate roles
+                foreach (var roleId in userDto.RoleIds)
                 {
-                    throw new Exception("Role doesn't exists.");
+                    var existingRole = await _roleRepository.GetByRoleIdAsync(roleId);
+                    if (existingRole == null)
+                    {
+                        throw new Exception($"Role with ID {roleId} doesn't exist.");
+                    }
                 }
 
-                var existingOrg = await _organizationRepository.GetByOrgIdAsync(userDto.OrgId);
-                if (existingRole == null)
+                // Validate organizations
+                foreach (var orgId in userDto.OrgIds)
                 {
-                    throw new Exception("Organization doesn't exists.");
+                    var existingOrg = await _organizationRepository.GetByOrgIdAsync(orgId);
+                    if (existingOrg == null)
+                    {
+                        throw new Exception($"Organization with ID {orgId} doesn't exist.");
+                    }
                 }
 
                 // Hash the password
@@ -72,8 +79,23 @@ namespace eBPS.Application.Services
                 // Save the user to the database
                 await _userRepository.AddUserAsync(user);
 
-                // Save the userRole to the database
-                await _userRepository.AddUserOrganizationsAsync(user.Id, userDto.RoleId, userDto.OrgId);
+                // Save user roles and organizations to the database
+                var userOrganizations = new List<UserOrganizations>();
+                foreach (var roleId in userDto.RoleIds)
+                {
+                    foreach (var orgId in userDto.OrgIds)
+                    {
+                        userOrganizations.Add(new UserOrganizations
+                        {
+                            UserId = user.Id,
+                            RoleId = roleId,
+                            OrganizationId = orgId
+                        });
+                    }
+                }
+
+                // Bulk insert user organizations
+                await _userRepository.AddUserOrganizationsAsync(userOrganizations);
                 await _unitOfWork.CommitTransactionAsync();
             }
             catch (Exception)

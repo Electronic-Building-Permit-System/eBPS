@@ -37,8 +37,8 @@ export class SignupComponent implements OnInit {
       lastName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       password: ['', Validators.required],
-      roleId: [[], Validators.required],
-      organizationId: [[], Validators.required],
+      roleIds: [[], Validators.required],
+      orgIds: [[], Validators.required],
     });
   }
 
@@ -60,6 +60,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+    debugger
     if (this.signupForm.valid) {
       this.userService.registerUser(this.signupForm.value).subscribe(
         (response: { message: string }) => {
@@ -67,6 +68,7 @@ export class SignupComponent implements OnInit {
           alert('User registered successfully!');
         },
         (error: { error: string }) => {
+          console.log(error);
           console.error('Error registering user', error);
           alert('Registration failed!');
         }

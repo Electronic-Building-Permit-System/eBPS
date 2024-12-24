@@ -30,10 +30,12 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             user.Id = await _unitOfWork.Connection.ExecuteScalarAsync<int>(query, user, _unitOfWork.Transaction);
         }
 
-        public async Task AddUserOrganizationsAsync(int userId, int roleId, int orgId)
+        public async Task AddUserOrganizationsAsync(IEnumerable<UserOrganizations> userOrganizations)
         {
-            var query = @"INSERT INTO UserOrganizations (UserId, RoleId, OrganizationId, IsActive, JoinedDate) VALUES (@UserId, @RoleId, @OrgId, @IsActive, @JoinedDate)";
-            await _unitOfWork.Connection.ExecuteAsync(query, new { UserId = userId, RoleId = roleId, OrgId = orgId, IsActive = true, JoinedDate = DateTime.Now }, _unitOfWork.Transaction);
+            var query = @"INSERT INTO UserOrganizations (UserId, RoleId, OrganizationId)
+                        VALUES (@UserId, @RoleId, @OrganizationId)";
+
+            await _unitOfWork.Connection.ExecuteAsync(query, userOrganizations, _unitOfWork.Transaction);
         }
     }
 }

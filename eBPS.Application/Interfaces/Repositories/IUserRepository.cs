@@ -6,7 +6,7 @@ namespace eBPS.Application.Interfaces.Repositories
     {
         Task<Users> GetByUsernameAsync(string username);
         Task AddUserAsync(Users user);
-        Task AddUserOrganizationsAsync(int userId, int roleId, int orgId);
+        Task AddUserOrganizationsAsync(IEnumerable<UserOrganizations> userOrganizations);
         
     }
 }
