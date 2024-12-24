@@ -5,10 +5,11 @@ import { AboutComponent } from './about/about.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeNavbarComponent } from './shared/home-navbar/home-navbar.component';
+import { LoginComponent } from './account/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LoginComponent
   },
   {path: 'home', component: HomeComponent},
   {path: 'about', component: AboutComponent},
