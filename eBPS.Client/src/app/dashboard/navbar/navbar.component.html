@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    <span mat-button>
+      eBPS
+    </span>
+    <span class="spacer"></span>
+    
+    <button mat-button [matMenuTriggerFor]="contactMenu">Organization</button>
+  <mat-menu #contactMenu="matMenu">
+    <button mat-menu-item>Kathmandu</button>
+    <button mat-menu-item>Butwal</button>
+    <button mat-menu-item>Pokhara</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="UserMenu">User</button>
+  <mat-menu #UserMenu="matMenu">
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>Log Out</button>
+  </mat-menu>
+  </mat-toolbar>
+  

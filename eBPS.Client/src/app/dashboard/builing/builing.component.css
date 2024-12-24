@@ -1,0 +1,162 @@
+/* Container for the table */
+.table-container {
+  margin: 20px 0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  border: 1px solid #1976d2; /* Slightly darker blue border */
+}
+
+/* Header cells */
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #1976d2; /* Dark blue for the header */
+  color: white; /* White text for contrast */
+  font-size: 16px;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #1565c0; /* Slightly darker blue border */
+}
+
+/* Regular cells */
+.mat-cell {
+  font-size: 14px;
+  color: #0d47a1; /* Dark blue text for visibility */
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
+  background-color: #e3f2fd; /* Light blue inside table rows */
+}
+
+/* Row hover effect */
+tr.mat-row:hover .mat-cell {
+  background-color: #bbdefb; /* Lighter blue highlight on hover */
+  transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+/* Alternating rows */
+tr:nth-child(even) .mat-cell {
+  background-color: #e1f5fe; /* Subtle variation of light blue */
+}
+
+/* Selected row */
+tr.mat-row-selected .mat-cell {
+  background-color: #90caf9; /* Slightly darker blue for selected rows */
+  color: #0d47a1; /* Matching text color */
+  font-weight: bold;
+}
+
+/* Pagination */
+.mat-paginator {
+  background-color: #e3f2fd; /* Matching blue for paginator background */
+  border-top: 1px solid #1976d2; /* Top border for separation */
+}
+
+.mat-paginator .mat-paginator-range-label {
+  font-size: 14px;
+  color: #0d47a1;
+}
+
+.mat-paginator .mat-paginator-icon {
+  color: #0d47a1;
+}
+.custom-search {
+  display: flex;
+  justify-content: flex-start; /* Aligns the search bar to the left */
+  align-items: center;
+  margin: 10px 0;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 260px; /* Makes the search bar smaller */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+mat-form-field.search-bar {
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+mat-form-field.search-bar .mat-form-field-wrapper {
+  padding: 0 10px;
+}
+
+mat-form-field.search-bar .mat-form-field-flex {
+  border-radius: 20px;
+  border: 1px solid #dcdcdc;
+  background-color: #f9f9f9;
+}
+
+mat-form-field.search-bar .mat-form-field-label {
+  color: #757575;
+}
+
+mat-form-field.search-bar.mat-focused .mat-form-field-label {
+  color: #3f51b5; /* Primary color for focused state */
+}
+
+mat-form-field.search-bar.mat-focused .mat-form-field-flex {
+  border-color: #3f51b5; /* Primary color for focused state */
+}
+
+mat-icon {
+  color: #757575;
+}
+
+button.mat-icon-button {
+  padding: 0;
+  margin-right: -8px;
+}
+
+
+
+/* Column borders inside the table */
+.mat-cell,
+.mat-header-cell {
+  border-right: 1px solid #bbdefb; /* Subtle vertical borders */
+}
+
+.mat-cell:last-child,
+.mat-header-cell:last-child {
+  border-right: none; /* Remove border from last column */
+}
+/* src/app/app.component.css */
+
+.sidenav-container {
+  display: flex;
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    width: 200px;
+  }
+
+  .sidenav-container {
+    display: block;
+  }
+
+  mat-sidenav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -250px;
+    transition: 0.3s;
+  }
+
+  mat-sidenav.opened {
+    left: 0;
+  }
+
+  .mat-sidenav-content {
+    margin-left: 0;
+  }
+}
+
