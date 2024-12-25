@@ -7,9 +7,11 @@ import { Router } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FooterComponent } from "../../shared/footer/footer.component";
 import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
+import { UserService } from '../../services/account/user.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -19,23 +21,29 @@ import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.compon
   styleUrls: ['./login.component.css'] // Corrected property name
 })
 export class LoginComponent {
-
+  errorMessage = '';
   loginForm: FormGroup;
  
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [false]
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form Submitted', this.loginForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+  login() {
+    this.userService.login(this.loginForm).subscribe(
+      (success) => {
+        if (success) {
+          this.router.navigate(['/dashboard']); // Redirect on success
+        }
+      },
+      (error) => {
+        this.errorMessage = 'Invalid username or password';
+        alert(this.errorMessage);
+      }
+    );
   }
 
   navigateToSignUp() {

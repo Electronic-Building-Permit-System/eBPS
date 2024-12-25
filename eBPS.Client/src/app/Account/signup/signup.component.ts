@@ -15,6 +15,7 @@ import { OrganizationService } from '../../services/shared/organization/organiza
 
 @Component({
   selector: 'app-signup',
+  standalone: true,
   imports: [CommonModule, FormsModule,
     ReactiveFormsModule,
     MatInputModule,
