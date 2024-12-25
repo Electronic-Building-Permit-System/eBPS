@@ -1,20 +1,22 @@
 <mat-toolbar color="primary">
-    <span mat-button>
-      eBPS
-    </span>
-    <span class="spacer"></span>
-    
-    <button mat-button [matMenuTriggerFor]="contactMenu">Organization</button>
+  <span mat-button>eBPS</span>
+  <span class="spacer"></span>
+
+  <!-- Organization Dropdown -->
+  <button mat-button [matMenuTriggerFor]="contactMenu">
+    {{ selectedOrganization || 'Organization' }} 
+   <mat-icon>arrow_drop_down</mat-icon></button>
   <mat-menu #contactMenu="matMenu">
-    <button mat-menu-item>Kathmandu</button>
-    <button mat-menu-item>Butwal</button>
-    <button mat-menu-item>Pokhara</button>
+    <button mat-menu-item
+      *ngFor="let organization of organizations"
+      (click)="onSelectOrganization(organization)"> {{ organization.name }} </button>
   </mat-menu>
+
+  <!-- User Dropdown -->
   <button mat-button [matMenuTriggerFor]="UserMenu">User</button>
   <mat-menu #UserMenu="matMenu">
     <button mat-menu-item>Profile</button>
     <button mat-menu-item>Settings</button>
     <button mat-menu-item>Log Out</button>
   </mat-menu>
-  </mat-toolbar>
-  
+</mat-toolbar>

@@ -11,7 +11,7 @@ export class OrganizationService {
   
   constructor(private http: HttpClient) {}
 
-  getOrganzation(): Observable<any> {
+  getOrganization(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/organizations');
   }
 }

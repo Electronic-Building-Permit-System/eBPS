@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
   }
 
   getActiveOrganizations() {
-    this.organizationService.getOrganzation().subscribe((data: any) => {
+    this.organizationService.getOrganization().subscribe((data: any) => {
       this.organizations = data;
     });
   }
