@@ -11,14 +11,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 @Component({
-  selector: 'app-builing',
+  selector: 'app-building-application',
   imports: [MatTableModule,
     MatButtonModule,MatSidenavModule,
     MatIconModule, CommonModule, MatLabel,MatListModule,MatToolbarModule, MatFormFieldModule, MatInputModule,MatPaginatorModule],
-  templateUrl: './builing.component.html',
-  styleUrl: './builing.component.css'
+  templateUrl: './building-application.component.html',
+  styleUrl: './building-application.component.css'
 })
-export class BuilingComponent implements OnInit {
+export class BuildingApplicationComponent implements OnInit {
   opened = true; 
   toggleSidebar() {
     this.opened = !this.opened;
@@ -69,4 +69,5 @@ export class BuilingComponent implements OnInit {
       // Reassign paginator after filtering
       this.filteredDataSource.paginator = this.paginator;
   }
+
 }
