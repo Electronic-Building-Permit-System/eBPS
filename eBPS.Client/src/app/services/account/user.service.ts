@@ -17,7 +17,6 @@ export class UserService {
   }
   
   login(userData : any): Observable<boolean> {
-    debugger
     const { rememberMe, ...loginData } = userData;
     return this.http.post<{ token: string }>(`${this.apiUrl}/api/Account/login`, loginData.value).pipe(
       map((response) => {
