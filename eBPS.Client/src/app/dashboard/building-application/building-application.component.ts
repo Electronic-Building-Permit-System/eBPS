@@ -10,6 +10,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-building-application',
   imports: [MatTableModule,
@@ -19,10 +20,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrl: './building-application.component.css'
 })
 export class BuildingApplicationComponent implements OnInit {
-  opened = true; 
-  toggleSidebar() {
-    this.opened = !this.opened;
-}
+  
+  constructor(private router: Router) {}
+
+  opencreateapplication(): void {
+    this.router.navigate(['createapplication']);
+  }
   displayedColumns: string[] = ['applicationNumber', 'applicantName', 'transactionType','applicationDate','forward','edit','detail','delete','quickComments']; // Add other columns
   dataSource = new MatTableDataSource([
     { applicationNumber: '001', applicantName: 'John Doe' },

@@ -1,4 +1,9 @@
  <div class="table-container">
+  <mat-toolbar color="primary">
+    <button mat-raised-button color="accent" (click)="opencreateapplication()">
+      Application Type Form
+    </button>
+  </mat-toolbar>
   <div class="custom-search-bar">
     <div class="search-input-container">
       <input class="search-input" type="text"  (keyup)="applyFilter($event)" placeholder="Search Applicant"  />
