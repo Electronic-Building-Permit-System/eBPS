@@ -5,6 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { OrganizationService } from '../../services/shared/organization/organization.service';
 import { MatIconModule } from '@angular/material/icon';
+import { RoleService } from '../../services/shared/role/role.service';
 
 
 @Component({
@@ -16,10 +17,17 @@ import { MatIconModule } from '@angular/material/icon';
 export class NavbarComponent {
   organizations: { id: number; name: string }[] = []; // Array of organizations
   selectedOrganization: string | null = null; // Selected organization name
-  constructor(private organizationService: OrganizationService) {}
+roles: any;
+  constructor(private organizationService: OrganizationService, private roleService : RoleService) {}
 
   ngOnInit(): void {
     this.fetchOrganizations();
+    this.fetchRoles();
+  }
+  fetchRoles() {
+    this.roleService.getRoles().subscribe((data: { id: number; name: string }[]) => {
+      this.roles = data;
+    });
   }
 
   fetchOrganizations(): void {
