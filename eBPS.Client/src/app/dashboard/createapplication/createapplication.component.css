@@ -1,0 +1,69 @@
+/* Container styling */
+.multi-step-form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+  }
+  
+  /* Stepper Title */
+  .step-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #af2121;
+    margin-bottom: 24px;
+  }
+  
+  /* Form and Button Row */
+  .step-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    min-width: 120px;
+  }
+  
+  
+  /* Step form styling */
+  .step-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .step-title {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #df1c1c;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  /* Buttons */
+  button {
+    min-width: 120px;
+  }
+
+  
