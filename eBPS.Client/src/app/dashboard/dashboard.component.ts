@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-
-
 import { NavbarComponent } from './navbar/navbar.component';
 import { BuildingApplicationComponent } from "./building-application/building-application.component";
 

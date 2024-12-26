@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplicationtypeComponent } from './applicationtype.component';
+import { ApplicationTypeComponent } from './applicationtype.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ApplicationtypeComponent', () => {
-  let component: ApplicationtypeComponent;
-  let fixture: ComponentFixture<ApplicationtypeComponent>;
+  let component: ApplicationTypeComponent;
+  let fixture: ComponentFixture<ApplicationTypeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApplicationtypeComponent]
+      imports: [ApplicationTypeComponent, BrowserAnimationsModule]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApplicationtypeComponent);
+    fixture = TestBed.createComponent(ApplicationTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

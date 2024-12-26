@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   selector: 'app-building-application',
   imports: [MatTableModule,
     MatButtonModule,MatSidenavModule,
-    MatIconModule, CommonModule, MatLabel,MatListModule,MatToolbarModule, MatFormFieldModule, MatInputModule,MatPaginatorModule],
+    MatIconModule, CommonModule,MatListModule,MatToolbarModule, MatFormFieldModule, MatInputModule,MatPaginatorModule],
   templateUrl: './building-application.component.html',
   styleUrl: './building-application.component.css'
 })

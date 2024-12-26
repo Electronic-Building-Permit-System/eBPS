@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './applicationtype.component.html',
   styleUrl: './applicationtype.component.css'
 })
-export class ApplicationtypeComponent {
+export class ApplicationTypeComponent {
   formGroup: FormGroup;
 
   // Dropdown options
