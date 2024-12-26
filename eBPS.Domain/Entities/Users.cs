@@ -16,7 +16,7 @@ namespace eBPS.Domain.Entities
         public string PhoneNumber { get; set; }
         public string PasswordHash { get; set; }
         public bool IsActive { get; set; } = true;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 
 }

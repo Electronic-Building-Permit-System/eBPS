@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eBPS.Application.DTOs
 {
-    public class RegisterUserDto
+    public class RegisterUserDTO
     {
         public string Username { get; set; }
         public string Email { get; set; }
@@ -14,7 +14,8 @@ namespace eBPS.Application.DTOs
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
-        public int RoleId { get; set; }
+        public List<int> RoleIds { get; set; } 
+        public List<int> OrgIds { get; set; }
     }
 
 }

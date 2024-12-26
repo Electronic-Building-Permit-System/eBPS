@@ -3,15 +3,14 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using eBPS.Infrastructure.DataAccess;
 using eBPS.Server;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.OpenApi.Models;
+using eBPS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+// Retrieve the connection string from the configuration
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Register services
-builder.Services.ServiceRegistration();
+builder.Services.ServiceRegistration(connectionString);
 
 // Add services to the container.
 builder.Services.AddCors(options =>
@@ -26,56 +25,18 @@ builder.Services.AddCors(options =>
 
 // SqlServer Connection
 builder.Services.AddScoped<IDbConnection>(sp =>
-    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+    new SqlConnection(connectionString));
 
 // Add FluentMigrator to the DI container
 builder.Services.AddFluentMigrator(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter token in the format 'Bearer {your token}'",
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
+// Add Swagger services
+builder.Services.AddSwaggerConfig(builder.Configuration);
 
 // Add authentication services
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["SecretKey"];
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-        };
-    });
+builder.Services.AddJwtConfig(builder.Configuration);
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 var app = builder.Build();

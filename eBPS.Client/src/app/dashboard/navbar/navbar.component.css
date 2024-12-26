@@ -1,0 +1,51 @@
+/* src/app/navbar/navbar.component.css */
+.spacer {
+    flex: 1;
+  }
+  
+  mat-toolbar {
+    background: linear-gradient(to right, #e3f2fd, #ffffff);
+    color: #333; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for a clean look */
+    margin-bottom:1rem;
+    padding: 0 3rem;
+  }
+  
+    mat-toolbar button {
+      color: black; /* Sets text color to black for all buttons inside mat-toolbar */
+    }
+  
+      mat-toolbar span{
+          font-size:28px;
+      }
+  /* Styling for mat-menu dropdown */
+.mat-menu {
+    background-color: #bbdefb; /* Light blue background for the dropdown */
+    border-radius: 4px;
+  }
+  /* Styling for mat-menu items */
+.mat-menu-item {
+    color: black; /* Set text color for menu items */
+  }
+    mat-toolbar img{
+      height:50px;
+      width:50px;
+      margin:8px;
+    }
+    /* Hover effect for mat-menu items */
+.mat-menu-item:hover {
+    background-color: #81d4fa; /* Lighter blue background when hovering over items */
+    color: black; /* Keep the text color black on hover */
+  }
+  
+  /* Optional: Adjusting the border radius and shadow of mat-menu */
+  .mat-menu-panel {
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adding a subtle shadow to dropdown */
+  }
+  
+      button:hover {
+        background-color: #e0f2f1; /* Light teal background on hover */
+      }
+      
+      

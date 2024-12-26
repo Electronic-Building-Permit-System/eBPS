@@ -16,9 +16,6 @@ export class HomeNavbarComponent {
     this.router.navigate(['/login']);
   }
 
-  navigateToAbout(): void {
-    this.router.navigate(['/about']);
-  }
   navigateToHome() {
     this.router.navigate(['/home']);
     }

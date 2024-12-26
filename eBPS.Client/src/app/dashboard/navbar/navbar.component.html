@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <span mat-button>eBPS</span>
+  <span class="spacer"></span>
+
+  <!-- Organization Dropdown -->
+  <button mat-button [matMenuTriggerFor]="contactMenu">
+    {{ selectedOrganization || 'Organization' }}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #contactMenu="matMenu">
+    <button mat-menu-item
+      *ngFor="let organization of organizations"
+      (click)="onSelectOrganization(organization)">
+      {{ organization.name }}
+    </button>
+  </mat-menu>
+
+  <!-- User Dropdown -->
+  <button mat-button [matMenuTriggerFor]="UserMenu">User</button>
+  <mat-menu #UserMenu="matMenu">
+    <button mat-menu-item>Profile</button>
+
+    <!-- Roles Submenu -->
+    <button mat-menu-item [matMenuTriggerFor]="RolesMenu">Roles</button>
+    <mat-menu #RolesMenu="matMenu">
+      <button mat-menu-item *ngFor="let role of roles" [value]="role.id">
+        {{ role.name }}
+      </button>
+    </mat-menu>
+
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item (click)="logout()">Log Out</button>
+  </mat-menu>
+</mat-toolbar>
