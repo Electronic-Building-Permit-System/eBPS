@@ -1,9 +1,8 @@
-/* Container styling */
 .multi-step-form-container {
     max-width: 700px;
     margin: 40px auto;
     padding: 20px;
-    background: #ffffff;
+    background: rgb(140, 140, 255);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
   }
@@ -13,7 +12,7 @@
     text-align: center;
     font-size: 1.4rem;
     font-weight: bold;
-    color: #af2121;
+    color: #6a98c4;
     margin-bottom: 24px;
   }
   
@@ -47,9 +46,10 @@
   }
   
   .step-title {
-    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    margin: 50px;
     font-size: 1.6rem;
-    color: #df1c1c;
+    color: #000000;
     font-weight: bold;
     text-align: center;
     margin-bottom: 16px;
@@ -65,5 +65,30 @@
   button {
     min-width: 120px;
   }
+
+  ::ng-deep .mat-step-icon {
+    width: 10px;
+    background-color: rgb(140, 140, 255) !important;
+    font-weight: bold;
+  }
+
+  ::ng-deep .mat-step-header {
+    width: 10px;
+  }
+
+  ::ng-deep .mat-stepper-horizontal-line {
+    border-top-width: 2px !important; 
+    border-top-color: #4b4242;  
+    margin: 0 60px !important;
+    /* border-top-style:none !important; */
+  }
+  
+  ::ng-deep .mat-step-header {
+    width: auto; 
+    margin: 30px !important;
+  }
+
+  
+  
 
   

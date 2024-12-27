@@ -1,71 +1,71 @@
+<app-navbar></app-navbar>
 <div class="multi-step-form-container">
-    <mat-horizontal-stepper [linear]="isLinear" #stepper class="custom-stepper">
-      <!-- Step 1 -->
-      <mat-step [stepControl]="step1Form">
-        <form [formGroup]="step1Form" class="step-form">
-          <h2 class="step-title">Step 1: Personal Information</h2>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" />
-            <mat-error *ngIf="step1Form.get('name')?.hasError('required')">Name is required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" />
-            <mat-error *ngIf="step1Form.get('email')?.hasError('email')">Invalid email</mat-error>
-          </mat-form-field>
-          <div class="button-row">
-            <button mat-raised-button color="primary" matStepperNext [disabled]="!step1Form.valid">
-              Next
-            </button>
-          </div>
-        </form>
-      </mat-step>
-  
-      <!-- Step 2 -->
-      <mat-step [stepControl]="step2Form">
-        <form [formGroup]="step2Form" class="step-form">
-          <h2 class="step-title">Step 2: Address Information</h2>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="address" />
-            <mat-error *ngIf="step2Form.get('address')?.hasError('required')">Address is required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>City</mat-label>
-            <input matInput formControlName="city" />
-            <mat-error *ngIf="step2Form.get('city')?.hasError('required')">City is required</mat-error>
-          </mat-form-field>
-          <div class="button-row">
-            <button mat-raised-button matStepperPrevious color="accent">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="!step2Form.valid">
-              Next
-            </button>
-          </div>
-        </form>
-      </mat-step>
-  
-      <!-- Step 3 -->
-      <mat-step [stepControl]="step3Form">
-        <form [formGroup]="step3Form" class="step-form">
-          <h2 class="step-title">Step 3: Payment Details</h2>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Payment Method</mat-label>
-            <mat-select formControlName="paymentMethod">
-              <mat-option value="creditCard">Credit Card</mat-option>
-              <mat-option value="paypal">PayPal</mat-option>
-              <mat-option value="bankTransfer">Bank Transfer</mat-option>
-            </mat-select>
-            <mat-error *ngIf="step3Form.get('paymentMethod')?.hasError('required')">
-              Payment method is required
-            </mat-error>
-          </mat-form-field>
-          <div class="button-row">
-            <button mat-raised-button matStepperPrevious color="accent">Back</button>
-            <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-          </div>
-        </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </div>
-  
+  <mat-horizontal-stepper [linear]="isLinear" #stepper class="custom-stepper" displayMode="none">
+    <!-- Step 1 -->
+    <mat-step [stepControl]="step1Form">
+      <form [formGroup]="step1Form" class="step-form">
+        <h2 class="step-title">Step 1: Personal Information</h2>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="step1Form.get('name')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+          <mat-error *ngIf="step1Form.get('email')?.hasError('email')">Invalid email</mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!step1Form.valid">
+            Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 2 -->
+    <mat-step [stepControl]="step2Form">
+      <form [formGroup]="step2Form" class="step-form">
+        <h2 class="step-title">Step 2: Address Information</h2>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" />
+          <mat-error *ngIf="step2Form.get('address')?.hasError('required')">Address is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" />
+          <mat-error *ngIf="step2Form.get('city')?.hasError('required')">City is required</mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button matStepperPrevious color="accent">Back</button>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!step2Form.valid">
+            Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 3 -->
+    <mat-step [stepControl]="step3Form">
+      <form [formGroup]="step3Form" class="step-form">
+        <h2 class="step-title">Step 3: Payment Details</h2>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Payment Method</mat-label>
+          <mat-select formControlName="paymentMethod">
+            <mat-option value="creditCard">Credit Card</mat-option>
+            <mat-option value="paypal">PayPal</mat-option>
+            <mat-option value="bankTransfer">Bank Transfer</mat-option>
+          </mat-select>
+          <mat-error *ngIf="step3Form.get('paymentMethod')?.hasError('required')">
+            Payment method is required
+          </mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button matStepperPrevious color="accent">Back</button>
+          <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
