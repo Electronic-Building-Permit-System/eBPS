@@ -3,24 +3,80 @@
       <!-- Step 1 -->
       <mat-step [stepControl]="step1Form">
         <form [formGroup]="step1Form" class="step-form">
-          <h2 class="step-title">Step 1: Personal Information</h2>
+          <h2 class="step-title">Application Type </h2>
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" />
-            <mat-error *ngIf="step1Form.get('name')?.hasError('required')">Name is required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" />
-            <mat-error *ngIf="step1Form.get('email')?.hasError('email')">Invalid email</mat-error>
-          </mat-form-field>
+            <mat-label>Transaction Type</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Building Purpose</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>NBC Class</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Land Use Zone</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Land Use Sub Zone</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Structure Type</mat-label>
+            <mat-select formControlName="transactionType">
+              <mat-option value="creditCard">Credit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step1Form.get('transactionType')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+        </mat-form-field>
           <div class="button-row">
             <button mat-raised-button color="primary" matStepperNext [disabled]="!step1Form.valid">
               Next
             </button>
           </div>
-        </form>
-      </mat-step>
+          </form>
+        </mat-step>
   
       <!-- Step 2 -->
       <mat-step [stepControl]="step2Form">
@@ -48,18 +104,78 @@
       <!-- Step 3 -->
       <mat-step [stepControl]="step3Form">
         <form [formGroup]="step3Form" class="step-form">
-          <h2 class="step-title">Step 3: Payment Details</h2>
+          <h2 class="step-title">Land Owner Form</h2>
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Payment Method</mat-label>
-            <mat-select formControlName="paymentMethod">
-              <mat-option value="creditCard">Credit Card</mat-option>
+            <mat-label>Land Owner Type</mat-label>
+            <mat-select formControlName="landOwner">
+              <mat-option value="creditCard">Self</mat-option>
               <mat-option value="paypal">PayPal</mat-option>
               <mat-option value="bankTransfer">Bank Transfer</mat-option>
             </mat-select>
-            <mat-error *ngIf="step3Form.get('paymentMethod')?.hasError('required')">
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
               Payment method is required
             </mat-error>
           </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Sabik Wada</mat-label>
+            <mat-select formControlName="landOwner">
+              <mat-option value="creditCard">Sabik Wada</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Sabik Gabisa</mat-label>
+            <mat-select formControlName="landOwner">
+              <mat-option value="creditCard">Self</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Ward No.</mat-label>
+            <mat-select formControlName="landOwner">
+              <mat-option value="creditCard">Self</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Tole Name</mat-label>
+            <mat-select formControlName="landOwner">
+              <mat-option value="creditCard">Self</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+              <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">   
+            <mat-label>GPS Coordinator - Latitude</mat-label>
+            <input matInput formControlName="latitude" placeholder="Latitude" />
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">     
+            <mat-label>GPS Coordinator - Latitude</mat-label>
+            <input matInput formControlName="landOwner" placeholder="Latitude" />
+            <mat-error *ngIf="step3Form.get('landOwner')?.hasError('required')">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+
           <div class="button-row">
             <button mat-raised-button matStepperPrevious color="accent">Back</button>
             <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>

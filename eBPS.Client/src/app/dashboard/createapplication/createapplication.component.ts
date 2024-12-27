@@ -30,8 +30,8 @@ export class CreateapplicationComponent {
   constructor(private fb: FormBuilder) {
     // Initialize step forms
     this.step1Form = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      transactionType: ['', Validators.required],
+
     });
 
     this.step2Form = this.fb.group({
@@ -40,7 +40,7 @@ export class CreateapplicationComponent {
     });
 
     this.step3Form = this.fb.group({
-      paymentMethod: ['', Validators.required],
+      landOwner: ['', Validators.required],
     });
   }
 
