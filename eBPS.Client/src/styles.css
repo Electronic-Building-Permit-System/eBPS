@@ -2,3 +2,49 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Global styles for Angular Material stepper and buttons */
+
+/* Remove or customize button background on hover */
+.mat-button:hover, 
+.mat-button:focus {
+  background-color: transparent !important;  /* Remove the background color */
+  box-shadow: none;               /* Remove box shadow on focus */
+}
+
+/* Customizing mat-stepper header hover and focus background */
+.mat-step-header:hover, 
+.mat-step-header:focus {
+  background-color: transparent !important;  /* Remove background on hover */
+  box-shadow: none;                          /* Remove box shadow */
+}
+
+/* Remove the focus outline from stepper headers */
+.mat-step-header:focus {
+  outline: none; /* Remove outline from the stepper headers when focused */
+}
+
+/* Remove the ripple effect globally */
+.mat-ripple-element {
+  display: none !important; /* Removes the ripple effect */
+}
+
+/* Remove focus outline globally */
+.mat-focus-indicator:focus {
+  outline: none !important; /* Removes the outline that shows on focus */
+}
+
+/* Optional: Remove ripple from mat-step-header specifically */
+.mat-step-header-ripple {
+  display: none !important;
+}
+
+/* Remove the focus indicator from step headers */
+.mat-step-header {
+  outline: none !important;
+}
+
+.mat-step-icon-state-edit
+{
+    background-color: green !important;
+}

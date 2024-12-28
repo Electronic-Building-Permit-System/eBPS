@@ -1,9 +1,9 @@
 /* src/app/footer/footer.component.css */
 .footer {
   text-align: center;
-  padding: 2rem;
-  background: linear-gradient(to right, #e3f2fd, #ffffff);
+  background: linear-gradient(to right, #293ce6, #ffffff);
   color: black;
-  margin-top: 3rem;
-  border-radius: 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

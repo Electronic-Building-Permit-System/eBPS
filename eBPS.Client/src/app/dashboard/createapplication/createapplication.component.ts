@@ -7,6 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { ApplicationDetailsComponent } from './application-details/application-details.component';
+import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
 
 @Component({
   selector: 'app-createapplication',
@@ -18,47 +22,45 @@ import { NavbarComponent } from '../navbar/navbar.component';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    NavbarComponent
+    MatIconModule, 
+    NavbarComponent,
+    FooterComponent,
+    ApplicationDetailsComponent,
+    ApplicantDetailsComponent,
   ],
   templateUrl: './createapplication.component.html',
   styleUrl: './createapplication.component.css'
 })
 export class CreateapplicationComponent {
   isLinear = true; // Enables linear stepper mode
-  step1Form: FormGroup;
-  step2Form: FormGroup;
-  step3Form: FormGroup;
+  firstFormGroup!: FormGroup;  // Add '!' to indicate that it will be initialized later
+  secondFormGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    // Initialize step forms
-    this.step1Form = this.fb.group({
-      name: ['', Validators.required],
+  constructor(private _formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstName: ['', Validators.required],
+      paymentMethod: ['', Validators.required]
+    });
+
+    this.secondFormGroup = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-    });
-
-    this.step2Form = this.fb.group({
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-    });
-
-    this.step3Form = this.fb.group({
-      paymentMethod: ['', Validators.required],
+      phone: ['', Validators.required]
     });
   }
 
-  // Submit all form data
-  onSubmit() {
-    if (this.step1Form.valid && this.step2Form.valid && this.step3Form.valid) {
+  submitForm() {
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const fullFormData = {
-        ...this.step1Form.value,
-        ...this.step2Form.value,
-        ...this.step3Form.value,
+        ...this.firstFormGroup.value,
+        ...this.secondFormGroup.value,
       };
 
       console.log('Final Form Data:', fullFormData);
       alert('Form submitted successfully!');
     } else {
-      alert('Please fill in all required fields before submitting.');
+      console.log('Form is invalid');
     }
   }
 }

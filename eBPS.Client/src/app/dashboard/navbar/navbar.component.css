@@ -4,11 +4,13 @@
   }
   
   mat-toolbar {
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
-    color: #333; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for a clean look */
+    background: linear-gradient(to right, #293ce6, #ffffff);
+    color: #ffffff; 
+    box-shadow: 0 5px 5px rgb(168, 168, 168); /* Light shadow for a clean look */
     margin-bottom:1rem;
     padding: 0 3rem;
+    font-weight: bolder;
+    letter-spacing: 4px;
   }
   
     mat-toolbar button {
