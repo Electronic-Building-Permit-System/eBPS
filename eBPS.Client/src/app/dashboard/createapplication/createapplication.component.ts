@@ -40,8 +40,12 @@ export class CreateapplicationComponent {
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      firstName: ['', Validators.required],
-      paymentMethod: ['', Validators.required]
+      transactionType: ['', Validators.required],
+      buildingPurpose: ['', Validators.required],
+      nbcClass: ['', Validators.required],
+      landUseZone: ['', Validators.required],
+      landUseSubZone: ['', Validators.required],
+      structureType: ['', Validators.required],
     });
 
     this.secondFormGroup = this._formBuilder.group({
