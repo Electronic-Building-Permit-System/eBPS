@@ -3,24 +3,27 @@
   max-width: 80%;
   margin: 50px auto;
   padding: 20px;
-  background-color: #f9f9f9;
   border-radius: 8px;
   flex: 1;
-}
-body{
   height: 100%;
 }
+
 mat-form-field {
   width: 100%;
 }
 
-.stepper-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
 button {
   margin-top: 20px;
+}
+
+h1{
+  text-align: center;
+  color: rgb(73, 75, 75);
+}
+
+img{
+  height:80px;
+  width: 80px;
 }
 
 

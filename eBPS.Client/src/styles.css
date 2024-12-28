@@ -48,8 +48,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 {
     background-color: green !important;
 }
+
 .stepper-actions {
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
+}
+
+.mat-stepper-next{
+  background-color: #007bff !important;
+  color: white !important;
+  margin-left: 5px;
 }
