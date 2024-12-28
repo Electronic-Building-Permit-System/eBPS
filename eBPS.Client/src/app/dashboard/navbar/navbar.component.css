@@ -4,7 +4,7 @@
   }
   
   mat-toolbar {
-    background: linear-gradient(to right, #293ce6, #ffffff);
+    background: #007bff;
     color: #ffffff; 
     box-shadow: 0 5px 5px rgb(168, 168, 168); /* Light shadow for a clean look */
     margin-bottom:1rem;
@@ -14,7 +14,7 @@
   }
   
     mat-toolbar button {
-      color: black; /* Sets text color to black for all buttons inside mat-toolbar */
+      color: white; /* Sets text color to black for all buttons inside mat-toolbar */
     }
   
       mat-toolbar span{
@@ -47,7 +47,7 @@
   }
   
       button:hover {
-        background-color: #e0f2f1; /* Light teal background on hover */
+        background-color: #006ab6; /* Light teal background on hover */
       }
       
       
