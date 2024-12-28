@@ -4,7 +4,7 @@
     <!-- Step 1 -->
     <mat-step *ngIf="firstFormGroup" [stepControl]="firstFormGroup">
       <ng-template matStepLabel>
-        Applicantion Details
+        Application Details
       </ng-template>
       <app-application-details [firstFormGroup]="firstFormGroup"></app-application-details>
     </mat-step>
@@ -30,4 +30,3 @@
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-<app-footer></app-footer>
