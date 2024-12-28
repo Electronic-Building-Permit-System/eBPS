@@ -49,8 +49,17 @@ export class CreateapplicationComponent {
     });
 
     this.secondFormGroup = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required]
+      salutation: ['', Validators.required],
+      applicantName: ['', Validators.required],
+      wardNo: ['', Validators.required],
+      address: ['', Validators.required],
+      houseNo: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', Validators.required],
+
+
+
+
     });
   }
 
