@@ -24,5 +24,10 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             const string query = "SELECT Id, Name FROM Organizations WHERE IsActive = 1";
             return await _dbConnection.QueryAsync<OrganizationDTO>(query);
         }
+        public async Task<IEnumerable<OrganizationDTO>> GetUserOrganizations(int userId)
+        {
+            const string query = "SELECT DISTINCT Org.Id, Org.Name FROM UserOrganizations UserOrg INNER JOIN Organizations Org ON UserOrg.OrganizationId = Org.Id where UserOrg.UserId = @UserId";
+            return await _dbConnection.QueryAsync<OrganizationDTO>(query, new { UserId = userId });
+        }
     }
 }

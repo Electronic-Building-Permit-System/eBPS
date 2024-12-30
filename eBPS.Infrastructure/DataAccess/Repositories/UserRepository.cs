@@ -37,5 +37,11 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
 
             await _unitOfWork.Connection.ExecuteAsync(query, userOrganizations, _unitOfWork.Transaction);
         }
+        
+        public async Task UpdateLastLogin(int userId)
+        {
+            var query = @"UPDATE Users SET LastLoginAt = @LastLoginAt where Id = @UserId";
+            await _unitOfWork.Connection.ExecuteAsync(query, new { UserId = userId, LastLoginAt = DateTime.Now }, _unitOfWork.Transaction);
+        }
     }
 }

@@ -14,4 +14,8 @@ export class OrganizationService {
   getOrganization(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/organizations');
   }
+
+  getUserOrganization(): Observable<any> {
+    return this.http.get(this.apiUrl + '/api/organizations/user-organization');
+  }
 }

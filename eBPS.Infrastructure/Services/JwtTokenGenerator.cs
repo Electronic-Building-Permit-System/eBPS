@@ -25,8 +25,9 @@ namespace eBPS.Infrastructure.Services
 
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("userId", user.Id.ToString())
             };
 
             var token = new JwtSecurityToken(
