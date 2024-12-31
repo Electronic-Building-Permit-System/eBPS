@@ -148,6 +148,68 @@ namespace eBPS.Infrastructure.Migrations
                 Delete.Column("IsActive").FromTable("Roles");
             }
         }
+
+        [Migration(202412302235)]
+        public class UpdateUsersTable : Migration
+        {
+            public override void Up()
+            {
+                Alter.Table("Users")
+                    .AddColumn("LastLoginOrgId").AsInt32().Nullable()
+                    .AddColumn("LastLoginRoleId").AsInt32().Nullable();
+            }
+
+            public override void Down()
+            {
+                Delete.Column("LastLoginOrgId").FromTable("Users");
+                Delete.Column("LastLoginRoleId").FromTable("Users");
+            }
+        }
+        [Migration(202412302236)]
+        public class AddOrganizationsConfig : Migration
+        {
+            public override void Up()
+            {
+                Create.Table("OrganizationsConfig")
+                    .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                    .WithColumn("OrganizationId").AsInt32().NotNullable()
+                    .WithColumn("ConnectionString").AsString(100).NotNullable()
+                    .WithColumn("OrganizationName").AsString(100).NotNullable()
+                    .WithColumn("CreatedAt").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime)
+                    .WithColumn("UpdatedAt").AsString(255).Nullable()
+                    .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true);
+
+                Create.ForeignKey("FK_OrganizationsConfig_Organizations")
+                    .FromTable("OrganizationsConfig").ForeignColumn("OrganizationId")
+                    .ToTable("Organizations").PrimaryColumn("Id");
+
+                // Insert initial data
+                Insert.IntoTable("OrganizationsConfig").Row(new
+                {
+                    OrganizationId = 1,
+                    ConnectionString = "Server=.;Database=Kathmandu_Ebps;Integrated Security=true;TrustServerCertificate=True;",
+                    OrganizationName = "Kathmandu",
+                    CreatedAt = SystemMethods.CurrentDateTime,
+                    UpdatedAt = SystemMethods.CurrentDateTime,
+                    IsActive = true
+                });
+
+                Insert.IntoTable("OrganizationsConfig").Row(new
+                {
+                    OrganizationId = 2,
+                    ConnectionString = "Server=.;Database=Lalitpur_Ebps;Integrated Security=true;TrustServerCertificate=True;",
+                    OrganizationName = "Lalitpur",
+                    CreatedAt = SystemMethods.CurrentDateTime,
+                    UpdatedAt = SystemMethods.CurrentDateTime,
+                    IsActive = true
+                });
+            }
+
+            public override void Down()
+            {
+                Delete.Table("OrganizationsConfig");
+            }
+        }
     }
 }
 

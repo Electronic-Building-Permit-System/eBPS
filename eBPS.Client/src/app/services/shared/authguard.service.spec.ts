@@ -2,53 +2,48 @@ import { TestBed } from '@angular/core/testing';
 import { AuthguardService } from './authguard.service';
 import { UserService } from '../account/user.service';
 import { Router } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AuthguardService', () => {
   let service: AuthguardService;
-  let userServiceMock: any;
-  let routerMock: any;
+  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
-    // Mock UserService
-    userServiceMock = {
-      isLoggedIn: jasmine.createSpy('isLoggedIn').and.returnValue(false),
-    };
-
-    // Mock Router
-    routerMock = {
-      navigate: jasmine.createSpy('navigate'),
-    };
+    const userSpy = jasmine.createSpyObj('UserService', ['isLoggedIn']);
+    const routerMock = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       providers: [
         AuthguardService,
-        provideHttpClient(), // Use the new HttpClient provider
-        { provide: UserService, useValue: userServiceMock },
+        { provide: UserService, useValue: userSpy },
         { provide: Router, useValue: routerMock },
       ],
     });
 
     service = TestBed.inject(AuthguardService);
+    userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should allow navigation if the user is logged in', () => {
-    userServiceMock.isLoggedIn.and.returnValue(true); // Simulate logged-in user
+  describe('canActivate', () => {
+    it('should return true if user is logged in', () => {
+      userServiceSpy.isLoggedIn.and.returnValue(true);
 
-    const result = service.canActivate();
-    expect(result).toBeTrue();
-    expect(routerMock.navigate).not.toHaveBeenCalled();
-  });
+      expect(service.canActivate()).toBeTrue();
+      expect(routerSpy.navigate).not.toHaveBeenCalled();
+    });
 
-  it('should block navigation and redirect if the user is not logged in', () => {
-    userServiceMock.isLoggedIn.and.returnValue(false); // Simulate logged-out user
+    it('should navigate to the home page and return false if user is not logged in', () => {
+      userServiceSpy.isLoggedIn.and.returnValue(false);
 
-    const result = service.canActivate();
-    expect(result).toBeFalse();
-    expect(routerMock.navigate).toHaveBeenCalledWith(['']);
+      expect(service.canActivate()).toBeFalse();
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['']);
+    });
   });
 });

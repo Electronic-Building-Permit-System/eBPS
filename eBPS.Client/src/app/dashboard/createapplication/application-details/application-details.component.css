@@ -1,0 +1,9 @@
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .flex-item {
+    flex: 1;
+  }

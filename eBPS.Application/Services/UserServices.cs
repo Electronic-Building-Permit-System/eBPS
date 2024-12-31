@@ -117,7 +117,12 @@ namespace eBPS.Application.Services
             {
                 throw new Exception("User is not active.");
             }
-            return _jwtToken.GenerateJwtToken(user);
+            string token = _jwtToken.GenerateJwtToken(user);
+            //if(!String.IsNullOrEmpty(token))
+            //{
+            //    await _userRepository.UpdateLastLogin(user.Id);
+            //}
+            return token;
         }
     }
 }

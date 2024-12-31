@@ -1,5 +1,5 @@
-﻿using eBPS.Application.Services;
-using Microsoft.AspNetCore.Http;
+﻿using eBPS.Application.DTOs;
+using eBPS.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers
@@ -29,5 +29,37 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        [HttpGet("user-organization")]
+        public async Task<IActionResult> GetUserOrganizations()
+        {
+            try
+            {
+                var userId = _organizationService.GetUserIdFromToken(HttpContext);
+                var organizations = await _organizationService.GetUserOrganizations(userId);
+                return Ok(organizations);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpGet("organization-config")]
+        public async Task<IActionResult> GetOrganizationsConfig(int orgId)
+        {
+            try
+            {
+                var organizations = await _organizationService.GetOrganizationsConfig(orgId);
+                return Ok(organizations);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        
     }
 }

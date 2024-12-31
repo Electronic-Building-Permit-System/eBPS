@@ -15,8 +15,9 @@ describe('DashboardComponent', () => {
         DashboardComponent, 
         NavbarComponent, 
         BuildingApplicationComponent, 
-        BrowserAnimationsModule // Correctly placed here
-      ], providers:[provideHttpClient(),]
+        BrowserAnimationsModule 
+      ], 
+      providers:[provideHttpClient()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
