@@ -3,7 +3,7 @@
   <span class="spacer"></span>
 
   <!-- Organization Dropdown -->
-  <button mat-button [matMenuTriggerFor]="contactMenu">
+  <button mat-button [matMenuTriggerFor]="contactMenu" class="right-caret-button">
     {{ selectedOrganization || 'Organization' }}
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
@@ -16,10 +16,9 @@
   </mat-menu>
 
   <!-- User Dropdown -->
-  <button mat-button [matMenuTriggerFor]="UserMenu">User</button>
+  <button mat-button [matMenuTriggerFor]="UserMenu" class="right-caret-button">User <mat-icon>arrow_drop_down</mat-icon></button>
   <mat-menu #UserMenu="matMenu">
     <button mat-menu-item>Profile</button>
-
     <!-- Roles Submenu -->
     <button mat-menu-item [matMenuTriggerFor]="RolesMenu">Roles</button>
     <mat-menu #RolesMenu="matMenu">
@@ -27,7 +26,6 @@
         {{ role.name }}
       </button>
     </mat-menu>
-
     <button mat-menu-item>Settings</button>
     <button mat-menu-item (click)="logout()">Log Out</button>
   </mat-menu>

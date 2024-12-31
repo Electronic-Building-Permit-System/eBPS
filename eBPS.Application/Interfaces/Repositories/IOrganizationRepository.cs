@@ -6,5 +6,8 @@ namespace eBPS.Application.Interfaces.Repositories
     {
         Task<OrganizationDTO> GetByOrgIdAsync(int orgId);
         Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations();
+        Task<IEnumerable<OrganizationDTO>> GetUserOrganizations(int userId);
+        Task<string?> GetOrganizationsConfig(int orgId);
+        Task<object> GetData(string connectionString);
     }
 }

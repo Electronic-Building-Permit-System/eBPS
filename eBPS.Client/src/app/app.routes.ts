@@ -8,6 +8,8 @@ import { CreateapplicationComponent } from './dashboard/createapplication/create
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
 import { AuthguardService } from './services/shared/authguard.service';
+
+import { ForgotpasswordComponent } from './account/forgotpassword/forgotpassword.component';
 export const routes: Routes = [
   {
     path: '',
@@ -19,4 +21,5 @@ export const routes: Routes = [
   { path: 'createapplication', component: CreateapplicationComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardService] },
   { path: 'signup', component: SignupComponent },
+  {path:'forgotpassword', component: ForgotpasswordComponent}
 ];

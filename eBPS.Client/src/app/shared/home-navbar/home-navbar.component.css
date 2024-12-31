@@ -4,20 +4,24 @@
   }
   
   mat-toolbar {
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
-    color: #333; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for a clean look */
+    background: #007bff;
+    color: #ffffff; 
+    box-shadow: 0 5px 5px rgb(168, 168, 168);
     margin-bottom:1rem;
     padding: 0 3rem;
+    font-weight: bolder;
+    letter-spacing: 4px;
+  }
+  
+  mat-toolbar span {
+    color: white; 
+    text-shadow: 5px 2px 2px rgb(26, 25, 25);
+    font-size: 28px;
   }
   
     mat-toolbar button {
-      color: black; /* Sets text color to black for all buttons inside mat-toolbar */
+      color: white; /* Sets text color to black for all buttons inside mat-toolbar */
     }
-  
-      mat-toolbar span{
-          font-size:28px;
-      }
   
     mat-toolbar img{
       height:50px;
