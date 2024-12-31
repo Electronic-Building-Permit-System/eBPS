@@ -25,7 +25,7 @@ namespace eBPS.Infrastructure.Services
         public void SendEmail(string to, string subject, string body)
         {
             var email = new MimeMessage();
-            email.From.Add(new MailboxAddress("Your Name", _smtpUser));
+            email.From.Add(new MailboxAddress("eBPS", _smtpUser));
             email.To.Add(new MailboxAddress("Recipient Name", to));
             email.Subject = subject;
             email.Body = new TextPart("plain") { Text = body };
