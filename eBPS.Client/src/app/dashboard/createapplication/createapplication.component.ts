@@ -56,10 +56,6 @@ export class CreateapplicationComponent {
       houseNo: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
-
-
-
-
     });
   }
 
