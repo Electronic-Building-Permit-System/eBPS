@@ -38,8 +38,11 @@ export class ForgotpasswordComponent {
   }
 
   onSubmit() {
-    if (this.forgotPasswordForm.valid) {
-      console.log('Sending reset link to:', this.forgotPasswordForm.value.email);
+    if (this.forgotPasswordForm.invalid) {
+      return; 
     }
+  
+    // Proceed with submission logic
+    console.log('Form submitted:', this.forgotPasswordForm.value);
   }
 }
