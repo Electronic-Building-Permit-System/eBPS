@@ -26,6 +26,7 @@ roles: any;
     this.fetchOrganizations();
     this.fetchRoles();
   }
+  
   fetchRoles() {
     this.roleService.getRoles().subscribe((data: { id: number; name: string }[]) => {
       this.roles = data;
@@ -33,7 +34,7 @@ roles: any;
   }
 
   fetchOrganizations(): void {
-    this.organizationService.getOrganization().subscribe((data: { id: number; name: string }[]) => {
+    this.organizationService.getUserOrganization().subscribe((data: { id: number; name: string }[]) => {
         this.organizations = data;
       });
   }

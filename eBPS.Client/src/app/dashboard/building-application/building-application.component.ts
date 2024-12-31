@@ -34,7 +34,10 @@ export class BuildingApplicationComponent implements OnInit {
     { applicationNumber: '004', applicantName: 'Hazel' },
     { applicationNumber: '005', applicantName: 'Ariel ' },
     { applicationNumber: '006', applicantName: 'Selena' },
-
+    { applicationNumber: '007', applicantName: 'Arian' },
+    { applicationNumber: '008', applicantName: 'Izzy' },
+    { applicationNumber: '009', applicantName: 'Lizzy' },
+    { applicationNumber: '010', applicantName: 'Janis' },
     // Add more sample data
   ]);
   forward(element: any) {
