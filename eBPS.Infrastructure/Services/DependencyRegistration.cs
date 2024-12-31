@@ -20,6 +20,7 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             // Register any other infrastructure services (like logging, caching, etc.)
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();

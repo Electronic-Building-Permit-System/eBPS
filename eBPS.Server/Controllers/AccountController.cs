@@ -9,9 +9,11 @@ namespace eBPS.Server.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
-        public AccountController(IUserService userService) 
+        private readonly IEmailService _emailService;
+        public AccountController(IUserService userService, IEmailService emailService) 
         {
             _userService = userService;
+            _emailService = emailService;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDTO userDto)
@@ -39,6 +41,13 @@ namespace eBPS.Server.Controllers
             {
                 return BadRequest(new { Error = ex.Message });
             }
+        }
+
+        [HttpPost("forget-password")]
+        public IActionResult ForgetPassword([FromBody] ForgetPasswordDTO request)
+        {
+            _emailService.SendEmail(request.To, request.Subject, request.Body);
+            return Ok(new { message = "Email sent successfully" });
         }
     }
 }

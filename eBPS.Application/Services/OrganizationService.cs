@@ -9,17 +9,16 @@ namespace eBPS.Application.Services
         Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations();
         Task<IEnumerable<OrganizationDTO>> GetUserOrganizations(int userId);
         int GetUserIdFromToken(HttpContext httpContext);
+        Task<object> GetOrganizationsConfig(int orgId);
     }
 
     public class OrganizationService : IOrganizationService
     {
         private readonly IOrganizationRepository _organizationRepository;
-        private readonly IUserService _userService;
 
-        public OrganizationService(IOrganizationRepository organizationRepository, IUserService userService)
+        public OrganizationService(IOrganizationRepository organizationRepository)
         {
             _organizationRepository = organizationRepository;
-            _userService = userService;
         }
 
         public async Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations()
@@ -30,6 +29,13 @@ namespace eBPS.Application.Services
         {
             return await _organizationRepository.GetUserOrganizations(userId);
         }
+
+        public async Task<object> GetOrganizationsConfig(int orgId)
+        {
+            var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
+            return await _organizationRepository.GetData(connectionString);
+        }
+
         public int GetUserIdFromToken(HttpContext httpContext)
         {
             var userIdClaim = httpContext.User.Claims.FirstOrDefault(c => c.Type == "userId");
