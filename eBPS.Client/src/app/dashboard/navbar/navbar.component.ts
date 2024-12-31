@@ -26,6 +26,7 @@ roles: any;
     this.fetchOrganizations();
     this.fetchRoles();
   }
+  
   fetchRoles() {
     this.roleService.getRoles().subscribe((data: { id: number; name: string }[]) => {
       this.roles = data;
