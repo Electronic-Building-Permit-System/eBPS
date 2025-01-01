@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common'; 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../../services/shared/email/email.service';
 
 
@@ -24,6 +24,7 @@ import { EmailService } from '../../services/shared/email/email.service';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    HttpClientModule,
   ],
   templateUrl: './forgotpassword.component.html',
   styleUrls: ['./forgotpassword.component.css'], 
