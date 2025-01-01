@@ -7,6 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common'; 
+import { HttpClient } from '@angular/common/http';
+import { EmailService } from '../../services/shared/email/email.service';
+
+
 
 @Component({
   selector: 'app-forgotpassword',
@@ -27,7 +31,7 @@ import { CommonModule } from '@angular/common';
 export class ForgotpasswordComponent {
   forgotPasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private emailService: EmailService) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
@@ -38,11 +42,22 @@ export class ForgotpasswordComponent {
   }
 
   onSubmit() {
-    if (this.forgotPasswordForm.invalid) {
-      return; 
-    }
+    if (this.forgotPasswordForm.valid) {
+      debugger
+      const payload = {
+        to: this.forgotPasswordForm.value.email,
+        subject: 'Password Reset',
+        body: 'Click the link to reset your password.',
+      };
   
-    // Proceed with submission logic
-    console.log('Form submitted:', this.forgotPasswordForm.value);
-  }
-}
+      this.emailService.sendResetLink(payload).subscribe(
+        (response: any) => {
+          alert(response.message); // Notify the user
+        },
+        (error) => {
+          console.error('Error:', error);
+          alert('Something went wrong. Please try again.');
+        }
+      );
+    }
+  }}
