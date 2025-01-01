@@ -46,8 +46,15 @@ namespace eBPS.Server.Controllers
         [HttpPost("forget-password")]
         public IActionResult ForgetPassword([FromBody] ForgetPasswordDTO request)
         {
-            _emailService.SendEmail(request.To, request.Subject, request.Body);
-            return Ok(new { message = "Email sent successfully" });
+            try
+            {
+                _emailService.SendEmail(request.To, request.Subject, request.Body);
+                return Ok(new { message = "Email sent successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred", error = ex.Message });
+            }
         }
     }
 }
