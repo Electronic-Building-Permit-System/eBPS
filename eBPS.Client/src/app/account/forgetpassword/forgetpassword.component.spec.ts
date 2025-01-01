@@ -1,23 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import for animations
-import { ForgotpasswordComponent } from './forgotpassword.component';
+import { ForgetpasswordComponent } from './forgetpassword.component';
 
-describe('ForgotpasswordComponent', () => {
-  let component: ForgotpasswordComponent;
-  let fixture: ComponentFixture<ForgotpasswordComponent>;
+
+describe('ForgetpasswordComponent', () => {
+  let component: ForgetpasswordComponent;
+  let fixture: ComponentFixture<ForgetpasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ForgotpasswordComponent,
+        ForgetpasswordComponent,
         ReactiveFormsModule,
         FormsModule,
         BrowserAnimationsModule // Add this for animations support
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ForgotpasswordComponent);
+    fixture = TestBed.createComponent(ForgetpasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -27,19 +28,19 @@ describe('ForgotpasswordComponent', () => {
   });
 
   it('should initialize the form with email control', () => {
-    expect(component.forgotPasswordForm.contains('email')).toBeTruthy();
-    expect(component.forgotPasswordForm.get('email')).not.toBeNull();
+    expect(component.forgetPasswordForm.contains('email')).toBeTruthy();
+    expect(component.forgetPasswordForm.get('email')).not.toBeNull();
   });
 
   it('should make email control required', () => {
-    const emailControl = component.forgotPasswordForm.get('email');
+    const emailControl = component.forgetPasswordForm.get('email');
     emailControl?.setValue('');
     expect(emailControl?.valid).toBeFalsy();
     expect(emailControl?.errors?.['required']).toBeTruthy();
   });
 
   it('should validate email control format', () => {
-    const emailControl = component.forgotPasswordForm.get('email');
+    const emailControl = component.forgetPasswordForm.get('email');
     emailControl?.setValue('invalid-email');
     expect(emailControl?.valid).toBeFalsy();
     expect(emailControl?.errors?.['email']).toBeTruthy();
@@ -48,9 +49,9 @@ describe('ForgotpasswordComponent', () => {
     expect(emailControl?.valid).toBeTruthy();
   });
 
-  it('should emit forgot password event on valid submission', () => {
+  it('should emit forget password event on valid submission', () => {
     spyOn(component, 'onSubmit'); // Spy on the onSubmit method
-    const emailControl = component.forgotPasswordForm.get('email');
+    const emailControl = component.forgetPasswordForm.get('email');
     emailControl?.setValue('validemail@example.com');
 
     const form = fixture.debugElement.nativeElement.querySelector('form');
