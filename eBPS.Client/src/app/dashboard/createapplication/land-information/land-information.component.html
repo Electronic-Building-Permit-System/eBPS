@@ -1,0 +1,57 @@
+<div *ngFor="let form of dynamicForms.controls; let i = index">
+    <div [formGroup]="asFormGroup(form)" class="dynamic-form-group">
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Map Sheet Number</mat-label>
+                <input matInput formControlName="field1" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Land Parcel Number</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Ropani</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Aana</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Paisa</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Daam</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Square Feet</mat-label>
+                <input matInput formControlName="field1" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Square Meter</mat-label>
+                <input matInput formControlName="field2" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Remarks</mat-label>
+                <textarea  matInput formControlName="field2" rows="4"></textarea>
+            </mat-form-field>
+        </div>
+      <div class="add-remove-button">
+        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+          Remove
+        </button>
+        <button mat-raised-button color="primary" (click)="onAddForm()">
+          Add New
+        </button>
+      </div>
+    </div>
+  </div>
+  
