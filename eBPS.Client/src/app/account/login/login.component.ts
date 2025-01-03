@@ -50,7 +50,7 @@ export class LoginComponent {
     this.router.navigate(['/signup']);
     }
 
-    navigateToForgotPassword() {
-      this.router.navigate(['/forgotpassword']);
+    navigateToForgetPassword() {
+      this.router.navigate(['/forgetpassword']);
       }
 }

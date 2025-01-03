@@ -13,7 +13,7 @@ import { EmailService } from '../../services/shared/email/email.service';
 
 
 @Component({
-  selector: 'app-forgotpassword',
+  selector: 'app-forgetpassword',
   standalone: true, 
   imports: [
     CommonModule, 
@@ -26,27 +26,27 @@ import { EmailService } from '../../services/shared/email/email.service';
     MatButtonModule,
     HttpClientModule,
   ],
-  templateUrl: './forgotpassword.component.html',
-  styleUrls: ['./forgotpassword.component.css'], 
+  templateUrl: './forgetpassword.component.html',
+  styleUrls: ['./forgetpassword.component.css'], 
 })
-export class ForgotpasswordComponent {
-  forgotPasswordForm: FormGroup;
+export class ForgetpasswordComponent {
+  forgetPasswordForm: FormGroup;
 
   constructor(private fb: FormBuilder, private emailService: EmailService) {
-    this.forgotPasswordForm = this.fb.group({
+    this.forgetPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
   get email() {
-    return this.forgotPasswordForm.get('email');
+    return this.forgetPasswordForm.get('email');
   }
 
   onSubmit() {
-    if (this.forgotPasswordForm.valid) {
+    if (this.forgetPasswordForm.valid) {
       debugger
       const payload = {
-        to: this.forgotPasswordForm.value.email,
+        to: this.forgetPasswordForm.value.email,
         subject: 'Password Reset',
         body: 'Click the link to reset your password.',
       };
