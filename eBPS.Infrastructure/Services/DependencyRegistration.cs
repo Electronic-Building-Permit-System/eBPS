@@ -15,12 +15,14 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IBuildingPurposeRepository, BuildingPurposeRepository>();
 
             // Register services from the Application layer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IApplicationService, ApplicationService>();
 
             // Register any other infrastructure services (like logging, caching, etc.)
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
