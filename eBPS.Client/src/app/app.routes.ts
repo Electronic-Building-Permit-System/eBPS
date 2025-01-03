@@ -8,7 +8,6 @@ import { CreateapplicationComponent } from './dashboard/createapplication/create
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
 import { AuthguardService } from './services/shared/authguard.service';
-
 import { ForgotpasswordComponent } from './account/forgotpassword/forgotpassword.component';
 export const routes: Routes = [
   {
