@@ -1,4 +1,5 @@
-﻿using eBPS.Application.Services;
+﻿using eBPS.Application.DTOs;
+using eBPS.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers
@@ -42,5 +43,17 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-    }
-}
+        [HttpPost("create-building-application")]
+        public async Task<IActionResult> CreateBuildingApplication([FromBody] BuildingApplicationDTO buildingApplicationDTO)
+        {
+            try
+            {
+                await _applicationService.CreateBuildingApplication(buildingApplicationDTO);
+                return Created("", new { Message = "User registered successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+
+            }
+        }
