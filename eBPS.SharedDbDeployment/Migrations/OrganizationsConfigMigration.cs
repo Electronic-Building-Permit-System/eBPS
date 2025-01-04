@@ -64,8 +64,8 @@ namespace eBPS.SharedDbDeployment.Migrations
             Insert.IntoTable("OrganizationsConfig").Row(new
             {
                 OrganizationId = 5,
-                ConnectionString = "Server=.;Database=BagamatiEbps;Integrated Security=true;TrustServerCertificate=True;",
-                OrganizationName = "Bagamati Gaupalika",
+                ConnectionString = "Server=.;Database=BagmatiEbps;Integrated Security=true;TrustServerCertificate=True;",
+                OrganizationName = "Bagmati Gaupalika",
                 CreatedAt = SystemMethods.CurrentDateTime,
                 UpdatedAt = SystemMethods.CurrentDateTime,
                 IsActive = true
