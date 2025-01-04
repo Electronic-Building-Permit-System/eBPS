@@ -11,9 +11,8 @@
       <mat-form-field class="flex-item" appearance="fill">
         <mat-label>Building Purpose</mat-label>
         <mat-select formControlName="buildingPurpose">
-          <mat-option value="creditCard">Credit Card</mat-option>
-          <mat-option value="paypal">PayPal</mat-option>
-          <mat-option value="bankTransfer">Bank Transfer</mat-option>
+          <mat-option *ngFor="let purpose of buildingPurpose" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
         </mat-select>    
       </mat-form-field>
     </div>
@@ -21,18 +20,16 @@
       <mat-form-field class="flex-item" appearance="fill">
           <mat-label>NBC Class</mat-label>
           <mat-select formControlName="nbcClass">
-            <mat-option value="creditCard">Credit Card</mat-option>
-            <mat-option value="paypal">PayPal</mat-option>
-            <mat-option value="bankTransfer">Bank Transfer</mat-option>
+            <mat-option *ngFor="let nbc of nbcClass" [value]="nbc.id">
+              {{ nbc.description }}</mat-option>
           </mat-select>
       </mat-form-field>
       <mat-form-field class="flex-item" appearance="fill">
         <mat-label>Structure Type</mat-label>
         <mat-select formControlName="structureType">
-          <mat-option value="creditCard">Credit Card</mat-option>
-          <mat-option value="paypal">PayPal</mat-option>
-          <mat-option value="bankTransfer">Bank Transfer</mat-option>
-        </mat-select>
+          <mat-option *ngFor="let purpose of structureType" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
+        </mat-select>    
       </mat-form-field>
     </div>
     <div class="form-row">
