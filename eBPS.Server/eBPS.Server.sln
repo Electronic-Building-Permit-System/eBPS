@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPS.Domain", "..\eBPS.Doma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPS.Infrastructure", "..\eBPS.Infrastructure\eBPS.Infrastructure.csproj", "{CEC0FE99-1E84-4508-84BB-E66E713D33AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPS.SharedDbDeployment", "..\eBPS.SharedDbDeployment\eBPS.SharedDbDeployment.csproj", "{6EBAB450-9A87-46FF-B1BD-BE1C89EC12EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBPS.OrganizationDbDeployment", "..\eBPS.OrganizationDbDeployment\eBPS.OrganizationDbDeployment.csproj", "{BD2B0A65-086B-4D03-9DA3-5D539D7A81D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{CEC0FE99-1E84-4508-84BB-E66E713D33AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEC0FE99-1E84-4508-84BB-E66E713D33AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEC0FE99-1E84-4508-84BB-E66E713D33AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EBAB450-9A87-46FF-B1BD-BE1C89EC12EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EBAB450-9A87-46FF-B1BD-BE1C89EC12EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EBAB450-9A87-46FF-B1BD-BE1C89EC12EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EBAB450-9A87-46FF-B1BD-BE1C89EC12EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2B0A65-086B-4D03-9DA3-5D539D7A81D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2B0A65-086B-4D03-9DA3-5D539D7A81D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2B0A65-086B-4D03-9DA3-5D539D7A81D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2B0A65-086B-4D03-9DA3-5D539D7A81D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
