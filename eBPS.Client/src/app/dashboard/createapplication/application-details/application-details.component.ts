@@ -15,4 +15,23 @@ import { MatStepperModule } from '@angular/material/stepper';
 })
 export class ApplicationDetailsComponent {
   @Input() firstFormGroup!: FormGroup;
+  buildingPurpose: { id: number; description: string }[] = [];
+  nbcClass: { id: number; description: string }[] = [];
+ 
+  constructor(private applicationService: ApplicationService){}
+    ngOnInit(): void {
+      this.fetchBuildingPurpose();
+      this.fetchNBCClass();
+    }  
+    fetchBuildingPurpose() {
+      this.applicationService.getBuildingPurpose().subscribe((data: { id: number; description: string }[]) => {
+        this.buildingPurpose = data;
+      });   
+    }
+    fetchNBCClass() {
+      this.applicationService.getNBCClass().subscribe((data: { id: number; description: string }[]) => {
+        this.nbcClass = data;
+      });
+      
+    }
 }

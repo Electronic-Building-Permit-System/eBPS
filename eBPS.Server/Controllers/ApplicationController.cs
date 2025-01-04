@@ -27,6 +27,20 @@ namespace eBPS.Server.Controllers
                 // Return a generic error response
                 return StatusCode(500, "An error occurred while processing your request.");
             }
+        }  
+        [HttpGet("get-nbc-class")]
+        public async Task<IActionResult> GetActiveNBCClass()
+        {
+            try
+            {
+                var nbcClass = await _applicationService.GetActiveNBCClass();
+                return Ok(nbcClass);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
     }
 }
