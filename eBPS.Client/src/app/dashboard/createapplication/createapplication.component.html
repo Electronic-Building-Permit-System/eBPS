@@ -1,8 +1,13 @@
 <app-navbar></app-navbar>
 <div class="stepper-container">
+   <!-- Back Button -->
+   <button mat-button class="back-button" (click)="navigateToDashboard()">
+    <mat-icon>arrow_back</mat-icon> Dashboard
+  </button>
   <h1><img src="ebps.png"></h1>
   <h1>BUILDING PERMIT APPLICATION FORM</h1>
   <mat-horizontal-stepper [linear]="true" #stepper="matStepper">
+
     <!-- Step 1 -->
     <mat-step *ngIf="firstFormGroup" [stepControl]="firstFormGroup">
       <ng-template matStepLabel>
@@ -22,11 +27,8 @@
     <!-- Step 3 -->
     <mat-step [stepControl]="dynamicForms">
       <ng-template matStepLabel>Land Information</ng-template>
-      <app-land-information
-        [dynamicForms]="dynamicForms"
-        (addForm)="addNewForm()"
-        (removeForm)="removeForm($event)"
-      ></app-land-information>
+      <app-land-information [dynamicForms]="dynamicForms" (addForm)="addNewForm()"
+        (removeForm)="removeForm($event)"></app-land-information>
       <div class="stepper-actions">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext [disabled]="!dynamicForms.valid">
@@ -34,8 +36,20 @@
         </button>
       </div>
     </mat-step>
-
     <!-- Step 4 -->
+    <mat-step [stepControl]="landOwnerForm">
+      <ng-template matStepLabel>Land Owner Information</ng-template>
+      <app-land-owner [landOwnerForm]="landOwnerForm" (addForm)="addNewlandOwnerForm()"
+        (removeForm)="removelandOwnerForm($event)"></app-land-owner>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="!landOwnerForm.valid">
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- Step 6 -->
     <mat-step>
       <ng-template matStepLabel>
         Charkilla Details

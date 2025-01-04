@@ -1,0 +1,110 @@
+<div *ngFor="let form of landOwnerForm.controls; let i = index">
+    <div [formGroup]="asFormGroup(form)" class="landOwnerForm">
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Land Owner Type</mat-label>
+                <mat-select formControlName="field1">
+                    <mat-option value="self">Self</mat-option>
+                    <mat-option value="other">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Salutation</mat-label>
+                <mat-select formControlName="field1">
+                  <mat-option value="mr">Mr</mat-option>
+                  <mat-option value="ms">Ms</mat-option>
+                  <mat-option value="mrs">Mrs</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="field1" placeholder="नेपालीमा" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Name (English)</mat-label>
+                <input matInput formControlName="field1" placeholder="In English" />
+              </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Father's Name</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Grandfather's Name</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Applicant Nationality</mat-label>
+              <mat-select formControlName="field1">
+                <mat-option value="nepali">Nepali</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Citizenship No</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Issue District</mat-label>
+              <mat-select formControlName="field1">
+                <mat-option value="lalitpur">Lalitpur</mat-option>
+                <mat-option value="kathmandu">Kathmandu</mat-option>
+                <mat-option value="bhaktapur">Bhaktapur</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Issue Date (BS)</mat-label>
+              <input matInput formControlName="field1" placeholder="YYYY-MM-DD" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Tole</mat-label>
+              <input matInput formControlName="field1" placeholder="नेपालीमा" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Tole (English)</mat-label>
+              <input matInput formControlName="field1" placeholder="In English" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Ward Number</mat-label>
+              <mat-select formControlName="field1">
+                <mat-option *ngFor="let ward of wards" [value]="ward">{{ ward }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="field1" />
+            </mat-form-field>
+          </div>
+        <div class="add-remove-button">
+            <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+                Remove
+            </button>
+            <button mat-raised-button color="primary" (click)="onAddForm()">
+                Add New
+            </button>
+        </div>
+    </div>
+</div>

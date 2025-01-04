@@ -25,6 +25,17 @@ img{
   height:80px;
   width: 80px;
 }
+.back-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #3f51b5;
+  font-weight: bold;
+}
+.back-button mat-icon {
+  margin-right: 8px;
+}
+
 
 
 
