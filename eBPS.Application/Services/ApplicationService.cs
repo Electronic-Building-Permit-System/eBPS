@@ -6,6 +6,7 @@ namespace eBPS.Application.Services
     public interface IApplicationService
     {
         Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose();
+        Task<IEnumerable<StructureTypeDTO>> GetActiveStructureType();
         Task<IEnumerable<NBCClassDTO>> GetActiveNBCClass();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
         Task<object> GetOrganizationsConfig(int orgId);
@@ -15,21 +16,30 @@ namespace eBPS.Application.Services
     public class ApplicationService : IApplicationService
     {
         private readonly IBuildingPurposeRepository _buildingPurposeRepository;
+        private readonly IStructureTypeRepository _structureTypeRepository;
         private readonly INBCClassRepository _nbcClassRepository;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
 
         public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, INBCClassRepository nbcClassRepository, IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository)
+        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
+            _structureTypeRepository = structureTypeRepository;
             _nbcClassRepository = nbcClassRepository;
             _organizationRepository = organizationRepository;
             _buildingApplicationRepository = buildingApplicationRepository;
         }
+        
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
         {
             return await _buildingPurposeRepository.GetActiveBuildingPurpose();
         }
+        public async Task<IEnumerable<StructureTypeDTO>> GetActiveStructureType()
+        {
+            return await _structureTypeRepository.GetActiveStructureType();
+        }
+
         public async Task<IEnumerable<NBCClassDTO>> GetActiveNBCClass()
         {
             return await _nbcClassRepository.GetActiveNBCClass();

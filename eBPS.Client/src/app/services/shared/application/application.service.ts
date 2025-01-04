@@ -14,7 +14,11 @@ private apiUrl = environment.apiUrl;
   getBuildingPurpose(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-building-purpose');
   }
- 
+  
+  getStructureType(): Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-structure-type');
+  }
+
   getNBCClass(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-nbc-class');
   }

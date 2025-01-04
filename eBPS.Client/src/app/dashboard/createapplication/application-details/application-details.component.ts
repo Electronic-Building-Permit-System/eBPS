@@ -16,19 +16,28 @@ import { ApplicationService } from '../../../services/shared/application/applica
   styleUrl: './application-details.component.css'
 })
 export class ApplicationDetailsComponent {
-  @Input() firstFormGroup!: FormGroup;
   buildingPurpose: { id: number; description: string }[] = [];
+  structureType: { id: number; description: string }[] = [];
+  @Input() firstFormGroup!: FormGroup;
+ 
   nbcClass: { id: number; description: string }[] = [];
  
   constructor(private applicationService: ApplicationService){}
     ngOnInit(): void {
       this.fetchBuildingPurpose();
       this.fetchNBCClass();
+      this.fetchStructureType();
     }  
+    
     fetchBuildingPurpose() {
       this.applicationService.getBuildingPurpose().subscribe((data: { id: number; description: string }[]) => {
         this.buildingPurpose = data;
-      });   
+      });
+    }
+    fetchStructureType() {
+      this.applicationService.getStructureType().subscribe((data: { id: number; description: string }[]) => {
+        this.structureType = data;
+      });
     }
     fetchNBCClass() {
       this.applicationService.getNBCClass().subscribe((data: { id: number; description: string }[]) => {
