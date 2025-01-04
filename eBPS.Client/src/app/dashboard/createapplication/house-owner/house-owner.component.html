@@ -1,0 +1,87 @@
+<div *ngFor="let form of houseOwnerForm.controls; let i = index">
+    <div [formGroup]="asFormGroup(form)" class="houseOwnerFormGroup">
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Salutation</mat-label>
+                <mat-select formControlName="Salutation">
+                    <mat-option value="Mr">Mr</mat-option>
+                    <mat-option value="Ms">Ms</mat-option>
+                    <mat-option value="Mrs">Mrs</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Father's Name</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Grand Father's Name</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Applicants Nationality</mat-label>
+                <mat-select formControlName="Salutation">
+                    <mat-option value="Mr">Nepal</mat-option>
+                    <mat-option value="Ms">India</mat-option>
+                    <mat-option value="Mrs">China</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Citizenship No.</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Issue District</mat-label>
+                <mat-select formControlName="Salutation">
+                    <mat-option value="ktm">Kathmandu</mat-option>
+                    <mat-option value="ltp">Lalitpur</mat-option>
+                    <mat-option value="bkt">Bhaktapur</mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Issue Date</mat-label>
+                <input matInput formControlName="Salutation" placeholder="YYYY-MM-DD"/>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Tole</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Ward No.</mat-label>
+                <mat-select formControlName="Salutation">
+                    <mat-option value="ktm">1</mat-option>
+                    <mat-option value="ltp">2</mat-option>
+                    <mat-option value="bkt">3</mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="Salutation" />
+            </mat-form-field>
+        </div>
+      <div class="add-remove-button">
+        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+          Remove
+        </button>
+        <button mat-raised-button color="primary" (click)="onAddForm()">
+          Add New
+        </button>
+      </div>
+    </div>
+  </div>
+  

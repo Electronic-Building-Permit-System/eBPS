@@ -1,0 +1,55 @@
+<div *ngFor="let form of charkillaForm.controls; let i = index">
+    <div [formGroup]="asFormGroup(form)" class="charkillaFormGroup">
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Direction</mat-label>
+                <mat-select formControlName="Direction">
+                    <mat-option value="Mr">East</mat-option>
+                    <mat-option value="Ms">West</mat-option>
+                    <mat-option value="Mrs">North</mat-option>
+                    <mat-option value="Mrs">South</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Side</mat-label>
+                <mat-select formControlName="Direction">
+                    <mat-option value="Mr">Left</mat-option>
+                    <mat-option value="Ms">Right</mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Road Name</mat-label>
+                <input matInput formControlName="Direction" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Road Length</mat-label>
+                <input matInput formControlName="Direction" />
+            </mat-form-field>
+             <!-- <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Is GLD? </mat-label>
+                <mat-checkbox formControlName="Direction"></mat-checkbox>
+            </mat-form-field> -->
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label> Existing Row</mat-label>
+                <input matInput formControlName="Direction" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item"> 
+                <mat-label>Actual Setback</mat-label>
+                <input matInput formControlName="Direction" />
+            </mat-form-field>
+        </div>
+      <div class="add-remove-button">
+        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+          Remove
+        </button>
+        <button mat-raised-button color="primary" (click)="onAddForm()">
+          Add New
+        </button>
+      </div>
+    </div>
+  </div>
+  
