@@ -21,8 +21,7 @@ namespace eBPS.Application.Services
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
 
-        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, INBCClassRepository nbcClassRepository, IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository)
-        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository)
+        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
