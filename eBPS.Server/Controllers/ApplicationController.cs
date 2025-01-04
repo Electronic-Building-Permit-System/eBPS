@@ -28,5 +28,19 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        [HttpGet("get-structure-type")]
+        public async Task<IActionResult> GetActiveStructureType()
+        {
+            try
+            {
+                var structureType = await _applicationService.GetActiveStructureType();
+                return Ok(structureType);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
     }
 }

@@ -14,5 +14,22 @@ import { MatStepperModule } from '@angular/material/stepper';
   styleUrl: './application-details.component.css'
 })
 export class ApplicationDetailsComponent {
+  buildingPurpose: { id: number; description: string }[] = [];
+  structureType: { id: number; description: string }[] = [];
   @Input() firstFormGroup!: FormGroup;
+  constructor(private applicationService: ApplicationService){}
+    ngOnInit(): void {
+      this.fetchBuildingPurpose();
+      this.fetchStructureType();
+    }  
+    fetchBuildingPurpose() {
+      this.applicationService.getBuildingPurpose().subscribe((data: { id: number; description: string }[]) => {
+        this.buildingPurpose = data;
+      });
+    }
+    fetchStructureType() {
+      this.applicationService.getStructureType().subscribe((data: { id: number; description: string }[]) => {
+        this.structureType = data;
+      });
+    }
 }
