@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace eBPS.Infrastructure.DataAccess.Repositories
