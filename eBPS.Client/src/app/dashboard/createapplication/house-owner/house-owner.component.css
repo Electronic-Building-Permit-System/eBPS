@@ -1,0 +1,19 @@
+.remove-button {
+    background-color: rgb(156, 65, 65) !important;
+    color: white !important; 
+    margin-right: 10px;
+  }
+  
+  .add-remove-button{
+    margin-bottom: 48px;
+  }
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .flex-item {
+    flex: 1;
+  }

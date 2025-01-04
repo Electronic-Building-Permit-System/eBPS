@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="stepper-container">
-   <!-- Back Button -->
-   <button mat-button class="back-button" (click)="navigateToDashboard()">
+  <!-- Back Button -->
+  <button mat-button class="back-button" (click)="navigateToDashboard()">
     <mat-icon>arrow_back</mat-icon> Dashboard
   </button>
   <h1><img src="ebps.png"></h1>
@@ -48,8 +48,34 @@
         </button>
       </div>
     </mat-step>
+    <!-- Step 5 -->
+    <mat-step [stepControl]="houseOwnerForm">
+      <ng-template matStepLabel>House Owner Type</ng-template>
+      <app-house-owner [houseOwnerForm]="houseOwnerForm" (addForm)="addNewHouseOwnerForm()"
+        (removeForm)="removeHouseOwnerForm($event)"></app-house-owner>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="!houseOwnerForm.valid">
+          Next
+        </button>
+      </div>
+    </mat-step>
 
     <!-- Step 6 -->
+    <mat-step [stepControl]="charkillaForm">
+      <ng-template matStepLabel>Charkilla Form</ng-template>
+      <app-charkilla [charkillaForm]="charkillaForm" (addForm)="addNewCharkillaForm()"
+        (removeForm)="removeCharkillaForm($event)"></app-charkilla>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="!charkillaForm.valid">
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+
+    <!-- Step 7 -->
     <mat-step>
       <ng-template matStepLabel>
         Charkilla Details

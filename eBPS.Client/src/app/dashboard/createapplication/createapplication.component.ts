@@ -13,6 +13,8 @@ import { ApplicantDetailsComponent } from './applicant-details/applicant-details
 import { LandInformationComponent } from './land-information/land-information.component';
 import { LandOwnerComponent } from './land-owner/land-owner.component';
 import { Router } from '@angular/router';
+import { HouseOwnerComponent } from './house-owner/house-owner.component';
+import { CharkillaComponent } from './charkilla/charkilla.component';
 
 @Component({
   selector: 'app-createapplication',
@@ -30,19 +32,21 @@ import { Router } from '@angular/router';
     ApplicantDetailsComponent,
     LandInformationComponent,
     LandOwnerComponent
+    HouseOwnerComponent,
+    CharkillaComponent
   ],
   templateUrl: './createapplication.component.html',
   styleUrl: './createapplication.component.css'
 })
-export class CreateapplicationComponent {
-  
-
-      
+export class CreateapplicationComponent {    
   isLinear = true; // Enables linear stepper mode
   firstFormGroup!: FormGroup;  // Add '!' to indicate that it will be initialized later
   secondFormGroup!: FormGroup;
   dynamicForms!: FormArray;
   landOwnerForm!: FormArray;
+  houseOwnerForm!: FormArray;
+  charkillaForm!: FormArray;
+
 
   constructor(private _formBuilder: FormBuilder, private router: Router) {}
 
@@ -67,16 +71,24 @@ export class CreateapplicationComponent {
     });
 
     this.dynamicForms = this._formBuilder.array([]);
-    this.landOwnerForm = this._formBuilder.array([]); // Initialize the FormArray
-    this.addNewForm();
+    this.landOwnerForm = this._formBuilder.array([]); 
     this.addNewlandOwnerForm();
-     // Start with one form by default
+    this.addNewForm();
+    this.houseOwnerForm = this._formBuilder.array([]); 
+    this.addNewHouseOwnerForm();
+    this.charkillaForm = this._formBuilder.array([]); 
+    this.addNewCharkillaForm();
   }
 
   getDynamicFormControls() {
     return this.dynamicForms.controls;
   }
-  
+  getHouseOwnerFormControls() {
+    return this.houseOwnerForm.controls;
+  }
+  getCharkillaFormControls() {
+    return this.charkillaForm.controls;
+  }
 
   addNewForm(): void {
     const newForm = this._formBuilder.group({
@@ -101,6 +113,27 @@ export class CreateapplicationComponent {
   removelandOwnerForm(index: number): void {
     if (this.landOwnerForm.length > 1) {
       this.landOwnerForm.removeAt(index);
+  addNewHouseOwnerForm(): void {
+    const newForm = this._formBuilder.group({
+      Salutation: ['', Validators.required],
+    });
+    this.houseOwnerForm.push(newForm);
+  }
+
+  removeHouseOwnerForm(index: number): void {
+    if (this.houseOwnerForm.length > 1) {
+      this.houseOwnerForm.removeAt(index);
+    }
+  }
+  addNewCharkillaForm(): void {
+    const newForm = this._formBuilder.group({
+      Direction: ['', Validators.required],
+    });
+    this.charkillaForm.push(newForm);
+  }
+  removeCharkillaForm(index: number): void {
+    if (this.charkillaForm.length > 1) {
+      this.charkillaForm.removeAt(index);
     }
   }
 
@@ -115,6 +148,8 @@ export class CreateapplicationComponent {
         ...this.secondFormGroup.value,
         dynamicForms: this.dynamicForms.value,
         landOwnerForm: this.landOwnerForm.value,
+        houseOwnerForm: this.houseOwnerForm.value,
+        charkillaForm: this.charkillaForm.value,
       };
 
       console.log('Final Form Data:', fullFormData);

@@ -11,7 +11,7 @@
     <mat-form-field class="flex-item" appearance="fill">
       <mat-label>Applicant Name</mat-label>
       <input matInput formControlName="applicantName" required />
-    </mat-form-field>   
+    </mat-form-field>  
   </div>
   <div class="form-row">
     <mat-form-field class="flex-item" appearance="fill">
@@ -44,6 +44,26 @@
         <mat-option value="bankTransfer">3</mat-option>
       </mat-select>
     </mat-form-field> 
+  </div>
+  <div class="form-row">
+    <!-- File Upload -->
+    <div class="file-upload">
+      <button mat-raised-button color="accent" type="button" (click)="fileInput.click()">
+        Upload Photo
+      </button>
+      <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+      <input
+        type="file"
+        #fileInput
+        hidden
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
+       <!-- Preview Image -->
+    <img *ngIf="preview" [src]="preview" alt="Preview" class="preview-image" />
+  
+    </div>
+  
   </div>
 
    
