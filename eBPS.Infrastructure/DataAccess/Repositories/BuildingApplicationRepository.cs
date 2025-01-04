@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
+using eBPS.Domain.Entities;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace eBPS.Infrastructure.DataAccess.Repositories
@@ -13,10 +15,10 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         {
             _dbConnection = dbConnection;
         }
-        public async Task AddBuildingApplicationAsync(BuildingApplicationDTO buildingApplication, int orgId)
-        {       
-            var query = @"
-           INSERT INTO BuildingApplication (
+        public async Task AddBuildingApplicationAsync(BuildingApplication buildingApplication, string connectionString)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var query = @"INSERT INTO BuildingApplication (
                     Salutation,
                     ApplicantName,
                     PhoneNumber,
@@ -48,7 +50,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     @LandUseZone,
                     @LandUseSubZone
                 );";
-            return await _dbConnection.QuerySingleOrDefaultAsync<BuildingApplicationDTO>(query, new { OrgId = orgId });
+            await connection.QuerySingleOrDefaultAsync<BuildingApplicationDTO>(query, buildingApplication);
         }
     }
 }

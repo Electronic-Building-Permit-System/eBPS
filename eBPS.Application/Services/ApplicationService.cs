@@ -1,6 +1,7 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
+using System.Security.Cryptography;
 namespace eBPS.Application.Services
 {
     public interface IApplicationService
@@ -9,8 +10,6 @@ namespace eBPS.Application.Services
         Task<IEnumerable<StructureTypeDTO>> GetActiveStructureType();
         Task<IEnumerable<NBCClassDTO>> GetActiveNBCClass();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
-        Task<object> GetOrganizationsConfig(int orgId);
-
     }
 
     public class ApplicationService : IApplicationService
@@ -43,18 +42,13 @@ namespace eBPS.Application.Services
         {
             return await _nbcClassRepository.GetActiveNBCClass();
         }
-        public async Task<object> GetOrganizationsConfig(int orgId)
-        {
-           
-            var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
-            return await _organizationRepository.GetData(connectionString);
-        }
         public async Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO)
         {        
             try
             {
-                // Create a new user
-                var buildingApplication = new BuildingApplicationDTO
+                var orgId = 1;
+                var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
+                var buildingApplication = new BuildingApplication
                 {
                     Salutation = buildingApplicationDTO.Salutation,
                     ApplicantName = buildingApplicationDTO.ApplicantName,
@@ -72,8 +66,7 @@ namespace eBPS.Application.Services
                     LandUseSubZone = buildingApplicationDTO.LandUseSubZone,
                 };
 
-                // Save the user to the database
-                await _buildingApplicationRepository.AddBuildingApplicationAsync(buildingApplication);
+                await _buildingApplicationRepository.AddBuildingApplicationAsync(buildingApplication, connectionString);
 
             }
             catch (Exception ex)
