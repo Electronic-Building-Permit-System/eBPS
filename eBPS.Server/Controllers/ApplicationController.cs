@@ -56,5 +56,20 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+
+        [HttpGet("get-ward")]
+        public async Task<IActionResult> GetActiveWard()
+        {
+            try
+            {
+                var ward = await _applicationService.GetActiveWard();
+                return Ok(ward);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
     }
 }
