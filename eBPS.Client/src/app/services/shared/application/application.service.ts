@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApplicationService {
+ 
 private apiUrl = environment.apiUrl;
   
   constructor(private http: HttpClient) {}
@@ -21,5 +22,8 @@ private apiUrl = environment.apiUrl;
 
   getNBCClass(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-nbc-class');
+  }
+  getWard(): Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-ward');
   }
 }
