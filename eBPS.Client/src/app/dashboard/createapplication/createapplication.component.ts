@@ -15,6 +15,8 @@ import { LandOwnerComponent } from './land-owner/land-owner.component';
 import { Router } from '@angular/router';
 import { HouseOwnerComponent } from './house-owner/house-owner.component';
 import { CharkillaComponent } from './charkilla/charkilla.component';
+import { ApplicationService } from '../../services/shared/application/application.service';
+import { BuildingApplicationData } from '../../shared/models/building-application.model';
 
 @Component({
   selector: 'app-createapplication',
@@ -46,7 +48,7 @@ export class CreateapplicationComponent {
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
-  constructor(private _formBuilder: FormBuilder, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private router: Router, private applicationService: ApplicationService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -61,10 +63,10 @@ export class CreateapplicationComponent {
     this.secondFormGroup = this._formBuilder.group({
       salutation: ['', Validators.required],
       applicantName: ['', Validators.required],
-      wardNo: ['', Validators.required],
+      wardNumber: ['', Validators.required],
       address: ['', Validators.required],
-      houseNo: ['', Validators.required],
-      phone: ['', Validators.required],
+      houseNumber: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
     });
 
@@ -150,14 +152,24 @@ export class CreateapplicationComponent {
 
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
-      const fullFormData = {
+      const fullFormData: BuildingApplicationData  = {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
-        dynamicForms: this.dynamicForms.value,
-        landOwnerForm: this.landOwnerForm.value,
-        houseOwnerForm: this.houseOwnerForm.value,
-        charkillaForm: this.charkillaForm.value,
+        // dynamicForms: this.dynamicForms.value,
+        // landOwnerForm: this.landOwnerForm.value,
+        // houseOwnerForm: this.houseOwnerForm.value,
+        // charkillaForm: this.charkillaForm.value,
       };
+      console.log(fullFormData);
+      // Pass `formData` to your service or handle it as needed
+      this.applicationService.createBuildingApplication(fullFormData).subscribe({
+        next: (response) => {
+          console.log('Application created successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error creating application:', error);
+        },
+      });
 
       console.log('Final Form Data:', fullFormData);
       alert('Form submitted successfully!');
