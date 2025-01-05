@@ -8,6 +8,7 @@ import { BuildingApplicationData } from '../../../shared/models/building-applica
   providedIn: 'root'
 })
 export class ApplicationService {
+  
  
 private apiUrl = environment.apiUrl;
   
@@ -26,6 +27,9 @@ private apiUrl = environment.apiUrl;
   }
   getWard(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-ward');
+  }
+  getLandUseZone() : Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-land-use-zone');
   }
 
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {

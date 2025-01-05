@@ -26,7 +26,7 @@
   <div class="form-row">
     <mat-form-field appearance="fill" class="flex-item">
       <mat-label>Ward no.</mat-label>
-      <mat-select formControlName="ward">
+      <mat-select formControlName="wardNumber">
         <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
           {{ purpose.wardNumber }}</mat-option>
       </mat-select>

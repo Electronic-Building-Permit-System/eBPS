@@ -36,10 +36,9 @@
       <mat-form-field class="flex-item" appearance="fill">
           <mat-label>Land Use Zone</mat-label>
           <mat-select formControlName="landUseZone">
-            <mat-option value="1">Credit Card</mat-option>
-            <mat-option value="2">PayPal</mat-option>
-            <mat-option value="3">Bank Transfer</mat-option>
-          </mat-select>
+            <mat-option *ngFor="let purpose of landUseZone" [value]="purpose.id">
+              {{ purpose.description }}</mat-option>
+          </mat-select> 
       
       </mat-form-field>
       <mat-form-field class="flex-item" appearance="fill">
