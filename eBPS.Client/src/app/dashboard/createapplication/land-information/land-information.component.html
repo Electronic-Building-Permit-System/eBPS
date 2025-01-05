@@ -13,29 +13,29 @@
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Ropani</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="Ropani" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Aana</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="Aana" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Paisa</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="Paisa" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Daam</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="Daam" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Square Feet</mat-label>
-                <input matInput formControlName="field1" />
+                <input matInput formControlName="SquareFeet" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Square Meter</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="SquareMeet" />
             </mat-form-field>
         </div>
         <div class="form-row">
@@ -54,4 +54,36 @@
       </div>
     </div>
   </div>
+  <!-- Attractive Totals Display -->
+  <mat-card>
+    <mat-card-title>Total Land Area</mat-card-title>
+    <mat-card-content>
+      <div class="totals-container">
+        <div class="total-item">
+          <mat-label>Total Ropani:</mat-label>
+          <span>{{ totalRopani }}</span>
+        </div>
+        <div class="total-item">
+          <mat-label>Total Aana:</mat-label>
+          <span>{{ totalAana }}</span>
+        </div>
+        <div class="total-item">
+          <mat-label>Total Paisa:</mat-label>
+          <span>{{ totalPaisa }}</span>
+        </div>
+        <div class="total-item">
+          <mat-label>Total Daam:</mat-label>
+          <span>{{ totalDaam }}</span>
+        </div>
+        <div class="total-item">
+            <mat-label>Total Square Feet:</mat-label>
+            <span>{{ totalSquareFeet }}</span>
+          </div>
+          <div class="total-item">
+            <mat-label>Total Square Meter:</mat-label>
+            <span>{{ totalSquareMeter }}</span>
+          </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
   
