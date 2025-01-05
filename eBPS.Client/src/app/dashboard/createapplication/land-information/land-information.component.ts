@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-land-information',
@@ -12,13 +15,20 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,MatCardModule, MatGridListModule, MatIconModule
   ],
   templateUrl: './land-information.component.html',
   styleUrl: './land-information.component.css'
 })
 export class LandInformationComponent {
   @Input() dynamicForms!: FormArray;
+  @Input() totalRopani!: number;
+  @Input() totalAana!: number;
+  @Input() totalPaisa!: number;
+  @Input() totalDaam!: number;
+  @Input() totalSquareFeet!: number;
+  @Input() totalSquareMeter!: number;
+  
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();
 

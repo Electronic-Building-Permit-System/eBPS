@@ -72,7 +72,7 @@ namespace eBPS.Application.Services
                     WardNumber = buildingApplicationDTO.WardNumber,
                     Address = buildingApplicationDTO.Address,
                     HouseNumber = buildingApplicationDTO.HouseNumber,
-                    //ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
+                    ApplicantPhotoPath = "test",
                     TransactionType = buildingApplicationDTO.TransactionType,
                     BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
                     NBCClass = buildingApplicationDTO.NBCClass,

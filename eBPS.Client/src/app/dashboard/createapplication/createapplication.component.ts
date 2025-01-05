@@ -48,8 +48,14 @@ export class CreateapplicationComponent {
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
+  totalRopani: number = 0;
+  totalAana: number = 0;
+  totalPaisa: number = 0;
+  totalDaam: number = 0;
+  totalSquareFeet: number = 0;
+  totalSquareMeter: number = 0;
   constructor(private _formBuilder: FormBuilder, private router: Router, private applicationService: ApplicationService) { }
-
+ 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       transactionType: ['', Validators.required],
@@ -69,7 +75,7 @@ export class CreateapplicationComponent {
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
     });
-
+   
     this.dynamicForms = this._formBuilder.array([]);
     this.landOwnerForm = this._formBuilder.array([]);
     this.addNewlandOwnerForm();
@@ -79,7 +85,11 @@ export class CreateapplicationComponent {
     this.charkillaForm = this._formBuilder.array([]);
     this.addNewCharkillaForm();
   }
-
+  
+  asFormGroup(control: AbstractControl, form: any): FormGroup {
+    return control as FormGroup;
+    return form as FormGroup;
+  }
   getDynamicFormControls() {
     return this.dynamicForms.controls;
   }
@@ -96,14 +106,43 @@ export class CreateapplicationComponent {
     const newForm = this._formBuilder.group({
       field1: ['', Validators.required],
       field2: ['', Validators.required],
+      Ropani: [0, Validators.required],
+      Aana: [0, Validators.required],
+      Paisa: [0, Validators.required],
+      Daam: [0, Validators.required],
+      SquareFeet: [0, Validators.required],
+      SquareMeter: [0, Validators.required],
     });
+    newForm.valueChanges.subscribe(() => this.calculateTotals());
     this.dynamicForms.push(newForm);
+    this.calculateTotals(); // Recalculate totals after adding a form
+
   }
 
   removeForm(index: number): void {
     if (this.dynamicForms.length > 1) {
       this.dynamicForms.removeAt(index);
+      this.calculateTotals(); // Recalculate totals after removing a form
     }
+  }
+   // Calculate totals for Ropani, Aana, Paisa, and Daam
+   calculateTotals() {
+    this.totalRopani = 0;
+    this.totalAana = 0;
+    this.totalPaisa = 0;
+    this.totalDaam = 0;
+    this.totalSquareFeet = 0;
+    this.totalSquareMeter = 0;
+
+    this.dynamicForms.controls.forEach((formGroup) => {
+      const form = formGroup.value;
+      this.totalRopani += +form.Ropani || 0; // Add Ropani
+      this.totalAana += +form.Aana || 0;     // Add Aana
+      this.totalPaisa += +form.Paisa || 0;   // Add Paisa
+      this.totalDaam += +form.Daam || 0;     // Add Daam
+      this.totalSquareFeet += +form.SquareFeet || 0;   // Add Paisa
+      this.totalSquareMeter += +form.SquareMeter || 0;
+    });
   }
 
   addNewlandOwnerForm(): void {
@@ -146,9 +185,6 @@ export class CreateapplicationComponent {
     }
   }
 
-  asFormGroup(control: AbstractControl): FormGroup {
-    return control as FormGroup;
-  }
 
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
