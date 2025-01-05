@@ -44,7 +44,8 @@ namespace eBPS.OrganizationDbDeployment.Migrations
            .WithColumn("LandSawikWard").AsInt32().NotNullable()
            .WithColumn("LandSawikGabisa").AsString().NotNullable()
            .WithColumn("LandToleName").AsString().NotNullable()
-           .WithColumn("LandWard").AsInt32().NotNullable();
+           .WithColumn("LandWard").AsInt32().NotNullable()
+           .WithColumn("IsDeleted").AsBoolean().Nullable();
 
             Execute.Sql("DBCC CHECKIDENT ('BuildingApplication', RESEED, 999);");
         }
