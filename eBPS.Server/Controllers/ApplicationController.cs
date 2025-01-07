@@ -70,6 +70,19 @@ namespace eBPS.Server.Controllers
                 // Return a generic error response
                 return StatusCode(500, "An error occurred while processing your request.");
             }
+        } 
+        [HttpGet("get-building-application")]
+        public async Task<IActionResult> GetActiveBuildingApplication()
+        {
+            try
+            {
+                var buildingApplication = await _applicationService.GetActiveBuildingApplication();
+                return Ok(buildingApplication);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
 
         [HttpGet("get-ward")]
@@ -79,6 +92,20 @@ namespace eBPS.Server.Controllers
             {
                 var ward = await _applicationService.GetActiveWard();
                 return Ok(ward);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+        [HttpGet("get-land-use-sub-zone")]
+        public async Task<IActionResult> GetActiveLandUseSubZone()
+        {
+            try
+            {
+                var landUseSubZone = await _applicationService.GetActiveLandUseSubZone();
+                return Ok(landUseSubZone);
             }
             catch (Exception ex)
             {

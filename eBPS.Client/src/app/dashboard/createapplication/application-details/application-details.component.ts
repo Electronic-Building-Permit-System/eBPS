@@ -19,14 +19,17 @@ export class ApplicationDetailsComponent {
   buildingPurpose: { id: number; description: string }[] = [];
   structureType: { id: number; description: string }[] = [];
   @Input() firstFormGroup!: FormGroup;
- 
   nbcClass: { id: number; description: string }[] = [];
+  landUseSubZone: { id: number; description: string }[] = [];
+
  
   constructor(private applicationService: ApplicationService){}
     ngOnInit(): void {
       this.fetchBuildingPurpose();
       this.fetchNBCClass();
       this.fetchStructureType();
+      this.fetchLandUseSubZone();
+
     }  
     
     fetchBuildingPurpose() {
@@ -42,7 +45,11 @@ export class ApplicationDetailsComponent {
     fetchNBCClass() {
       this.applicationService.getNBCClass().subscribe((data: { id: number; description: string }[]) => {
         this.nbcClass = data;
-      });
-      
+      }); 
     }
+    fetchLandUseSubZone(){
+      this.applicationService.getLandUseSubZone().subscribe((data: { id: number; description: string }[]) => {
+        this.landUseSubZone = data;
+    });
+}
 }

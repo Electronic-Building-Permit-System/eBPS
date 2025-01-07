@@ -20,6 +20,7 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<INBCClassRepository, NBCClassRepository>();
             services.AddScoped<IWardRepository, WardRepository>();
             services.AddScoped<IBuildingApplicationRepository, BuildingApplicationRepository>();
+            services.AddScoped<ILandUseSubZoneRepository, LandUseSubZoneRepository>();
 
             // Register services from the Application layer
             services.AddScoped<IUserService, UserService>();
