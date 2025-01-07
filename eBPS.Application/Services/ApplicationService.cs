@@ -11,9 +11,8 @@ namespace eBPS.Application.Services
         Task<IEnumerable<NBCClassDTO>> GetActiveNBCClass();
         Task<IEnumerable<WardDTO>> GetActiveWard();
         Task<IEnumerable<LandUseSubZoneDTO>> GetActiveLandUseSubZone();
-        Task<IEnumerable<BuildingApplicationDTO>> GetActiveBuildingApplication();
         Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone();
-
+        Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
     }
 
@@ -68,6 +67,11 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone()
         {
             return await _landusezoneRepository.GetActiveLandUseZone();
+        }
+        
+        public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()
+        {
+            return await _buildingApplicationRepository.GetBuildingApplicationList();
         }
         public async Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO)
         {        
