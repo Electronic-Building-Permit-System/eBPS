@@ -15,6 +15,8 @@ namespace eBPS.Tests.Application.Services
         private Mock<IWardRepository> _wardRepositoryMock;
         private Mock<IOrganizationRepository> _organizationRepositoryMock;
         private Mock<IBuildingApplicationRepository> _buildingApplicationRepositoryMock;
+        private Mock<ILandUseZoneRepository> _landUseZoneRepositoryMock;
+        private Mock<ILandUseSubZoneRepository> _landUseSubZoneRepositoryMock;
 
         private IApplicationService _applicationService;
 
@@ -27,14 +29,18 @@ namespace eBPS.Tests.Application.Services
             _wardRepositoryMock = new Mock<IWardRepository>();
             _organizationRepositoryMock = new Mock<IOrganizationRepository>();
             _buildingApplicationRepositoryMock = new Mock<IBuildingApplicationRepository>();
+            _landUseZoneRepositoryMock = new Mock<ILandUseZoneRepository>();
+            _landUseSubZoneRepositoryMock = new Mock<ILandUseSubZoneRepository>();
 
             _applicationService = new ApplicationService(
                 _buildingPurposeRepositoryMock.Object,
+                _landUseZoneRepositoryMock.Object,
                 _structureTypeRepositoryMock.Object,
                 _nbcClassRepositoryMock.Object,
                 _organizationRepositoryMock.Object,
                 _buildingApplicationRepositoryMock.Object,
-                _wardRepositoryMock.Object
+                _wardRepositoryMock.Object,
+                _landUseSubZoneRepositoryMock.Object
             );
         }
 
