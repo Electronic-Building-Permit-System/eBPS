@@ -113,5 +113,19 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        [HttpGet("get-land-use-zone")]
+        public async Task<IActionResult> GetActiveLandUseZone()
+        {
+            try
+            {
+                var landusezone = await _applicationService.GetActiveLandUseZone();
+                return Ok(landusezone);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
     }
 }

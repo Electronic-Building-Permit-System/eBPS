@@ -12,6 +12,7 @@ namespace eBPS.Application.Services
         Task<IEnumerable<WardDTO>> GetActiveWard();
         Task<IEnumerable<LandUseSubZoneDTO>> GetActiveLandUseSubZone();
         Task<IEnumerable<BuildingApplicationDTO>> GetActiveBuildingApplication();
+        Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone();
 
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
     }
@@ -25,8 +26,9 @@ namespace eBPS.Application.Services
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
         private readonly IWardRepository _wardRepository;
         private readonly ILandUseSubZoneRepository _landUseSubZoneRepository;
+        private readonly ILandUseZoneRepository _landusezoneRepository;
 
-        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository, ILandUseSubZoneRepository landUseSubZoneRepository)
+        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landusezoneRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository,ILandUseSubZoneRepository landUseSubZoneRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -35,6 +37,7 @@ namespace eBPS.Application.Services
             _organizationRepository = organizationRepository;
             _buildingApplicationRepository = buildingApplicationRepository;
             _landUseSubZoneRepository = landUseSubZoneRepository;
+          _landusezoneRepository= landusezoneRepository;
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -61,6 +64,10 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<BuildingApplicationDTO>> GetActiveBuildingApplication()
         {
             return await _buildingApplicationRepository.GetActiveBuildingApplication();
+        }
+        public async Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone()
+        {
+            return await _landusezoneRepository.GetActiveLandUseZone();
         }
         public async Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO)
         {        

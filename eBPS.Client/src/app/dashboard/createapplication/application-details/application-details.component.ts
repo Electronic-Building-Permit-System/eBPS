@@ -18,6 +18,7 @@ import { ApplicationService } from '../../../services/shared/application/applica
 export class ApplicationDetailsComponent {
   buildingPurpose: { id: number; description: string }[] = [];
   structureType: { id: number; description: string }[] = [];
+  landUseZone: { id: number; description: string }[] = [];
   @Input() firstFormGroup!: FormGroup;
   nbcClass: { id: number; description: string }[] = [];
   landUseSubZone: { id: number; description: string }[] = [];
@@ -29,7 +30,7 @@ export class ApplicationDetailsComponent {
       this.fetchNBCClass();
       this.fetchStructureType();
       this.fetchLandUseSubZone();
-
+      this.fetchLandUseZone();
     }  
     
     fetchBuildingPurpose() {
@@ -40,6 +41,11 @@ export class ApplicationDetailsComponent {
     fetchStructureType() {
       this.applicationService.getStructureType().subscribe((data: { id: number; description: string }[]) => {
         this.structureType = data;
+      });
+    }
+    fetchLandUseZone() {
+      this.applicationService.getLandUseZone().subscribe((data: { id: number; description: string }[]) => {
+        this.landUseZone = data;
       });
     }
     fetchNBCClass() {
