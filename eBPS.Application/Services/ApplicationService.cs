@@ -11,6 +11,9 @@ namespace eBPS.Application.Services
         Task<IEnumerable<NBCClassDTO>> GetActiveNBCClass();
         Task<IEnumerable<WardDTO>> GetActiveWard();
         Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone();
+        Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType();
+        Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType();
+        Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict();
 
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
     }
@@ -24,16 +27,24 @@ namespace eBPS.Application.Services
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
         private readonly IWardRepository _wardRepository;
         private readonly ILandUseZoneRepository _landusezoneRepository;
+        private readonly ILandscapeTypeRepository _landscapeTypeRepository;
+        private readonly IIssueDistrictRepository _issueDistrictRepository;
+        private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landusezoneRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository)
+        public ApplicationService(IIssueDistrictRepository issueDistrictRepository,ITransactionTypeRepository transactionTypeRepository, IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landusezoneRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IWardRepository wardRepository, ILandscapeTypeRepository landscapeTypeRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
             _nbcClassRepository = nbcClassRepository;
-            _wardRepository= wardRepository;
+            _landscapeTypeRepository = landscapeTypeRepository;
+            _wardRepository = wardRepository;
             _organizationRepository = organizationRepository;
             _buildingApplicationRepository = buildingApplicationRepository;
           _landusezoneRepository= landusezoneRepository;
+            _issueDistrictRepository= issueDistrictRepository;
+            _transactionTypeRepository = transactionTypeRepository;
+
+
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -56,6 +67,18 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone()
         {
             return await _landusezoneRepository.GetActiveLandUseZone();
+        } 
+        public async Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType()
+        {
+            return await _landscapeTypeRepository.GetActiveLandscapeType();
+        }
+        public async Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType()
+        {
+            return await _transactionTypeRepository.GetActiveTransactionType();
+        }
+        public async Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict()
+        {
+            return await _issueDistrictRepository.GetActiveIssueDistrict();
         }
         public async Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO)
         {        
