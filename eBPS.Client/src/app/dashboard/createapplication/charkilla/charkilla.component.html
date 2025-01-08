@@ -24,13 +24,17 @@
                 <input matInput formControlName="Direction" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Road Length</mat-label>
-                <input matInput formControlName="Direction" />
+                <mat-label>Landscape Type</mat-label>
+                <mat-select formControlName="landscapeType">
+                  <mat-option *ngFor="let purpose of landscapeType" [value]="purpose.id">
+                    {{ purpose.description }}</mat-option>
+                </mat-select>
             </mat-form-field>
-             <!-- <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Is GLD? </mat-label>
-                <mat-checkbox formControlName="Direction"></mat-checkbox>
-            </mat-form-field> -->
+            <mat-form-field appearance="fill" class="flex-item"> 
+              <mat-label>Road Length</mat-label>
+              <input matInput formControlName="Direction" />
+          </mat-form-field>
+             
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 

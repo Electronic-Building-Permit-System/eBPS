@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ApplicationService } from '../../../services/shared/application/application.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrl: './charkilla.component.css'
 })
 export class CharkillaComponent {
+  landscapeType: { id: number; description: string }[] = [];
  @Input() charkillaForm!: FormArray;
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();
@@ -35,4 +37,15 @@ export class CharkillaComponent {
   onRemoveForm(index: number) {
     this.removeForm.emit(index); // Notify parent to remove a form
   }
+  constructor(private applicationService: ApplicationService){}
+        ngOnInit(): void {
+          this.fetchLandscapeType();
+      
+        } 
+        fetchLandscapeType() {
+          this.applicationService.getLandscapeType().subscribe((data: { id: number; description: string }[]) => {
+            this.landscapeType = data;
+          });
+        }
+        
 }

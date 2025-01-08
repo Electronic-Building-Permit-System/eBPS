@@ -3,9 +3,8 @@
       <mat-form-field appearance="fill" class="flex-item">
         <mat-label>Transaction Type</mat-label>
         <mat-select formControlName="transactionType">
-          <mat-option value="1">Credit Card</mat-option>
-          <mat-option value="2">PayPal</mat-option>
-          <mat-option value="3">Bank Transfer</mat-option>
+          <mat-option *ngFor="let purpose of transactionType" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="flex-item" appearance="fill">

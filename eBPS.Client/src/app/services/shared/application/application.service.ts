@@ -37,6 +37,15 @@ private apiUrl = environment.apiUrl;
   getLandUseZone() : Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-land-use-zone');
   }
+  getTransactionType() : Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-transaction-type');
+  }
+  getIssueDistrict() : Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-issue-district');
+  }
+  getLandscapeType() : Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-landscape-type');
+  }
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
   }
