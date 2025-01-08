@@ -44,10 +44,9 @@
       <mat-form-field class="flex-item" appearance="fill">
           <mat-label>Land Use Sub Zone</mat-label>
           <mat-select formControlName="landUseSubZone">
-            <mat-option value="1">Credit Card</mat-option>
-            <mat-option value="2">PayPal</mat-option>
-            <mat-option value="3">Bank Transfer</mat-option>
-          </mat-select>    
+            <mat-option *ngFor="let sub of landUseSubZone" [value]="sub.id">
+              {{ sub.description }}</mat-option>
+          </mat-select>       
       </mat-form-field>
     </div>
     <div class="stepper-actions">

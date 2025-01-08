@@ -24,6 +24,7 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
             services.AddScoped<IIssueDistrictRepository, IssueDistrictRepository>();
             services.AddScoped<IBuildingApplicationRepository, BuildingApplicationRepository>();
+            services.AddScoped<ILandUseSubZoneRepository, LandUseSubZoneRepository>();
 
             // Register services from the Application layer
             services.AddScoped<IUserService, UserService>();

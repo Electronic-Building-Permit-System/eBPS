@@ -28,10 +28,15 @@ private apiUrl = environment.apiUrl;
   getWard(): Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-ward');
   }
+  getLandUseSubZone(): Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-land-use-sub-zone');
+  }
+  getBuildingApplication(): Observable<any> {
+    return this.http.get(this.apiUrl + '/api/application/get-building-application');
+  }
   getLandUseZone() : Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-land-use-zone');
   }
-
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
   }

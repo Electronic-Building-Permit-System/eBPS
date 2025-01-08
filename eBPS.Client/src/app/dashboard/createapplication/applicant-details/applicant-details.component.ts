@@ -27,7 +27,6 @@ export class ApplicantDetailsComponent {
   } 
   fetchWard() {
     this.applicationService.getWard().subscribe((data: { id: number; wardNumber: string }[]) => {
-      console.log(data);
       this.ward = data;
     });
     

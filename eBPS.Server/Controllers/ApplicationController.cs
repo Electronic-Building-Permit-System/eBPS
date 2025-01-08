@@ -70,7 +70,7 @@ namespace eBPS.Server.Controllers
                 // Return a generic error response
                 return StatusCode(500, "An error occurred while processing your request.");
             }
-        }
+        } 
 
         [HttpGet("get-ward")]
         public async Task<IActionResult> GetActiveWard()
@@ -86,7 +86,20 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-
+        [HttpGet("get-land-use-sub-zone")]
+        public async Task<IActionResult> GetActiveLandUseSubZone()
+        {
+            try
+            {
+                var landUseSubZone = await _applicationService.GetActiveLandUseSubZone();
+                return Ok(landUseSubZone);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
         [HttpGet("get-land-use-zone")]
         public async Task<IActionResult> GetActiveLandUseZone()
         {
@@ -94,6 +107,20 @@ namespace eBPS.Server.Controllers
             {
                 var landusezone = await _applicationService.GetActiveLandUseZone();
                 return Ok(landusezone);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpGet("get-building-application-list")]
+        public async Task<IActionResult> GetBuildingApplicationList()
+        {
+            try
+            {
+                var buildingApplicationList = await _applicationService.GetBuildingApplicationList();
+                return Ok(buildingApplicationList);
             }
             catch (Exception ex)
             {

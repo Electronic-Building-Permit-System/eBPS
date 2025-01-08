@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,69 +11,80 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { ApplicationService } from '../../services/shared/application/application.service';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-building-application',
   imports: [MatTableModule,
-    MatButtonModule,MatSidenavModule,
-    MatIconModule, CommonModule,MatListModule,MatToolbarModule, MatFormFieldModule, MatInputModule,MatPaginatorModule],
+    MatButtonModule, MatSidenavModule,
+    MatIconModule, CommonModule, MatListModule, MatToolbarModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatPaginatorModule],
   templateUrl: './building-application.component.html',
   styleUrl: './building-application.component.css'
 })
-export class BuildingApplicationComponent implements OnInit {
-  
-  constructor(private router: Router) {}
+export class BuildingApplicationComponent implements OnInit, AfterViewInit {
+  // Data source for MatTable
+  dataSource = new MatTableDataSource<any>([]);
 
+  // Data array for building applications
+  buildingApplication: any[] = [];
+
+  // Columns to display in the table
+  displayedColumns: string[] = ['applicantName']; 
+
+  // ViewChild to reference paginator
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  constructor(private router: Router, private applicationService: ApplicationService) {}
+
+  ngOnInit(): void {
+    // Fetch data when the component initializes
+    this.fetchBuildingApplication();
+  }
+
+  ngAfterViewInit(): void {
+    // Assign the paginator after the view has initialized
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  /**
+   * Fetches the building applications from the service and initializes the data source.
+   */
+  fetchBuildingApplication(): void {
+    this.applicationService.getBuildingApplication().subscribe(
+      (data: { applicantName: string }[]) => {
+        this.buildingApplication = data;
+        this.dataSource.data = this.buildingApplication; // Bind data to MatTableDataSource
+      },
+      (error) => {
+        console.error('Error fetching building applications:', error); // Log errors
+      }
+    );
+  }
+
+  /**
+   * Navigates to the create application page.
+   */
   opencreateapplication(): void {
     this.router.navigate(['createapplication']);
   }
-  displayedColumns: string[] = ['applicationNumber', 'applicantName', 'transactionType','applicationDate','forward','edit','detail','delete','quickComments']; // Add other columns
-  dataSource = new MatTableDataSource([
-    { applicationNumber: '001', applicantName: 'John Doe' },
-    { applicationNumber: '002', applicantName: 'Jane Smith' },
-    { applicationNumber: '003', applicantName: 'Alice Brown' },
-    { applicationNumber: '004', applicantName: 'Hazel' },
-    { applicationNumber: '005', applicantName: 'Ariel ' },
-    { applicationNumber: '006', applicantName: 'Selena' },
-    { applicationNumber: '007', applicantName: 'Arian' },
-    { applicationNumber: '008', applicantName: 'Izzy' },
-    { applicationNumber: '009', applicantName: 'Lizzy' },
-    { applicationNumber: '010', applicantName: 'Janis' },
-    // Add more sample data
-  ]);
-  forward(element: any) {
-    console.log('Forward clicked', element);
-  }
-  
-  edit(element: any) {
-    console.log('Edit clicked', element);
-  }
-  
-  viewDetails(element: any) {
-    console.log('View details', element);
-  }
-  
-  delete(element: any) {
-    console.log('Delete clicked', element);
-  }
-  filteredDataSource = this.dataSource;
-  @ViewChild(MatPaginator) paginator: MatPaginator |  null = null;;
-  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
-
+  /**
+   * Filters the table data based on the input value.
+   * @param event The keyboard event containing the filter value.
+   */
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filteredDataSource = new MatTableDataSource(
-      this.dataSource.filteredData.filter(
-        (item: any) =>
-          item.applicationNumber.toLowerCase().startsWith(filterValue.toLowerCase()) ||
-        item.applicantName.toLowerCase().startsWith(filterValue.toLowerCase())
-       )
-    );
-      // Reassign paginator after filtering
-      this.filteredDataSource.paginator = this.paginator;
-  }
+    
+    // Filter the data
+    this.dataSource.filterPredicate = (data, filter) => 
+      data.applicantName.toLowerCase().includes(filter);
+    this.dataSource.filter = filterValue;
 
+    // Reset paginator to the first page when filtering
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

@@ -11,13 +11,13 @@ namespace eBPS.OrganizationDbDeployment.Migrations
            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
            .WithColumn("Salutation").AsInt32().NotNullable()
            .WithColumn("ApplicantName").AsString(100).NotNullable()
-           .WithColumn("ApplicantNumber").AsString(100).NotNullable()
+           .WithColumn("ApplicationNumber").AsString(100).NotNullable()
            .WithColumn("FatherName").AsString(100).NotNullable()
            .WithColumn("GrandFatherName").AsString(100).NotNullable()
            .WithColumn("Tole").AsString(50).NotNullable()
            .WithColumn("CitizenshipNumber").AsString(50).NotNullable()
            .WithColumn("CitizenshipIssueDate").AsDateTime().NotNullable()
-           .WithColumn("CitizenshipIssueDistrict").AsDateTime().NotNullable()
+           .WithColumn("CitizenshipIssueDistrict").AsInt32().NotNullable()
            .WithColumn("PhoneNumber").AsString(10).NotNullable()
            .WithColumn("Email").AsString(50).NotNullable()
            .WithColumn("WardNumber").AsInt32().NotNullable()
@@ -53,6 +53,5 @@ namespace eBPS.OrganizationDbDeployment.Migrations
         {
             Delete.Table("ApplicationDetails");
         }
-
     }
 }

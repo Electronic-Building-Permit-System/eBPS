@@ -15,6 +15,15 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         {
             _dbConnection = dbConnection;
         }
+
+        public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()
+        {
+            var connectionString = "Server=.;Database=LalitpurEbps;Integrated Security=true;TrustServerCertificate=True;";
+            using var connection = new SqlConnection(connectionString);
+            const string query = "SELECT ApplicantName FROM BuildingApplication";
+            return await connection.QueryAsync<BuildingApplicationDTO>(query);
+        }
+
         public async Task AddBuildingApplicationAsync(BuildingApplication buildingApplication, string connectionString)
         {
             using var connection = new SqlConnection(connectionString);
@@ -52,5 +61,6 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                 );";
             await connection.QuerySingleOrDefaultAsync<BuildingApplicationDTO>(query, buildingApplication);
         }
+      
     }
 }
