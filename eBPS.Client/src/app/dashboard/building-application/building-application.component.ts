@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './building-application.component.css'
 })
 export class BuildingApplicationComponent implements OnInit, AfterViewInit {
+
   // Data source for MatTable
   dataSource = new MatTableDataSource<any>([]);
 
@@ -69,6 +70,9 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
   opencreateapplication(): void {
     this.router.navigate(['createapplication']);
   }
+  opendesigndata() {
+    this.router.navigate(['designdata']);
+    }
 
   /**
    * Filters the table data based on the input value.
