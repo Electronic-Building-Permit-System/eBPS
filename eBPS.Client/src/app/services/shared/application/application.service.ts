@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BuildingApplicationData } from '../../../shared/models/building-application.model';
+import { HouseOwnerData } from '../../../shared/models/house-owner.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ private apiUrl = environment.apiUrl;
     return this.http.get(this.apiUrl + '/api/application/get-land-use-sub-zone');
   }
   getBuildingApplication(): Observable<any> {
-    return this.http.get(this.apiUrl + '/api/application/get-building-application');
+    return this.http.get(this.apiUrl + '/api/application/get-building-application-list');
   }
   getLandUseZone() : Observable<any> {
     return this.http.get(this.apiUrl + '/api/application/get-land-use-zone');
@@ -48,5 +49,8 @@ private apiUrl = environment.apiUrl;
   }
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
+  }
+  createHouseOwner(houseOwner: HouseOwnerData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/application/create-house-owner`, houseOwner);
   }
 }

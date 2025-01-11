@@ -49,14 +49,16 @@ namespace eBPS.Server.Controllers
             try
             {
                 await _applicationService.CreateBuildingApplication(buildingApplicationDTO);
-                return Created("", new { Message = "User registered successfully." });
+                return Created("", new { Message = "Application registered successfully." });
             }
+
             catch (Exception ex)
             {
                 return BadRequest(new { Error = ex.Message });
 
             }
-        }
+        } 
+       
         [HttpGet("get-structure-type")]
         public async Task<IActionResult> GetActiveStructureType()
         {

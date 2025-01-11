@@ -51,31 +51,32 @@ describe('CreateapplicationComponent', () => {
     component.ngOnInit();
     expect(component.firstFormGroup).toBeDefined();
     expect(component.secondFormGroup).toBeDefined();
-    expect(component.dynamicForms.length).toBeGreaterThan(0);
+    expect(component.landInformationForm.length).toBeGreaterThan(0);
     expect(component.landOwnerForm.length).toBeGreaterThan(0);
     expect(component.houseOwnerForm.length).toBeGreaterThan(0);
     expect(component.charkillaForm.length).toBeGreaterThan(0);
   });
 
   it('should add a new dynamic form', () => {
-    const initialLength = component.dynamicForms.length;
+    const initialLength = component.landInformationForm.length;
     component.addNewForm();
-    expect(component.dynamicForms.length).toBe(initialLength + 1);
+    expect(component.landInformationForm.length).toBe(initialLength + 1);
   });
+
 
   it('should remove a dynamic form', () => {
     component.addNewForm();
-    const initialLength = component.dynamicForms.length;
+    const initialLength = component.landInformationForm.length;
     component.removeForm(0);
-    expect(component.dynamicForms.length).toBe(initialLength - 1);
+    expect(component.landInformationForm.length).toBe(initialLength - 1);
   });
 
   it('should not remove a dynamic form if only one exists', () => {
-    component.dynamicForms.clear();
+    component.landInformationForm.clear();
     component.addNewForm();
-    const initialLength = component.dynamicForms.length;
+    const initialLength = component.landInformationForm.length;
     component.removeForm(0);
-    expect(component.dynamicForms.length).toBe(initialLength);
+    expect(component.landInformationForm.length).toBe(initialLength);
   });
 
   it('should call applicationService on valid form submission', () => {

@@ -25,9 +25,9 @@
     </mat-step>
 
     <!-- Step 3 -->
-    <mat-step [stepControl]="dynamicForms">
+    <mat-step [stepControl]="landInformationForm">
       <ng-template matStepLabel>Land Information</ng-template>
-      <app-land-information [dynamicForms]="dynamicForms" (addForm)="addNewForm()"
+      <app-land-information [landInformationForm]="landInformationForm" (addForm)="addNewForm()"
         (removeForm)="removeForm($event)"
         [totalRopani]="totalRopani" 
         [totalAana]="totalAana" 
@@ -37,7 +37,7 @@
         [totalSquareMeter]="totalSquareMeter"></app-land-information>
       <div class="stepper-actions">
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext [disabled]="!dynamicForms.valid">
+        <button mat-button matStepperNext [disabled]="!landInformationForm.valid">
           Next
         </button>
         <button mat-button (click)="submitForm()">Submit</button>

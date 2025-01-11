@@ -17,6 +17,7 @@ import { HouseOwnerComponent } from './house-owner/house-owner.component';
 import { CharkillaComponent } from './charkilla/charkilla.component';
 import { ApplicationService } from '../../services/shared/application/application.service';
 import { BuildingApplicationData } from '../../shared/models/building-application.model';
+import { HouseOwnerData } from '../../shared/models/house-owner.model';
 
 @Component({
   selector: 'app-createapplication',
@@ -44,7 +45,7 @@ export class CreateapplicationComponent {
   isLinear = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
-  dynamicForms!: FormArray;
+  landInformationForm!: FormArray;
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
@@ -55,7 +56,7 @@ export class CreateapplicationComponent {
   totalSquareFeet: number = 0;
   totalSquareMeter: number = 0;
   constructor(private _formBuilder: FormBuilder, private router: Router, private applicationService: ApplicationService) { }
- 
+
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       transactionType: ['', Validators.required],
@@ -75,8 +76,8 @@ export class CreateapplicationComponent {
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
     });
-   
-    this.dynamicForms = this._formBuilder.array([]);
+
+    this.landInformationForm = this._formBuilder.array([]);
     this.landOwnerForm = this._formBuilder.array([]);
     this.addNewlandOwnerForm();
     this.addNewForm();
@@ -85,15 +86,15 @@ export class CreateapplicationComponent {
     this.charkillaForm = this._formBuilder.array([]);
     this.addNewCharkillaForm();
   }
-  
+
   asFormGroup(control: AbstractControl, form: any): FormGroup {
     return control as FormGroup;
     return form as FormGroup;
   }
   getDynamicFormControls() {
-    return this.dynamicForms.controls;
+    return this.landInformationForm.controls;
   }
-  
+
   getHouseOwnerFormControls() {
     return this.houseOwnerForm.controls;
   }
@@ -114,19 +115,19 @@ export class CreateapplicationComponent {
       SquareMeter: [0, Validators.required],
     });
     newForm.valueChanges.subscribe(() => this.calculateTotals());
-    this.dynamicForms.push(newForm);
+    this.landInformationForm.push(newForm);
     this.calculateTotals(); // Recalculate totals after adding a form
 
   }
 
   removeForm(index: number): void {
-    if (this.dynamicForms.length > 1) {
-      this.dynamicForms.removeAt(index);
+    if (this.landInformationForm.length > 1) {
+      this.landInformationForm.removeAt(index);
       this.calculateTotals(); // Recalculate totals after removing a form
     }
   }
-   // Calculate totals for Ropani, Aana, Paisa, and Daam
-   calculateTotals() {
+  // Calculate totals for Ropani, Aana, Paisa, and Daam
+  calculateTotals() {
     this.totalRopani = 0;
     this.totalAana = 0;
     this.totalPaisa = 0;
@@ -134,7 +135,7 @@ export class CreateapplicationComponent {
     this.totalSquareFeet = 0;
     this.totalSquareMeter = 0;
 
-    this.dynamicForms.controls.forEach((formGroup) => {
+    this.landInformationForm.controls.forEach((formGroup) => {
       const form = formGroup.value;
       this.totalRopani += +form.Ropani || 0; // Add Ropani
       this.totalAana += +form.Aana || 0;     // Add Aana
@@ -184,16 +185,13 @@ export class CreateapplicationComponent {
       this.charkillaForm.removeAt(index);
     }
   }
-
-
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
-      const fullFormData: BuildingApplicationData  = {
+      const fullFormData: BuildingApplicationData = {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
-        // dynamicForms: this.dynamicForms.value,
+        // landInformationForm: this.landInformationForm.value,
         // landOwnerForm: this.landOwnerForm.value,
-        // houseOwnerForm: this.houseOwnerForm.value,
         // charkillaForm: this.charkillaForm.value,
       };
       console.log(fullFormData);
@@ -206,10 +204,26 @@ export class CreateapplicationComponent {
           console.error('Error creating application:', error);
         },
       });
-
       console.log('Final Form Data:', fullFormData);
       alert('Form submitted successfully!');
-    } else {
+    }
+    if (this.houseOwnerForm.valid) {
+      const houseOwnerData: HouseOwnerData = {
+        ...this.houseOwnerForm.value,
+      };
+      console.log(houseOwnerData);
+      // Pass `formData` to your service or handle it as needed
+      this.applicationService.createHouseOwner(houseOwnerData).subscribe({
+        next: (response) => {
+          console.log('Application created successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error creating application:', error);
+        },
+      });
+
+    }
+   else {
       console.log('Form is invalid');
     }
   }

@@ -17,6 +17,7 @@ namespace eBPS.Tests.Application.Services
         private Mock<IBuildingApplicationRepository> _buildingApplicationRepositoryMock;
         private Mock<ILandUseZoneRepository> _landUseZoneRepositoryMock;
         private Mock<ILandUseSubZoneRepository> _landUseSubZoneRepositoryMock;
+        private Mock<IHouseOwnerRepository> _houseOwnerRepositoryMock;
 
         private IApplicationService _applicationService;
 
@@ -31,6 +32,7 @@ namespace eBPS.Tests.Application.Services
             _buildingApplicationRepositoryMock = new Mock<IBuildingApplicationRepository>();
             _landUseZoneRepositoryMock = new Mock<ILandUseZoneRepository>();
             _landUseSubZoneRepositoryMock = new Mock<ILandUseSubZoneRepository>();
+            _houseOwnerRepositoryMock = new Mock<IHouseOwnerRepository>();
 
             _applicationService = new ApplicationService(
                 _buildingPurposeRepositoryMock.Object,
@@ -40,7 +42,8 @@ namespace eBPS.Tests.Application.Services
                 _organizationRepositoryMock.Object,
                 _buildingApplicationRepositoryMock.Object,
                 _wardRepositoryMock.Object,
-                _landUseSubZoneRepositoryMock.Object
+                _landUseSubZoneRepositoryMock.Object,
+                _houseOwnerRepositoryMock.Object
             );
         }
 
