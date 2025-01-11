@@ -149,7 +149,9 @@ export class CreateapplicationComponent {
   addNewlandOwnerForm(): void {
     const newForm = this._formBuilder.group({
       field1: ['', Validators.required],
-      // field2: ['', Validators.required],
+      issueDistrict: ['', Validators.required],
+      ward: ['', Validators.required],
+
     });
     this.landOwnerForm.push(newForm);
   }
@@ -163,6 +165,17 @@ export class CreateapplicationComponent {
   addNewHouseOwnerForm(): void {
     const newForm = this._formBuilder.group({
       Salutation: ['', Validators.required],
+      Name: ['', Validators.required],
+      FatherName: ['', Validators.required],
+      Phone: ['', Validators.required],
+      Email: ['', Validators.required],
+      GrandFatherName: ['', Validators.required],
+      CitizenshipNo: ['', Validators.required],
+      IssueDate: ['', Validators.required],
+      Tole: ['', Validators.required],
+      ApplicantNationality: ['', Validators.required],
+      issueDistrict: ['', Validators.required],
+      ward: ['', Validators.required],     
     });
     this.houseOwnerForm.push(newForm);
   }
@@ -176,6 +189,8 @@ export class CreateapplicationComponent {
   addNewCharkillaForm(): void {
     const newForm = this._formBuilder.group({
       Direction: ['', Validators.required],
+      landscapeType: ['', Validators.required],
+
     });
     this.charkillaForm.push(newForm);
   }
@@ -187,9 +202,13 @@ export class CreateapplicationComponent {
   }
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
+      // Map houseOwnerForm values to the houseOwners array in BuildingApplicationData
+    const houseOwners: HouseOwnerData[] = this.houseOwnerForm.controls.map((group) => group.value);
+
       const fullFormData: BuildingApplicationData = {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
+        HouseOwnerList: houseOwners, // Directly bind the houseOwners array
         // landInformationForm: this.landInformationForm.value,
         // landOwnerForm: this.landOwnerForm.value,
         // charkillaForm: this.charkillaForm.value,
@@ -207,27 +226,10 @@ export class CreateapplicationComponent {
       console.log('Final Form Data:', fullFormData);
       alert('Form submitted successfully!');
     }
-    if (this.houseOwnerForm.valid) {
-      const houseOwnerData: HouseOwnerData = {
-        ...this.houseOwnerForm.value,
-      };
-      console.log(houseOwnerData);
-      // Pass `formData` to your service or handle it as needed
-      this.applicationService.createHouseOwner(houseOwnerData).subscribe({
-        next: (response) => {
-          console.log('Application created successfully:', response);
-        },
-        error: (error) => {
-          console.error('Error creating application:', error);
-        },
-      });
-
-    }
    else {
       console.log('Form is invalid');
     }
   }
-
   navigateToDashboard() {
     this.router.navigate(['/dashboard']);
   }

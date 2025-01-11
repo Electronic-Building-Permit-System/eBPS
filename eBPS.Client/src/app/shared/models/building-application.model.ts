@@ -1,3 +1,5 @@
+import { HouseOwnerData } from "./house-owner.model";
+
 export interface BuildingApplicationData {
     transactionType: string;
     buildingPurpose: string;
@@ -13,5 +15,7 @@ export interface BuildingApplicationData {
     houseNumber: string;
     phoneNumber: string;
     email: string;
+
+    HouseOwnerList: HouseOwnerData[]; // List of house owner data
   }
   

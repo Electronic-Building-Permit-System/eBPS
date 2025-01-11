@@ -12,9 +12,12 @@ namespace eBPS.Tests.Application.Services
         private Mock<IBuildingPurposeRepository> _buildingPurposeRepositoryMock;
         private Mock<IStructureTypeRepository> _structureTypeRepositoryMock;
         private Mock<INBCClassRepository> _nbcClassRepositoryMock;
+        private Mock<ILandscapeTypeRepository> _landscapeTypeRepositoryMock;
         private Mock<IWardRepository> _wardRepositoryMock;
         private Mock<IOrganizationRepository> _organizationRepositoryMock;
         private Mock<IBuildingApplicationRepository> _buildingApplicationRepositoryMock;
+        private Mock<IIssueDistrictRepository> _issueDistrictRepositoryMock;
+        private Mock<ITransactionTypeRepository> _transactionTypeRepositoryMock;
         private Mock<ILandUseZoneRepository> _landUseZoneRepositoryMock;
         private Mock<ILandUseSubZoneRepository> _landUseSubZoneRepositoryMock;
         private Mock<IHouseOwnerRepository> _houseOwnerRepositoryMock;
@@ -27,22 +30,28 @@ namespace eBPS.Tests.Application.Services
             _buildingPurposeRepositoryMock = new Mock<IBuildingPurposeRepository>();
             _structureTypeRepositoryMock = new Mock<IStructureTypeRepository>();
             _nbcClassRepositoryMock = new Mock<INBCClassRepository>();
+            _landscapeTypeRepositoryMock= new Mock<ILandscapeTypeRepository>();
             _wardRepositoryMock = new Mock<IWardRepository>();
             _organizationRepositoryMock = new Mock<IOrganizationRepository>();
             _buildingApplicationRepositoryMock = new Mock<IBuildingApplicationRepository>();
+            _issueDistrictRepositoryMock= new Mock<IIssueDistrictRepository>();
+            _transactionTypeRepositoryMock = new Mock<ITransactionTypeRepository>();
             _landUseZoneRepositoryMock = new Mock<ILandUseZoneRepository>();
             _landUseSubZoneRepositoryMock = new Mock<ILandUseSubZoneRepository>();
             _houseOwnerRepositoryMock = new Mock<IHouseOwnerRepository>();
 
             _applicationService = new ApplicationService(
                 _buildingPurposeRepositoryMock.Object,
-                _landUseZoneRepositoryMock.Object,
                 _structureTypeRepositoryMock.Object,
                 _nbcClassRepositoryMock.Object,
+                _landscapeTypeRepositoryMock.Object,
+                _wardRepositoryMock.Object,
                 _organizationRepositoryMock.Object,
                 _buildingApplicationRepositoryMock.Object,
-                _wardRepositoryMock.Object,
+                _issueDistrictRepositoryMock.Object,
+                _transactionTypeRepositoryMock.Object,
                 _landUseSubZoneRepositoryMock.Object,
+                _landUseZoneRepositoryMock.Object,
                 _houseOwnerRepositoryMock.Object
             );
         }

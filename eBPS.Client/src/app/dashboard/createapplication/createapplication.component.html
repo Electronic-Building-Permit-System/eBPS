@@ -24,6 +24,19 @@
       <app-applicant-details [secondFormGroup]="secondFormGroup"></app-applicant-details>
     </mat-step>
 
+        <!-- Step 5 -->
+        <mat-step [stepControl]="houseOwnerForm">
+          <ng-template matStepLabel>House Owner Type</ng-template>
+          <app-house-owner [houseOwnerForm]="houseOwnerForm" (addForm)="addNewHouseOwnerForm()"
+            (removeForm)="removeHouseOwnerForm($event)"></app-house-owner>
+          <div class="stepper-actions">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext [disabled]="!houseOwnerForm.valid">
+              Next
+            </button>
+            <button mat-button (click)="submitForm()">Submit</button>
+          </div>
+        </mat-step>
     <!-- Step 3 -->
     <mat-step [stepControl]="landInformationForm">
       <ng-template matStepLabel>Land Information</ng-template>
@@ -40,7 +53,7 @@
         <button mat-button matStepperNext [disabled]="!landInformationForm.valid">
           Next
         </button>
-        <button mat-button (click)="submitForm()">Submit</button>
+      
       </div>
     </mat-step>
     <!-- Step 4 -->
@@ -55,18 +68,7 @@
         </button>
       </div>
     </mat-step>
-    <!-- Step 5 -->
-    <mat-step [stepControl]="houseOwnerForm">
-      <ng-template matStepLabel>House Owner Type</ng-template>
-      <app-house-owner [houseOwnerForm]="houseOwnerForm" (addForm)="addNewHouseOwnerForm()"
-        (removeForm)="removeHouseOwnerForm($event)"></app-house-owner>
-      <div class="stepper-actions">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext [disabled]="!houseOwnerForm.valid">
-          Next
-        </button>
-      </div>
-    </mat-step>
+
 
     <!-- Step 6 -->
     <mat-step [stepControl]="charkillaForm">

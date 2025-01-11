@@ -50,7 +50,5 @@ private apiUrl = environment.apiUrl;
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
   }
-  createHouseOwner(houseOwner: HouseOwnerData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/application/create-house-owner`, houseOwner);
-  }
+  
 }

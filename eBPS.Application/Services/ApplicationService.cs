@@ -36,9 +36,9 @@ namespace eBPS.Application.Services
         private readonly IIssueDistrictRepository _issueDistrictRepository;
         private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-        public ApplicationService(ITransactionTypeRepository transactionTypeRepository, IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landUseZoneRepository, 
-            IStructureTypeRepository structureTypeRepository, IIssueDistrictRepository issueDistrictRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, 
-            IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository,ILandUseSubZoneRepository landUseSubZoneRepository, ILandscapeTypeRepository landscapeTypeRepository, IHouseOwnerRepository houseOwnerRepository)
+        public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
+           IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IIssueDistrictRepository issueDistrictRepository,  
+            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -111,41 +111,41 @@ namespace eBPS.Application.Services
                 {
                     Salutation = buildingApplicationDTO.Salutation,
                     ApplicantName = buildingApplicationDTO.ApplicantName,
-                    ApplicantNumber = buildingApplicationDTO.ApplicantNumber,
-                    FatherName = buildingApplicationDTO.FatherName,
-                    GrandFatherName = buildingApplicationDTO.GrandFatherName,
-                    Tole = buildingApplicationDTO.Tole,
-                    CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
-                    CitizenshipIssueDate = DateTime.Now,
-                    CitizenshipIssueDistrict = DateTime.Now,
+                   //// ApplicantNumber = buildingApplicationDTO.ApplicantNumber,
+                   // FatherName = buildingApplicationDTO.FatherName,
+                   // GrandFatherName = buildingApplicationDTO.GrandFatherName,
+                   // Tole = buildingApplicationDTO.Tole,
+                   // CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
+                   // CitizenshipIssueDate = DateTime.Now,
+                   // CitizenshipIssueDistrict = DateTime.Now,
                     PhoneNumber = buildingApplicationDTO.PhoneNumber,
                     Email = buildingApplicationDTO.Email,
                     WardNumber = buildingApplicationDTO.WardNumber,
                     Address = buildingApplicationDTO.Address,
                     HouseNumber = buildingApplicationDTO.HouseNumber,
-                    ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
+                   // ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
                     TransactionType = buildingApplicationDTO.TransactionType,
                     BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
                     NBCClass = buildingApplicationDTO.NBCClass,
                     StructureType = buildingApplicationDTO.StructureType,
                     LandUseZone = buildingApplicationDTO.LandUseZone,
                     LandUseSubZone = buildingApplicationDTO.LandUseSubZone,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = buildingApplicationDTO.CreatedBy,
-                    OrganizationId = buildingApplicationDTO.OrganizationId,
-                    TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
-                    TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
-                    TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
-                    TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
-                    TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
-                    TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
-                    LandLongitude = buildingApplicationDTO.LandLongitude,
-                    LandLatitude = buildingApplicationDTO.LandLatitude,
-                    LandSawikWard = buildingApplicationDTO.LandSawikWard,
-                    LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
-                    LandToleName = buildingApplicationDTO.LandToleName,
-                    LandWard = buildingApplicationDTO.LandWard,
-                    IsDeleted = buildingApplicationDTO.IsDeleted
+                    //CreatedDate = DateTime.Now,
+                    //CreatedBy = buildingApplicationDTO.CreatedBy,
+                    //OrganizationId = buildingApplicationDTO.OrganizationId,
+                    //TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
+                    //TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
+                    //TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
+                    //TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
+                    //TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
+                    //TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
+                    //LandLongitude = buildingApplicationDTO.LandLongitude,
+                    //LandLatitude = buildingApplicationDTO.LandLatitude,
+                    //LandSawikWard = buildingApplicationDTO.LandSawikWard,
+                    //LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
+                    //LandToleName = buildingApplicationDTO.LandToleName,
+                    //LandWard = buildingApplicationDTO.LandWard,
+                    //IsDeleted = buildingApplicationDTO.IsDeleted
                 };
 
                 await _buildingApplicationRepository.AddBuildingApplicationAsync(buildingApplication, connectionString);
