@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<div class="stepper-container">
+    <!-- Back Button -->
+    <button mat-button class="back-button" (click)="navigateToDashboard()">
+        <mat-icon>arrow_back</mat-icon> Dashboard
+    </button>
+    <h1><img src="ebps.png"></h1>
+    <h1>DESIGN DATA APPLICATION FORM</h1>
+    <mat-horizontal-stepper [linear]="true" #stepper="matStepper">
+        <!-- Step 1 -->
+        <mat-step [stepControl]="floorForm">
+            <ng-template matStepLabel>
+                Floor
+            </ng-template>
+            <app-floor [floorForm]="floorForm"></app-floor>
+            <div class="stepper-actions">
+                <button mat-button matStepperNext [disabled]="!floorForm.valid">Next</button>
+            </div>
+        </mat-step>
+        
+
+        <!-- Step 2 -->
+        <mat-step>
+            <ng-template matStepLabel>
+                Building ByLaws
+            </ng-template>
+
+            <div class="stepper-actions">
+                <button mat-button matStepperNext [disabled]="">
+                    Next
+                </button>
+
+            </div>
+        </mat-step>
+
+        <!-- Step 3 -->
+        <mat-step>
+            <ng-template matStepLabel>
+                Architectural
+            </ng-template>
+
+            <div class="stepper-actions">
+                <button mat-button matStepperNext [disabled]="">
+                    Next
+                </button>
+
+            </div>
+        </mat-step>
+        
+        <!-- Step 4 -->
+        <mat-step>
+            <ng-template matStepLabel>
+                Structural
+            </ng-template>
+
+            <div class="stepper-actions">
+                <button mat-button matStepperNext [disabled]="">
+                    Next
+                </button>
+
+            </div>
+        </mat-step>
+
+        <!-- Step 5 -->
+        <mat-step>
+            <ng-template matStepLabel>
+                Submit
+            </ng-template>
+
+            <div class="stepper-actions">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="submitForm()">Submit</button>
+
+            </div>
+        </mat-step>
+
+
+    </mat-horizontal-stepper>
+</div>

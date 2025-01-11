@@ -1,0 +1,14 @@
+<div *ngFor="let form of floorForm.controls; let i = index">
+    <form [formGroup]="getFormGroup(form)">
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="flex-item">
+            <mat-label>Salutation</mat-label>
+            <mat-select formControlName="salutation">
+              <mat-option value="1">Mr</mat-option>
+              <mat-option value="2">Ms</mat-option>
+              <mat-option value="3">Mrs</mat-option>
+            </mat-select>
+          </mat-form-field>
+           
+        </div>
+    </form></div>
