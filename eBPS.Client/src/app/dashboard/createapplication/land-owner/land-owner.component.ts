@@ -6,6 +6,7 @@ import { MatOption, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ApplicationService } from '../../../services/shared/application/application.service';
 
 @Component({
   selector: 'app-land-owner',
@@ -23,8 +24,8 @@ export class LandOwnerComponent {
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();
  
-  wards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
-  
+  ward:{ id: number; wardNumber: string }[] = []; 
+  issueDistrict: { id: number; description: string }[] = [];
 
   asFormGroup(control: any): FormGroup {
     return control as FormGroup;
@@ -37,4 +38,23 @@ export class LandOwnerComponent {
   onRemoveForm(index: number) {
     this.removeForm.emit(index); // Notify parent to remove a form
   }
+
+  constructor(private applicationService: ApplicationService){}
+      ngOnInit(): void {
+        this.fetchIssueDistrict();
+        this.fetchWard();
+        
+      } 
+      fetchIssueDistrict() {
+        this.applicationService.getIssueDistrict().subscribe((data: { id: number; description: string }[]) => {
+          this.issueDistrict = data;
+        });
+      }
+      fetchWard() {
+        this.applicationService.getWard().subscribe((data: { id: number; wardNumber: string }[]) => {
+          this.ward = data;
+        });
+        
+      }
 }
+

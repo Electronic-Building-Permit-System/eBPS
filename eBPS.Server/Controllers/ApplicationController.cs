@@ -130,5 +130,50 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+        
+        [HttpGet("get-landscape-type")]
+        public async Task<IActionResult> GetActiveLandscapeType()
+        {
+            try
+            {
+                var landscapetype = await _applicationService.GetActiveLandscapeType();
+                return Ok(landscapetype);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpGet("get-issue-district")]
+        public async Task<IActionResult> GetActiveIssueDistrict()
+        {
+            try
+            {
+                var issuedistrict = await _applicationService.GetActiveIssueDistrict();
+                return Ok(issuedistrict);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpGet("get-transaction-type")]
+        public async Task<IActionResult> GetActiveTransactionType()
+        {
+            try
+            {
+                var transactiontype = await _applicationService.GetActiveTransactionType();
+                return Ok(transactiontype);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
     }
 }

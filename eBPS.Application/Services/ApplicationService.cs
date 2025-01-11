@@ -12,6 +12,10 @@ namespace eBPS.Application.Services
         Task<IEnumerable<WardDTO>> GetActiveWard();
         Task<IEnumerable<LandUseSubZoneDTO>> GetActiveLandUseSubZone();
         Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone();
+        Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType();
+        Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType();
+        Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict();
+
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
         Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId);
@@ -25,21 +29,25 @@ namespace eBPS.Application.Services
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
         private readonly IWardRepository _wardRepository;
-        private readonly ILandUseSubZoneRepository _landUseSubZoneRepository;
         private readonly ILandUseZoneRepository _landUseZoneRepository;
         private readonly IHouseOwnerRepository _houseOwnerRepository;
+        private readonly ILandscapeTypeRepository _landscapeTypeRepository;
+        private readonly IIssueDistrictRepository _issueDistrictRepository;
+        private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-        public ApplicationService(IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landUseZoneRepository, 
-            IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, 
-            IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository,ILandUseSubZoneRepository landUseSubZoneRepository,
-            IHouseOwnerRepository houseOwnerRepository)
+        public ApplicationService(ITransactionTypeRepository transactionTypeRepository, IBuildingPurposeRepository buildingPurposeRepository, ILandUseZoneRepository landUseZoneRepository, 
+            IStructureTypeRepository structureTypeRepository, IIssueDistrictRepository issueDistrictRepository, INBCClassRepository nbcClassRepository,IOrganizationRepository organizationRepository, 
+            IBuildingApplicationRepository buildingApplicationRepository,IWardRepository wardRepository,ILandUseSubZoneRepository landUseSubZoneRepository, ILandscapeTypeRepository landscapeTypeRepository, IHouseOwnerRepository houseOwnerRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
             _nbcClassRepository = nbcClassRepository;
-            _wardRepository= wardRepository;
+            _landscapeTypeRepository = landscapeTypeRepository;
+            _wardRepository = wardRepository;
             _organizationRepository = organizationRepository;
             _buildingApplicationRepository = buildingApplicationRepository;
+            _issueDistrictRepository= issueDistrictRepository;
+            _transactionTypeRepository = transactionTypeRepository;
             _landUseSubZoneRepository = landUseSubZoneRepository;
             _landUseZoneRepository = landUseZoneRepository;
             _houseOwnerRepository = houseOwnerRepository;
@@ -73,6 +81,19 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone()
         {
             return await _landUseZoneRepository.GetActiveLandUseZone();
+        } 
+        public async Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType()
+        {
+            return await _landscapeTypeRepository.GetActiveLandscapeType();
+        }
+        public async Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType()
+        {
+            return await _transactionTypeRepository.GetActiveTransactionType();
+        }
+        public async Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict()
+        {
+            return await _issueDistrictRepository.GetActiveIssueDistrict();
+            
         }
         
         public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()

@@ -55,10 +55,9 @@
           <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
               <mat-label>Issue District</mat-label>
-              <mat-select formControlName="field1">
-                <mat-option value="lalitpur">Lalitpur</mat-option>
-                <mat-option value="kathmandu">Kathmandu</mat-option>
-                <mat-option value="bhaktapur">Bhaktapur</mat-option>
+              <mat-select formControlName="issueDistrict">
+                <mat-option *ngFor="let purpose of issueDistrict" [value]="purpose.id">
+                  {{ purpose.description }}</mat-option> 
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item">
@@ -85,8 +84,9 @@
           <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
               <mat-label>Ward Number</mat-label>
-              <mat-select formControlName="field1">
-                <mat-option *ngFor="let ward of wards" [value]="ward">{{ ward }}</mat-option>
+              <mat-select formControlName="ward">
+                <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                  {{ purpose.wardNumber }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item">
