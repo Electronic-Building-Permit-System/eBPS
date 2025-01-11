@@ -1,9 +1,7 @@
-﻿using eBPS.Application.Services;
+﻿using eBPS.Application.Interfaces;
 using MailKit.Net.Smtp;
-using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using MimeKit.Text;
 
 namespace eBPS.Infrastructure.Services
 {

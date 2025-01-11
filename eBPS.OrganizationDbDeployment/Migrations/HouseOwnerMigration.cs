@@ -19,7 +19,7 @@ namespace eBPS.OrganizationDbDeployment.Migrations
            .WithColumn("Tole").AsString(50).NotNullable()
            .WithColumn("CitizenshipNumber").AsString(50).NotNullable()
            .WithColumn("CitizenshipIssueDate").AsDateTime().NotNullable()
-           .WithColumn("CitizenshipIssueDistrict").AsDateTime().NotNullable()
+           .WithColumn("CitizenshipIssueDistrict").AsInt32().NotNullable()
            .WithColumn("PhoneNumber").AsString(10).NotNullable()
            .WithColumn("Email").AsString(50).NotNullable()
            .WithColumn("WardNumber").AsInt32().NotNullable()
