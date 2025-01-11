@@ -67,7 +67,7 @@ describe('LandInformationComponent', () => {
 
   it('should trigger onRemoveForm when remove button is clicked', () => {
     const index = 0;
-    component.dynamicForms = new FormArray([new FormGroup({})]);
+    component.landInformationForm = new FormArray([new FormGroup({})]);
 
     fixture.detectChanges();
 

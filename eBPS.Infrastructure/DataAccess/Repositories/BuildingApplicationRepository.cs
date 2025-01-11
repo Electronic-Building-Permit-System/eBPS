@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
+using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
@@ -28,39 +29,84 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         {
             using var connection = new SqlConnection(connectionString);
             var query = @"INSERT INTO BuildingApplication (
-                    Salutation,
-                    ApplicantName,
-                    PhoneNumber,
-                    Email,
-                    WardNumber,
-                    Address,
-                    HouseNumber,
-                    ApplicantPhotoPath,
-                    TransactionType,
-                    BuildingPurpose,
-                    NBCClass,
-                    StructureType,
-                    LandUseZone,
-                    LandUseSubZone
-                )
-                VALUES (
-                    @Salutation,
-                    @ApplicantName,
-                    @PhoneNumber,
-                    @Email,
-                    @WardNumber,
-                    @Address,
-                    @HouseNumber,
-                    @ApplicantPhotoPath,
-                    @TransactionType,
-                    @BuildingPurpose,
-                    @NBCClass,
-                    @StructureType,
-                    @LandUseZone,
-                    @LandUseSubZone
-                );";
-            await connection.QuerySingleOrDefaultAsync<BuildingApplicationDTO>(query, buildingApplication);
+                        Salutation,
+                        ApplicantName,
+                        ApplicantNumber,
+                        FatherName,
+                        GrandFatherName,
+                        Tole,
+                        CitizenshipNumber,
+                        CitizenshipIssueDate,
+                        CitizenshipIssueDistrict,
+                        PhoneNumber,
+                        Email,
+                        WardNumber,
+                        Address,
+                        HouseNumber,
+                        ApplicantPhotoPath,
+                        TransactionType,
+                        BuildingPurpose,
+                        NBCClass,
+                        StructureType,
+                        LandUseZone,
+                        LandUseSubZone,
+                        CreatedDate,
+                        CreatedBy,
+                        OrganizationId,
+                        TotalLandInRopani,
+                        TotalLandInAana,
+                        TotalLandInPaisa,
+                        TotalLandInDaam,
+                        TotalLandInSquareMeter,
+                        TotalLandInSquareFeet,
+                        LandLongitude,
+                        LandLatitude,
+                        LandSawikWard,
+                        LandSawikGabisa,
+                        LandToleName,
+                        LandWard,
+                        IsDeleted
+                    ) VALUES (
+                        @Salutation,
+                        @ApplicantName,
+                        @ApplicantNumber,
+                        @FatherName,
+                        @GrandFatherName,
+                        @Tole,
+                        @CitizenshipNumber,
+                        @CitizenshipIssueDate,
+                        @CitizenshipIssueDistrict,
+                        @PhoneNumber,
+                        @Email,
+                        @WardNumber,
+                        @Address,
+                        @HouseNumber,
+                        @ApplicantPhotoPath,
+                        @TransactionType,
+                        @BuildingPurpose,
+                        @NBCClass,
+                        @StructureType,
+                        @LandUseZone,
+                        @LandUseSubZone,
+                        @CreatedDate,
+                        @CreatedBy,
+                        @OrganizationId,
+                        @TotalLandInRopani,
+                        @TotalLandInAana,
+                        @TotalLandInPaisa,
+                        @TotalLandInDaam,
+                        @TotalLandInSquareMeter,
+                        @TotalLandInSquareFeet,
+                        @LandLongitude,
+                        @LandLatitude,
+                        @LandSawikWard,
+                        @LandSawikGabisa,
+                        @LandToleName,
+                        @LandWard,
+                        @IsDeleted)";
+
+            buildingApplication.Id = await connection.ExecuteScalarAsync<int>(query, buildingApplication);
         }
-      
+
     }
 }

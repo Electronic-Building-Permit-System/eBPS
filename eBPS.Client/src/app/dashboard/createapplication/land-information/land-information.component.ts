@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './land-information.component.css'
 })
 export class LandInformationComponent {
-  @Input() dynamicForms!: FormArray;
+  @Input() landInformationForm!: FormArray;
   @Input() totalRopani!: number;
   @Input() totalAana!: number;
   @Input() totalPaisa!: number;
