@@ -5,6 +5,6 @@ namespace eBPS.Application.Interfaces.Repositories
 {
     public interface IHouseOwnerRepository
     {
-        Task AddHouseOwnerAsync(HouseOwner houseOwner, string connectionString);
+        Task AddHouseOwnerAsync(List<HouseOwnerDTO> houseOwner, int applicationId, string connectionString);
     }
 }

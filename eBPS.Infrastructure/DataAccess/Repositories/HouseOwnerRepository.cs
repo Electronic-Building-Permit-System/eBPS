@@ -16,7 +16,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task AddHouseOwnerAsync(HouseOwner houseOwner, string connectionString)
+        public async Task AddHouseOwnerAsync(List<HouseOwnerDTO> houseOwner,int applicationId, string connectionString)
         {
             using var connection = new SqlConnection(connectionString);
             var query = @"INSERT INTO HouseOwner (
@@ -33,7 +33,8 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     PhoneNumber,
                     Email,
                     WardNumber,
-                    Address
+                    Address,
+                    HouseOwnerPhotoPath
                 )
                 VALUES
                 (
@@ -50,8 +51,16 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     @PhoneNumber,
                     @Email,
                     @WardNumber,
-                    @Address;";
-            await connection.QuerySingleOrDefaultAsync<HouseOwnerDTO>(query, houseOwner);
+                    @Address,
+                    'test'
+            )";
+            // Add the applicationId to each house owner DTO
+            foreach (var owner in houseOwner)
+            {
+                owner.ApplicationId = applicationId;
+            }
+
+            await connection.ExecuteAsync(query, houseOwner);
         }
 
     }

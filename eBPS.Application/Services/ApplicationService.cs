@@ -30,6 +30,7 @@ namespace eBPS.Application.Services
         private readonly IBuildingApplicationRepository _buildingApplicationRepository;
         private readonly IWardRepository _wardRepository;
         private readonly ILandUseZoneRepository _landUseZoneRepository;
+        private readonly ILandUseSubZoneRepository _landUseSubZoneRepository;
         private readonly IHouseOwnerRepository _houseOwnerRepository;
         private readonly ILandscapeTypeRepository _landscapeTypeRepository;
         private readonly IIssueDistrictRepository _issueDistrictRepository;
@@ -160,27 +161,9 @@ namespace eBPS.Application.Services
             {
                 var orgId = 1;
                 var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
-                foreach (var owner in houseOwnerDTO)
-                {
+               
+                    await _houseOwnerRepository.AddHouseOwnerAsync(houseOwnerDTO,applicationId, connectionString);
 
-                    var houseOwner = new HouseOwner
-                    {
-                        ApplicationId=applicationId,
-                        Salutation = owner.Salutation,
-                        HouseOwnerName = owner.HouseOwnerName,
-                        FatherName = owner.FatherName,
-                        GrandFatherName = owner.GrandFatherName,
-                        CitizenshipNumber = owner.CitizenshipNumber,
-                        CitizenshipIssueDistrict = owner.CitizenshipIssueDistrict,
-                        CitizenshipIssueDate = owner.CitizenshipIssueDate,
-                        Tole = owner.Tole,
-                        WardNumber = owner.WardNumber,
-                        PhoneNumber = owner.PhoneNumber,
-                        Email = owner.Email,
-                    };
-                    await _houseOwnerRepository.AddHouseOwnerAsync(houseOwner, connectionString);
-
-                }
 
             }
             catch (Exception ex)

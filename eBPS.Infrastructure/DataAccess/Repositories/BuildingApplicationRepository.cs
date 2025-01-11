@@ -66,7 +66,9 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                         LandToleName,
                         LandWard,
                         IsDeleted
-                    ) VALUES (
+                    ) 
+                    OUTPUT INSERTED.Id
+                    VALUES (
                         @Salutation,
                         @ApplicantName,
                         @ApplicantNumber,
