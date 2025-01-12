@@ -14,7 +14,7 @@ namespace eBPS.Domain.Entities
         public string Tole { get; set; } 
         public string CitizenshipNumber { get; set; } 
         public DateTime CitizenshipIssueDate { get; set; } 
-        public DateTime CitizenshipIssueDistrict { get; set; }
+        public int CitizenshipIssueDistrict { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int WardNumber { get; set; } 

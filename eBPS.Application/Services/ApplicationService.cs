@@ -1,7 +1,6 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
-using System.Security.Cryptography;
 namespace eBPS.Application.Services
 {
     public interface IApplicationService
@@ -19,6 +18,8 @@ namespace eBPS.Application.Services
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
         Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId);
+        
+        Task CreateLandOwner(List<LandOwnerDTO> landOwnerDTO, int applicationId);
     }
 
     public class ApplicationService : IApplicationService
@@ -35,10 +36,13 @@ namespace eBPS.Application.Services
         private readonly ILandscapeTypeRepository _landscapeTypeRepository;
         private readonly IIssueDistrictRepository _issueDistrictRepository;
         private readonly ITransactionTypeRepository _transactionTypeRepository;
+        
+        private readonly ILandOwnerRepository _landOwnerRepository;
 
         public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
            IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IIssueDistrictRepository issueDistrictRepository,  
-            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository)
+            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, 
+            ILandOwnerRepository landOwnerRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -52,6 +56,8 @@ namespace eBPS.Application.Services
             _landUseSubZoneRepository = landUseSubZoneRepository;
             _landUseZoneRepository = landUseZoneRepository;
             _houseOwnerRepository = houseOwnerRepository;
+            
+            _landOwnerRepository = landOwnerRepository;
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -111,45 +117,46 @@ namespace eBPS.Application.Services
                 {
                     Salutation = buildingApplicationDTO.Salutation,
                     ApplicantName = buildingApplicationDTO.ApplicantName,
-                   //// ApplicantNumber = buildingApplicationDTO.ApplicantNumber,
-                   // FatherName = buildingApplicationDTO.FatherName,
-                   // GrandFatherName = buildingApplicationDTO.GrandFatherName,
-                   // Tole = buildingApplicationDTO.Tole,
-                   // CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
-                   // CitizenshipIssueDate = DateTime.Now,
-                   // CitizenshipIssueDistrict = DateTime.Now,
+                    ApplicationNumber = buildingApplicationDTO.ApplicationNumber,
+                    FatherName = buildingApplicationDTO.FatherName,
+                    GrandFatherName = buildingApplicationDTO.GrandFatherName,
+                    Tole = buildingApplicationDTO.Tole,
+                    CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
+                    CitizenshipIssueDate = DateTime.Now,
+                    CitizenshipIssueDistrict = buildingApplicationDTO.CitizenshipIssueDistrict,
                     PhoneNumber = buildingApplicationDTO.PhoneNumber,
                     Email = buildingApplicationDTO.Email,
                     WardNumber = buildingApplicationDTO.WardNumber,
                     Address = buildingApplicationDTO.Address,
                     HouseNumber = buildingApplicationDTO.HouseNumber,
-                   // ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
+                    ApplicantPhotoPath = "test",
                     TransactionType = buildingApplicationDTO.TransactionType,
                     BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
                     NBCClass = buildingApplicationDTO.NBCClass,
                     StructureType = buildingApplicationDTO.StructureType,
                     LandUseZone = buildingApplicationDTO.LandUseZone,
                     LandUseSubZone = buildingApplicationDTO.LandUseSubZone,
-                    //CreatedDate = DateTime.Now,
-                    //CreatedBy = buildingApplicationDTO.CreatedBy,
-                    //OrganizationId = buildingApplicationDTO.OrganizationId,
-                    //TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
-                    //TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
-                    //TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
-                    //TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
-                    //TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
-                    //TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
-                    //LandLongitude = buildingApplicationDTO.LandLongitude,
-                    //LandLatitude = buildingApplicationDTO.LandLatitude,
-                    //LandSawikWard = buildingApplicationDTO.LandSawikWard,
-                    //LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
-                    //LandToleName = buildingApplicationDTO.LandToleName,
-                    //LandWard = buildingApplicationDTO.LandWard,
-                    //IsDeleted = buildingApplicationDTO.IsDeleted
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = buildingApplicationDTO.CreatedBy,
+                    OrganizationId = buildingApplicationDTO.OrganizationId,
+                    TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
+                    TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
+                    TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
+                    TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
+                    TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
+                    TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
+                    LandLongitude = buildingApplicationDTO.LandLongitude,
+                    LandLatitude = buildingApplicationDTO.LandLatitude,
+                    LandSawikWard = buildingApplicationDTO.LandSawikWard,
+                    LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
+                    LandToleName = buildingApplicationDTO.LandToleName,
+                    LandWard = buildingApplicationDTO.LandWard,
+                    IsDeleted = buildingApplicationDTO.IsDeleted
                 };
 
                 await _buildingApplicationRepository.AddBuildingApplicationAsync(buildingApplication, connectionString);
                 CreateHouseOwner(buildingApplicationDTO.HouseOwnerList,buildingApplication.Id);
+                CreateLandOwner(buildingApplicationDTO.LandOwnerList,buildingApplication.Id);
             }
             catch (Exception ex)
             {
@@ -163,6 +170,21 @@ namespace eBPS.Application.Services
                 var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
                
                     await _houseOwnerRepository.AddHouseOwnerAsync(houseOwnerDTO,applicationId, connectionString);
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        public async Task CreateLandOwner(List<LandOwnerDTO> landOwnerDTO, int applicationId)
+        {        
+            try
+            {
+                var orgId = 1;
+                var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
+               
+                    await _landOwnerRepository.AddLandOwnerAsync(landOwnerDTO,applicationId, connectionString);
 
 
             }

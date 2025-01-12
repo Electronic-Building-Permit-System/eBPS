@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
-using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
@@ -31,7 +30,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             var query = @"INSERT INTO BuildingApplication (
                         Salutation,
                         ApplicantName,
-                        ApplicantNumber,
+                        ApplicationNumber,
                         FatherName,
                         GrandFatherName,
                         Tole,
@@ -71,7 +70,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     VALUES (
                         @Salutation,
                         @ApplicantName,
-                        @ApplicantNumber,
+                        @ApplicationNumber,
                         @FatherName,
                         @GrandFatherName,
                         @Tole,
