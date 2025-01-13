@@ -43,5 +43,7 @@ namespace eBPS.Application.DTOs
         public List<HouseOwnerDTO> HouseOwnerList { get; set; }
         public List<LandInformationDTO> LandInformationList {  get; set; }
         public List<CharkillaDTO> CharkillaList {  get; set; }
+        public List<LandOwnerDTO> LandOwnerList { get; set; }
+
     }
 }

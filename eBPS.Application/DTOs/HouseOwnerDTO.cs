@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace eBPS.Application.DTOs
 {
     public class HouseOwnerDTO
@@ -12,7 +7,7 @@ namespace eBPS.Application.DTOs
         public int ApplicationId { get; set; }
         public int Salutation { get; set; } 
         public int HouseOwnerType { get; set; }
-        public string HouseOwnerName { get; set; }
+        public string HouseOwnerName { get; set; } 
         public string HouseOwnerPhotoPath { get; set; } // Path to House Owner's Photo
         public string FatherName { get; set; } 
         public string GrandFatherName { get; set; } 

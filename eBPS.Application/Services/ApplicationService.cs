@@ -1,7 +1,6 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
-using System.Security.Cryptography;
 namespace eBPS.Application.Services
 {
     public interface IApplicationService
@@ -21,6 +20,8 @@ namespace eBPS.Application.Services
         Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId);
         Task CreateLandInformation(List<LandInformationDTO> landInformationDTO, int applicationId);
         Task CreateCharkilla(List<CharkillaDTO> charkillaDTO, int applicationId);
+        
+        Task CreateLandOwner(List<LandOwnerDTO> landOwnerDTO, int applicationId);
     }
 
     public class ApplicationService : IApplicationService
@@ -39,11 +40,12 @@ namespace eBPS.Application.Services
         private readonly ITransactionTypeRepository _transactionTypeRepository;
         private readonly ILandInformationRepository _landInformationRepository;
         private readonly ICharkillaRepository _charkillaRepository;
+         private readonly ILandOwnerRepository _landOwnerRepository;
 
 
         public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
            IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IIssueDistrictRepository issueDistrictRepository,  
-            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository)
+            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,ILandOwnerRepository landOwnerRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -59,6 +61,8 @@ namespace eBPS.Application.Services
             _houseOwnerRepository = houseOwnerRepository;
             _landInformationRepository = landInformationRepository;
             _charkillaRepository = charkillaRepository;
+            
+            _landOwnerRepository = landOwnerRepository;
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -130,7 +134,7 @@ namespace eBPS.Application.Services
                     WardNumber = buildingApplicationDTO.WardNumber,
                     Address = buildingApplicationDTO.Address,
                     HouseNumber = buildingApplicationDTO.HouseNumber,
-                    ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
+                    ApplicantPhotoPath = "test",
                     TransactionType = buildingApplicationDTO.TransactionType,
                     BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
                     NBCClass = buildingApplicationDTO.NBCClass,
@@ -159,6 +163,7 @@ namespace eBPS.Application.Services
                 CreateHouseOwner(buildingApplicationDTO.HouseOwnerList,buildingApplication.Id);
                 CreateLandInformation(buildingApplicationDTO.LandInformationList, buildingApplication.Id);
                 CreateCharkilla(buildingApplicationDTO.CharkillaList, buildingApplication.Id);
+                CreateLandOwner(buildingApplicationDTO.LandOwnerList,buildingApplication.Id);
             }
             catch (Exception ex)
             {
@@ -194,6 +199,22 @@ namespace eBPS.Application.Services
             {
             }
         }
+
+        public async Task CreateLandOwner(List<LandOwnerDTO> landOwnerDTO, int applicationId)
+        {        
+            try
+            {
+                var orgId = 1;
+                var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
+               
+                   await _landOwnerRepository.AddLandOwnerAsync(landOwnerDTO,applicationId, connectionString);
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         public async Task CreateCharkilla(List<CharkillaDTO> charkillaDTO, int applicationId)
         {
             try
@@ -202,6 +223,7 @@ namespace eBPS.Application.Services
                 var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
 
                 await _charkillaRepository.AddCharkillaAsync(charkillaDTO, applicationId, connectionString);
+                    
 
 
             }

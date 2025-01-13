@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
-using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;

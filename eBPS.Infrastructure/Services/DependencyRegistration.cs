@@ -28,6 +28,8 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<IHouseOwnerRepository, HouseOwnerRepository>();
             services.AddScoped<ILandInformationRepository, LandInformationRepository>();
             services.AddScoped<ICharkillaRepository, CharkillaRepository>();
+            
+            services.AddScoped<ILandOwnerRepository, LandOwnerRepository>();
 
             // Register services from the Application layer
             services.AddScoped<IUserService, UserService>();
