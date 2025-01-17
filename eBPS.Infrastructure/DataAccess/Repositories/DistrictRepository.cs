@@ -7,20 +7,20 @@ using System.Data;
 
 namespace eBPS.Infrastructure.DataAccess.Repositories
 {
-    public class TransactionTypeRepository: ITransactionTypeRepository
+    public class DistrictRepository : IDistrictRepository
     {
         private readonly IDbConnection _dbConnection;
 
-        public TransactionTypeRepository(IDbConnection dbConnection)
+        public DistrictRepository(IDbConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
 
 
-        public async Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType()
+        public async Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict()
         {
-            const string query = "SELECT Id, Description FROM TransactionType WHERE IsActive = 1";
-            return await _dbConnection.QueryAsync<TransactionTypeDTO>(query);
+            const string query = "SELECT Id, Description FROM District WHERE IsActive = 1";
+            return await _dbConnection.QueryAsync<DistrictDTO>(query);
         }
     }
 }

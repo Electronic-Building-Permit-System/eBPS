@@ -144,17 +144,17 @@ export class CreateApplicationComponent {
   addNewHouseOwnerForm() {
     const formGroup = this.fb.group({
       salutation: ['', Validators.required],
-      name: ['', Validators.required],
+      houseOwnerName: ['', Validators.required],
       fatherName: ['', Validators.required],
-      phone: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
       grandFatherName: ['', Validators.required],
-      citizenshipNo: ['', Validators.required],
-      issueDate: ['', Validators.required],
+      citizenshipNumber: ['', Validators.required],
+      citizenshipIssueDate: ['', Validators.required],
       tole: ['', Validators.required],
-      applicantNationality: ['', Validators.required],
-      issueDistrict: ['', Validators.required],
-      ward: ['', Validators.required],
+      citizenshipIssueDistrict: ['', Validators.required],
+      wardNumber: ['', Validators.required],
+      address: ['', Validators.required],
     });
     this.houseOwnerForm.push(formGroup);
   }

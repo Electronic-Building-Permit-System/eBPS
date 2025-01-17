@@ -42,7 +42,7 @@ namespace eBPS.Infrastructure.Tests.Services
             AssertRegisteredService<ILandUseZoneRepository>();
             AssertRegisteredService<ILandscapeTypeRepository>();
             AssertRegisteredService<ITransactionTypeRepository>();
-            AssertRegisteredService<IIssueDistrictRepository>();
+            AssertRegisteredService<IDistrictRepository>();
             AssertRegisteredService<IBuildingApplicationRepository>();
             AssertRegisteredService<ILandUseSubZoneRepository>();
             AssertRegisteredService<IHouseOwnerRepository>();
@@ -73,7 +73,7 @@ namespace eBPS.Infrastructure.Tests.Services
             AssertThatServiceHasCorrectLifetime<ILandUseZoneRepository>();
             AssertThatServiceHasCorrectLifetime<ILandscapeTypeRepository>();
             AssertThatServiceHasCorrectLifetime<ITransactionTypeRepository>();
-            AssertThatServiceHasCorrectLifetime<IIssueDistrictRepository>();
+            AssertThatServiceHasCorrectLifetime<IDistrictRepository>();
             AssertThatServiceHasCorrectLifetime<IBuildingApplicationRepository>();
             AssertThatServiceHasCorrectLifetime<ILandUseSubZoneRepository>();
             AssertThatServiceHasCorrectLifetime<IHouseOwnerRepository>();

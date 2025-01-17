@@ -29,11 +29,11 @@ img{
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  color: #3f51b5;
+  color: #007bff;
   font-weight: bold;
 }
 .back-button mat-icon {
-  margin-right: 8px;
+  font-weight: bold;
 }
 
 

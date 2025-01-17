@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eBPS.Application.DTOs
+namespace eBPS.Application.DTOs.BuildingApplication
 {
-    public class IssueDistrictDTO
+    public class LandUseSubZoneDTO
     {
         public int Id { get; set; }
         public string Description { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Moq;
-using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Services;
+using eBPS.Application.DTOs;
 
 namespace eBPS.Application.Tests.Services
 {

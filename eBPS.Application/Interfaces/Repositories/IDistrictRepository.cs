@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.BuildingApplication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace eBPS.Application.Interfaces.Repositories
 {
-    public interface IIssueDistrictRepository
+    public interface IDistrictRepository
     {
-        Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict();
+        Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict();
     }
 }

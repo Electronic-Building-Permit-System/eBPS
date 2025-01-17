@@ -1,6 +1,4 @@
-﻿
-
-namespace eBPS.Application.DTOs
+﻿namespace eBPS.Application.DTOs.BuildingApplication
 {
     public class WardDTO
     {

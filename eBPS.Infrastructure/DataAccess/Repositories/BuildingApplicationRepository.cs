@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using eBPS.Application.DTOs;
+using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;

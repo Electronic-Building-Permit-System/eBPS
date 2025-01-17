@@ -26,7 +26,7 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<ILandUseZoneRepository, LandUseZoneRepository>();
             services.AddScoped<ILandscapeTypeRepository, LandscapeTypeRepository>();
             services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
-            services.AddScoped<IIssueDistrictRepository, IssueDistrictRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
             services.AddScoped<IBuildingApplicationRepository, BuildingApplicationRepository>();
             services.AddScoped<ILandUseSubZoneRepository, LandUseSubZoneRepository>();
             services.AddScoped<IHouseOwnerRepository, HouseOwnerRepository>();
