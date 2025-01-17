@@ -7,8 +7,8 @@ namespace eBPS.Domain.Entities
         public int ApplicationId { get; set; } 
         public int Salutation { get; set; } 
         public int HouseOwnerType { get; set; } 
-        public string HouseOwnerName { get; set; } 
-        // public string HouseOwnerPhotoPath { get; set; } // Path to House Owner's Photo
+        public string HouseOwnerName { get; set; }
+        public string HouseOwnerPhotoPath { get; set; } 
         public string FatherName { get; set; } 
         public string GrandFatherName { get; set; } 
         public string Tole { get; set; } 

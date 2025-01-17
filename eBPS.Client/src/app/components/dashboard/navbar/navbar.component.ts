@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/account/user.service';
-import { OrganizationService } from '../../../services/shared/organization/organization.service';
-import { RoleService } from '../../../services/shared/role/role.service';
+import { OrganizationService } from '../../../services/organization/organization.service';
+import { RoleService } from '../../../services/role/role.service';
 
 
 @Component({

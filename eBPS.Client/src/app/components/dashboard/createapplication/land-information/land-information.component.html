@@ -3,45 +3,45 @@
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Map Sheet Number</mat-label>
-                <input matInput formControlName="field1" />
+                <input matInput formControlName="mapSheet" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Land Parcel Number</mat-label>
-                <input matInput formControlName="field2" />
+                <input matInput formControlName="landParcel" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Ropani</mat-label>
-                <input matInput formControlName="Ropani" />
+                <input matInput formControlName="ropani" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Aana</mat-label>
-                <input matInput formControlName="Aana" />
+                <input matInput formControlName="aana" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Paisa</mat-label>
-                <input matInput formControlName="Paisa" />
+                <input matInput formControlName="paisa" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Daam</mat-label>
-                <input matInput formControlName="Daam" />
+                <input matInput formControlName="daam" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Square Feet</mat-label>
-                <input matInput formControlName="SquareFeet" />
+                <input matInput formControlName="squareFeet" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Square Meter</mat-label>
-                <input matInput formControlName="SquareMeter" />
+                <input matInput formControlName="squareMeter" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Remarks</mat-label>
-                <textarea  matInput formControlName="field2" rows="4"></textarea>
+                <textarea  matInput formControlName="remarks" rows="4"></textarea>
             </mat-form-field>
         </div>
       <div class="add-remove-button">
@@ -61,27 +61,27 @@
       <div class="totals-container">
         <div class="total-item">
           <mat-label>Total Ropani:</mat-label>
-          <span>{{ totalRopani }}</span>
+          <span>{{ totals.totalRopani }}</span>
         </div>
         <div class="total-item">
           <mat-label>Total Aana:</mat-label>
-          <span>{{ totalAana }}</span>
+          <span>{{ totals.totalAana }}</span>
         </div>
         <div class="total-item">
           <mat-label>Total Paisa:</mat-label>
-          <span>{{ totalPaisa }}</span>
+          <span>{{ totals.totalPaisa }}</span>
         </div>
         <div class="total-item">
           <mat-label>Total Daam:</mat-label>
-          <span>{{ totalDaam }}</span>
+          <span>{{ totals.totalDaam }}</span>
         </div>
         <div class="total-item">
             <mat-label>Total Square Feet:</mat-label>
-            <span>{{ totalSquareFeet }}</span>
+            <span>{{ totals.totalSquareFeet }}</span>
           </div>
           <div class="total-item">
             <mat-label>Total Square Meter:</mat-label>
-            <span>{{ totalSquareMeter }}</span>
+            <span>{{ totals.totalSquareMeter }}</span>
           </div>
       </div>
     </mat-card-content>

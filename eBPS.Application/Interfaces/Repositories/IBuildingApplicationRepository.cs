@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Domain.Entities;
 
 namespace eBPS.Application.Interfaces.Repositories

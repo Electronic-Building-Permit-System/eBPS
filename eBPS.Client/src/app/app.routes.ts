@@ -6,8 +6,8 @@ import { ForgetpasswordComponent } from './components/account/forgetpassword/for
 import { SignupComponent } from './components/account/signup/signup.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CreateapplicationComponent } from './components/dashboard/createapplication/createapplication.component';
 import { DesigndataComponent } from './components/dashboard/designdata/designdata.component';
+import { CreateApplicationComponent } from './components/dashboard/createapplication/createapplication.component';
 export const routes: Routes = [
   {
     path: '',
@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   { path: 'navbar', component: HomeNavbarComponent },
   { path: 'footer', component: FooterComponent },
-  { path: 'createapplication', component: CreateapplicationComponent },
+  { path: 'createapplication', component: CreateApplicationComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardService] },
   { path: 'signup', component: SignupComponent },
   {path:'forgotpassword', component: ForgetpasswordComponent},

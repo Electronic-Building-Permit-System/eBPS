@@ -8,10 +8,10 @@ import { MatOption } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatSelect } from '@angular/material/select';
 import { UserService } from '../../../services/account/user.service';
-import { OrganizationService } from '../../../services/shared/organization/organization.service';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
-import { RoleService } from '../../../services/shared/role/role.service';
+import { OrganizationService } from '../../../services/organization/organization.service';
+import { RoleService } from '../../../services/role/role.service';
 
 @Component({
   selector: 'app-signup',
