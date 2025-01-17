@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Http;
+
 namespace eBPS.Application.DTOs
 {
     public class BuildingApplicationDTO
@@ -17,7 +19,7 @@ namespace eBPS.Application.DTOs
         public int WardNumber { get; set; }
         public string Address { get; set; }
         public string HouseNumber { get; set; }
-        public string ApplicantPhotoPath { get; set; }
+        public IFormFile ApplicantPhotoPath { get; set; }
         public int TransactionType { get; set; }
         public int BuildingPurpose { get; set; }
         public int NBCClass { get; set; }

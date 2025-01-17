@@ -1,6 +1,7 @@
 ﻿using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 namespace eBPS.Application.Services
 {
     public interface IApplicationService
@@ -134,7 +135,7 @@ namespace eBPS.Application.Services
                     WardNumber = buildingApplicationDTO.WardNumber,
                     Address = buildingApplicationDTO.Address,
                     HouseNumber = buildingApplicationDTO.HouseNumber,
-                    ApplicantPhotoPath = "test",
+                    ApplicantPhotoPath = UploadImageAsync(buildingApplicationDTO.ApplicantPhotoPath),
                     TransactionType = buildingApplicationDTO.TransactionType,
                     BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
                     NBCClass = buildingApplicationDTO.NBCClass,
@@ -230,6 +231,33 @@ namespace eBPS.Application.Services
             catch (Exception ex)
             {
             }
+        }
+        public string UploadImageAsync(IFormFile file)
+        {
+            var _imageDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+            // Ensure the directory exists
+            if (!Directory.Exists(_imageDirectory))
+            {
+                Directory.CreateDirectory(_imageDirectory);
+            }
+            if (file == null || file.Length == 0)
+            {
+                throw new ArgumentException("No file uploaded.");
+            }
+
+            // Generate a unique filename (you can use GUID or any other logic)
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(_imageDirectory, fileName);
+
+            // Save the file to the specified directory
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyToAsync(fileStream);
+            }
+
+            // Return the relative file path (which can be used to access the file via a URL)
+            return Path.Combine("images", fileName);
         }
 
 

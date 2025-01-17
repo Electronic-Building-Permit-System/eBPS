@@ -44,7 +44,7 @@ namespace eBPS.Server.Controllers
             }
         }
         [HttpPost("create-building-application")]
-        public async Task<IActionResult> CreateBuildingApplication([FromBody] BuildingApplicationDTO buildingApplicationDTO)
+        public async Task<IActionResult> CreateBuildingApplication([FromForm] BuildingApplicationDTO buildingApplicationDTO)
         {
             try
             {
