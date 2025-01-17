@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -15,7 +14,6 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         {
             _dbConnection = dbConnection;
         }
-
         public async Task AddLandOwnerAsync(List<LandOwnerDTO> landOwner, int applicationId, string connectionString)
         {
             using var connection = new SqlConnection(connectionString);
@@ -58,7 +56,6 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             {
                 owner.ApplicationId = applicationId;
             }
-
             await connection.ExecuteAsync(query, landOwner);
         }
 

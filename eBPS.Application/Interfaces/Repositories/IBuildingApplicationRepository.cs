@@ -7,5 +7,6 @@ namespace eBPS.Application.Interfaces.Repositories
     {
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task AddBuildingApplicationAsync(BuildingApplication buildingApplication, string connectionString);
+        Task<BuildingApplication> GetBuildingApplicationById(int id, string connectionString);
     }
 }

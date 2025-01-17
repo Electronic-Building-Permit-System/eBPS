@@ -57,8 +57,22 @@ namespace eBPS.Server.Controllers
                 return BadRequest(new { Error = ex.Message });
 
             }
-        } 
-       
+        }
+        [HttpPut("edit-building-application/{id}")]
+        public async Task<IActionResult> EditBuildingApplication(int id, [FromBody] BuildingApplicationDTO buildingApplicationDTO)
+        {
+            try
+            {
+                // Pass the ID and updated DTO to the service layer for processing
+                await _applicationService.EditBuildingApplication(id, buildingApplicationDTO);
+                return Ok(new { Message = "Application updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
         [HttpGet("get-structure-type")]
         public async Task<IActionResult> GetActiveStructureType()
         {

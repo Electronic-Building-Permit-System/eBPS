@@ -14,9 +14,9 @@ namespace eBPS.Application.Services
         Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType();
         Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType();
         Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict();
-
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
+        Task EditBuildingApplication(int id, BuildingApplicationDTO buildingApplicationDTO);
         Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId);
         
         Task CreateLandOwner(List<LandOwnerDTO> landOwnerDTO, int applicationId);
@@ -162,6 +162,59 @@ namespace eBPS.Application.Services
             {
             }
         }
+        public async Task EditBuildingApplication(int id , BuildingApplicationDTO buildingApplicationDTO)
+        {        
+            try
+            {
+                var orgId = 1;
+                var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
+                var application = await _buildingApplicationRepository.GetBuildingApplicationById(id, connectionString);
+                if (application == null)
+                    throw new Exception("Application not found.");
+
+                application.Salutation = buildingApplicationDTO.Salutation;
+                application.ApplicantName = buildingApplicationDTO.ApplicantName;
+                application.FatherName = buildingApplicationDTO.FatherName;
+                application.GrandFatherName = buildingApplicationDTO.GrandFatherName;
+                application.Tole = buildingApplicationDTO.Tole;
+                application.CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber;
+                application.CitizenshipIssueDate = DateTime.Now;
+                application.CitizenshipIssueDistrict = buildingApplicationDTO.CitizenshipIssueDistrict;
+                application.PhoneNumber = buildingApplicationDTO.PhoneNumber;
+                application.Email = buildingApplicationDTO.Email;
+                application.WardNumber = buildingApplicationDTO.WardNumber;
+                application.Address = buildingApplicationDTO.Address;
+                application.HouseNumber = buildingApplicationDTO.HouseNumber;
+                application.ApplicantPhotoPath = "test";
+                application.TransactionType = buildingApplicationDTO.TransactionType;
+                application.BuildingPurpose = buildingApplicationDTO.BuildingPurpose;
+                application.NBCClass = buildingApplicationDTO.NBCClass;
+                application.StructureType = buildingApplicationDTO.StructureType;
+                application.LandUseZone = buildingApplicationDTO.LandUseZone;
+                application.LandUseSubZone = buildingApplicationDTO.LandUseSubZone;
+                application.TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani;
+                application.TotalLandInAana = buildingApplicationDTO.TotalLandInAana;
+                application.TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa;
+                application.TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam;
+                application.TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter;
+                application.TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet;
+                application.LandLongitude = buildingApplicationDTO.LandLongitude;
+                application.LandLatitude = buildingApplicationDTO.LandLatitude;
+                application.LandSawikWard = buildingApplicationDTO.LandSawikWard;
+                application.LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa;
+                application.LandToleName = buildingApplicationDTO.LandToleName;
+                application.LandWard = buildingApplicationDTO.LandWard;
+                
+
+                await _buildingApplicationRepository.UpdateBuildingApplicationAsync(buildingApplication, connectionString);
+            //    CreateHouseOwner(buildingApplicationDTO.HouseOwnerList,buildingApplication.Id);
+            //    CreateLandOwner(buildingApplicationDTO.LandOwnerList,buildingApplication.Id);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         public async Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId)
         {        
             try

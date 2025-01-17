@@ -23,6 +23,12 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             const string query = "SELECT ApplicantName FROM BuildingApplication";
             return await connection.QueryAsync<BuildingApplicationDTO>(query);
         }
+        public async Task<BuildingApplication> GetBuildingApplicationById(int id, string connectionString)
+        {
+            using var connection = new SqlConnection(connectionString);
+            const string query = "SELECT * FROM BuildingApplication where Id=@Id";
+            return await connection.QueryFirstOrDefaultAsync<BuildingApplication>(query, new { Id = id });
+        }
 
         public async Task AddBuildingApplicationAsync(BuildingApplication buildingApplication, string connectionString)
         {
