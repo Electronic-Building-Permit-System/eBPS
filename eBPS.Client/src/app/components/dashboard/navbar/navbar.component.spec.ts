@@ -1,8 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
-import { OrganizationService } from '../../services/shared/organization/organization.service';
-import { RoleService } from '../../services/shared/role/role.service';
-import { UserService } from '../../services/account/user.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { OrganizationService } from '../../../services/shared/organization/organization.service';
+import { RoleService } from '../../../services/shared/role/role.service';
+import { UserService } from '../../../services/account/user.service';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;

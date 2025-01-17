@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { LandTotals } from '../../../../models/building-application/land-area-totals.model';
 
 @Component({
   selector: 'app-land-information',
@@ -22,12 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LandInformationComponent {
   @Input() landInformationForm!: FormArray;
-  @Input() totalRopani!: number;
-  @Input() totalAana!: number;
-  @Input() totalPaisa!: number;
-  @Input() totalDaam!: number;
-  @Input() totalSquareFeet!: number;
-  @Input() totalSquareMeter!: number;
+  @Input() totals!: LandTotals;
   
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();

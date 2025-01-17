@@ -1,8 +1,8 @@
 import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { UserService } from '../account/user.service';
 import { jwtInterceptor } from './jwtinterceptor.service';
+import { UserService } from '../services/account/user.service';
 
 describe('jwtInterceptor', () => {
   let userService: jasmine.SpyObj<UserService>;

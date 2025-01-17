@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BuildingApplicationData } from '../../../models/building-application.model';
-import { HouseOwnerData } from '../../../models/house-owner.model';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+import { BuildingApplicationData } from '../../models/building-application/building-application.model';
+import { LandTotals } from '../../models/building-application/land-area-totals.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,27 @@ private apiUrl = environment.apiUrl;
   createBuildingApplication(buildingApplication: BuildingApplicationData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
   }
-  
+  calculateTotals(landInformationControls: AbstractControl[]): LandTotals {
+    debugger
+    let totals: LandTotals = {
+      totalRopani: 0,
+      totalAana: 0,
+      totalPaisa: 0,
+      totalDaam: 0,
+      totalSquareFeet: 0,
+      totalSquareMeter: 0,
+    };
+
+    landInformationControls.forEach((control) => {
+      const form = control.value;
+      totals.totalRopani += +form.ropani || 0;
+      totals.totalAana += +form.aana || 0;
+      totals.totalPaisa += +form.paisa || 0;
+      totals.totalDaam += +form.daam || 0;
+      totals.totalSquareFeet += +form.squareFeet || 0;
+      totals.totalSquareMeter += +form.squareMeter || 0;
+    });
+
+    return totals;
+  }
 }

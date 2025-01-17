@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupComponent } from './signup.component';
 import { provideHttpClient } from '@angular/common/http';
-import { UserService } from '../../services/account/user.service';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { UserService } from '../../../services/account/user.service';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -13,9 +13,9 @@ describe('SignupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SignupComponent],
       providers: [
-        UserService,              // Provide UserService
+        UserService,              
         provideHttpClient(),
-        provideNoopAnimations()       // Provide HttpClient for the test
+        provideNoopAnimations()      
       ]
     })
     .compileComponents();

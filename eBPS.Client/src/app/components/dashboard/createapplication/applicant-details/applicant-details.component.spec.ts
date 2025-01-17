@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicantDetailsComponent } from './applicant-details.component';
-import { ApplicationService } from '../../../services/shared/application/application.service';
 import { of } from 'rxjs';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CommonModule } from '@angular/common';
+import { ApplicationService } from '../../../../services/shared/application/application.service';
 
 describe('ApplicantDetailsComponent', () => {
   let component: ApplicantDetailsComponent;

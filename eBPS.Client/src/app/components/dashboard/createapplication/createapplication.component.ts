@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,18 +12,23 @@ import { LandInformationComponent } from './land-information/land-information.co
 import { LandOwnerComponent } from './land-owner/land-owner.component';
 import { Router } from '@angular/router';
 import { HouseOwnerComponent } from './house-owner/house-owner.component';
-import { ApplicationService } from '../../../services/shared/application/application.service';
 import { CharkillaComponent } from './charkilla/charkilla.component';
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
 import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
-import { HouseOwnerData } from '../../../models/house-owner.model';
-import { BuildingApplicationData } from '../../../models/building-application.model';
+import { BuildingApplicationData } from '../../../models/building-application/building-application.model';
+import { ApplicationDetailsModel } from '../../../models/building-application/application-details.model';
+import { LandInformationModel } from '../../../models/building-application/land-information.model';
+import { ApplicantDetailsModel } from '../../../models/building-application/applicant-details.model';
+import { HouseOwnerModel } from '../../../models/building-application/house-owner.model';
+import { LandTotals } from '../../../models/building-application/land-area-totals.model';
+import { LandOwnerModel } from '../../../models/building-application/land-owner.model';
+import { CharkillaModel } from '../../../models/building-application/charkilla.model';
+import { ApplicationService } from '../../../services/application/application.service';
 
 @Component({
   selector: 'app-createapplication',
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
@@ -39,26 +44,33 @@ import { BuildingApplicationData } from '../../../models/building-application.mo
     CharkillaComponent
   ],
   templateUrl: './createapplication.component.html',
-  styleUrl: './createapplication.component.css'
+  styleUrls: ['./createapplication.component.css']
 })
-export class CreateapplicationComponent {
+export class CreateApplicationComponent {
   isLinear = true;
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
+  applicationDetailsForm!: FormGroup;
+  applicantDetailsForm!: FormGroup;
   landInformationForm!: FormArray;
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
-  totalRopani: number = 0;
-  totalAana: number = 0;
-  totalPaisa: number = 0;
-  totalDaam: number = 0;
-  totalSquareFeet: number = 0;
-  totalSquareMeter: number = 0;
-  constructor(private _formBuilder: FormBuilder, private router: Router, private applicationService: ApplicationService) { }
+
+  totals: LandTotals = { totalRopani: 0, totalAana: 0, totalPaisa: 0, totalDaam: 0, totalSquareFeet: 0, totalSquareMeter: 0 };
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private applicationService: ApplicationService
+  ) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+    this.initializeForms();
+    this.addNewDynamicForms();
+    this.subscribeToLandInformationChanges();
+  }
+
+  private initializeForms() {
+    this.applicationDetailsForm = this.fb.group({
       transactionType: ['', Validators.required],
       buildingPurpose: ['', Validators.required],
       nbcClass: ['', Validators.required],
@@ -67,7 +79,7 @@ export class CreateapplicationComponent {
       structureType: ['', Validators.required],
     });
 
-    this.secondFormGroup = this._formBuilder.group({
+    this.applicantDetailsForm = this.fb.group({
       salutation: ['', Validators.required],
       applicantName: ['', Validators.required],
       wardNumber: ['', Validators.required],
@@ -77,159 +89,136 @@ export class CreateapplicationComponent {
       email: ['', Validators.required],
     });
 
-    this.landInformationForm = this._formBuilder.array([]);
-    this.landOwnerForm = this._formBuilder.array([]);
-    this.addNewlandOwnerForm();
-    this.addNewForm();
-    this.houseOwnerForm = this._formBuilder.array([]);
+    this.landInformationForm = this.fb.array([]);
+    this.landOwnerForm = this.fb.array([]);
+    this.houseOwnerForm = this.fb.array([]);
+    this.charkillaForm = this.fb.array([]);
+  }
+
+  private addNewDynamicForms() {
+    this.addNewLandInformationForm();
+    this.addNewLandOwnerForm();
     this.addNewHouseOwnerForm();
-    this.charkillaForm = this._formBuilder.array([]);
     this.addNewCharkillaForm();
   }
 
-  asFormGroup(control: AbstractControl, form: any): FormGroup {
-    return control as FormGroup;
-    return form as FormGroup;
-  }
-  getDynamicFormControls() {
-    return this.landInformationForm.controls;
+  private subscribeToLandInformationChanges() {
+    this.landInformationForm.valueChanges.subscribe(() => this.updateTotals());
   }
 
-  getHouseOwnerFormControls() {
-    return this.houseOwnerForm.controls;
-  }
-
-  getCharkillaFormControls() {
-    return this.charkillaForm.controls;
-  }
-
-  addNewForm(): void {
-    const newForm = this._formBuilder.group({
-      field1: ['', Validators.required],
-      field2: ['', Validators.required],
-      Ropani: [0, Validators.required],
-      Aana: [0, Validators.required],
-      Paisa: [0, Validators.required],
-      Daam: [0, Validators.required],
-      SquareFeet: [0, Validators.required],
-      SquareMeter: [0, Validators.required],
+  addNewLandInformationForm() {
+    const landInfoForm = this.fb.group({
+      mapSheet: ['', Validators.required],
+      landParcel: ['', Validators.required],
+      ropani: [0, Validators.required],
+      aana: [0, Validators.required],
+      paisa: [0, Validators.required],
+      daam: [0, Validators.required],
+      squareFeet: [0, Validators.required],
+      squareMeter: [0, Validators.required],
+      remarks: ['', Validators.required],
     });
-    newForm.valueChanges.subscribe(() => this.calculateTotals());
-    this.landInformationForm.push(newForm);
-    this.calculateTotals(); // Recalculate totals after adding a form
-
+    landInfoForm.valueChanges.subscribe(() => this.updateTotals());
+    this.landInformationForm.push(landInfoForm);
   }
 
-  removeForm(index: number): void {
-    if (this.landInformationForm.length > 1) {
-      this.landInformationForm.removeAt(index);
-      this.calculateTotals(); // Recalculate totals after removing a form
-    }
-  }
-  // Calculate totals for Ropani, Aana, Paisa, and Daam
-  calculateTotals() {
-    this.totalRopani = 0;
-    this.totalAana = 0;
-    this.totalPaisa = 0;
-    this.totalDaam = 0;
-    this.totalSquareFeet = 0;
-    this.totalSquareMeter = 0;
-
-    this.landInformationForm.controls.forEach((formGroup) => {
-      const form = formGroup.value;
-      this.totalRopani += +form.Ropani || 0; // Add Ropani
-      this.totalAana += +form.Aana || 0;     // Add Aana
-      this.totalPaisa += +form.Paisa || 0;   // Add Paisa
-      this.totalDaam += +form.Daam || 0;     // Add Daam
-      this.totalSquareFeet += +form.SquareFeet || 0;   // Add Paisa
-      this.totalSquareMeter += +form.SquareMeter || 0;
+  addNewLandOwnerForm() {
+    const formGroup = this.fb.group({
+      citizenshipIssueDistrict: ['', Validators.required],
+      wardNumber: ['', Validators.required],
+      landOwnerType: ['', Validators.required],
+      salutation: ['', Validators.required],
+      landOwnerName: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      grandFatherName: ['', Validators.required],
+      citizenshipNumber: ['', Validators.required],
+      citizenshipIssueDate: ['', Validators.required],
+      address: ['', Validators.required],
+      tole: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
     });
+    this.landOwnerForm.push(formGroup);
   }
 
-  addNewlandOwnerForm(): void {
-    const newForm = this._formBuilder.group({
-      field1: ['', Validators.required],
+  addNewHouseOwnerForm() {
+    const formGroup = this.fb.group({
+      salutation: ['', Validators.required],
+      name: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', Validators.required],
+      grandFatherName: ['', Validators.required],
+      citizenshipNo: ['', Validators.required],
+      issueDate: ['', Validators.required],
+      tole: ['', Validators.required],
+      applicantNationality: ['', Validators.required],
       issueDistrict: ['', Validators.required],
       ward: ['', Validators.required],
-
     });
-    this.landOwnerForm.push(newForm);
+    this.houseOwnerForm.push(formGroup);
   }
 
-  removelandOwnerForm(index: number): void {
-    if (this.landOwnerForm.length > 1) {
-      this.landOwnerForm.removeAt(index);
-    }
-  }
-
-  addNewHouseOwnerForm(): void {
-    const newForm = this._formBuilder.group({
-      Salutation: ['', Validators.required],
-      Name: ['', Validators.required],
-      FatherName: ['', Validators.required],
-      Phone: ['', Validators.required],
-      Email: ['', Validators.required],
-      GrandFatherName: ['', Validators.required],
-      CitizenshipNo: ['', Validators.required],
-      IssueDate: ['', Validators.required],
-      Tole: ['', Validators.required],
-      ApplicantNationality: ['', Validators.required],
-      issueDistrict: ['', Validators.required],
-      ward: ['', Validators.required],     
-    });
-    this.houseOwnerForm.push(newForm);
-  }
-
-  removeHouseOwnerForm(index: number): void {
-    if (this.houseOwnerForm.length > 1) {
-      this.houseOwnerForm.removeAt(index);
-    }
-  }
-
-  addNewCharkillaForm(): void {
-    const newForm = this._formBuilder.group({
-      Direction: ['', Validators.required],
+  addNewCharkillaForm() {
+    const formGroup = this.fb.group({
+      direction: ['', Validators.required],
       landscapeType: ['', Validators.required],
-
+      side: ['', Validators.required],
+      roadName: ['', Validators.required],
+      roadLength: ['', Validators.required],
+      existingRow: ['', Validators.required],
+      actualSetback: ['', Validators.required],
     });
-    this.charkillaForm.push(newForm);
+    this.charkillaForm.push(formGroup);
   }
 
-  removeCharkillaForm(index: number): void {
-    if (this.charkillaForm.length > 1) {
-      this.charkillaForm.removeAt(index);
+  private updateTotals() {
+    this.totals = { ...this.totals, ...this.applicationService.calculateTotals(this.landInformationForm.controls) };
+  }
+
+  removeFormGroup(formArray: FormArray, index: number) {
+    if (formArray.length > 1) {
+      formArray.removeAt(index);
+      if (formArray === this.landInformationForm) {
+        this.updateTotals();
+      }
     }
   }
-  submitForm() {
-    if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
-      // Map houseOwnerForm values to the houseOwners array in BuildingApplicationData
-    const houseOwners: HouseOwnerData[] = this.houseOwnerForm.controls.map((group) => group.value);
 
-      const fullFormData: BuildingApplicationData = {
-        ...this.firstFormGroup.value,
-        ...this.secondFormGroup.value,
-        HouseOwnerList: houseOwners, // Directly bind the houseOwners array
-        // landInformationForm: this.landInformationForm.value,
-        // landOwnerForm: this.landOwnerForm.value,
-        // charkillaForm: this.charkillaForm.value,
-      };
+  submitForm() {
+    if (this.applicationDetailsForm.valid && this.applicantDetailsForm.valid) {
+      const fullFormData: BuildingApplicationData = this.prepareFormData();
       console.log(fullFormData);
-      // Pass `formData` to your service or handle it as needed
       this.applicationService.createBuildingApplication(fullFormData).subscribe({
-        next: (response) => {
+        next: response => {
           console.log('Application created successfully:', response);
+          alert('Form submitted successfully!');
         },
-        error: (error) => {
+        error: error => {
           console.error('Error creating application:', error);
         },
       });
-      console.log('Final Form Data:', fullFormData);
-      alert('Form submitted successfully!');
-    }
-   else {
+    } else {
       console.log('Form is invalid');
     }
   }
+
+  private prepareFormData(): BuildingApplicationData {
+    const houseOwners: HouseOwnerModel[] = this.houseOwnerForm.controls.map(group => group.value);
+    const landInformation: LandInformationModel[] = this.landInformationForm.controls.map(group => group.value);
+    const landOwners: LandOwnerModel[] = this.landOwnerForm.controls.map(group => group.value);
+    const charkilla: CharkillaModel[] = this.charkillaForm.controls.map(group => group.value);
+
+    return {
+      applicationDetails: this.applicationDetailsForm.value as ApplicationDetailsModel,
+      applicantDetails: this.applicantDetailsForm.value as ApplicantDetailsModel,
+      houseOwnerList: houseOwners,
+      landInformationList: landInformation,
+      landOwnerList: landOwners,
+      charkillaList: charkilla,
+    };
+  }
+
   navigateToDashboard() {
     this.router.navigate(['/dashboard']);
   }
