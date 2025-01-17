@@ -4,6 +4,7 @@ namespace eBPS.Application.DTOs.BuildingApplication
 {
     public class CharkillaDTO
     {
+        public int? ApplicationId { get; set; }
         [Required]
         public string Direction { get; set; }
 

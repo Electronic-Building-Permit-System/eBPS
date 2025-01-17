@@ -3,7 +3,7 @@ using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces.Repositories;
 using System.Data;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class WardRepository : IWardRepository
     {

@@ -5,7 +5,7 @@ using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class DistrictRepository : IDistrictRepository
     {

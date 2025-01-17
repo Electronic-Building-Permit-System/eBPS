@@ -1,11 +1,11 @@
 ﻿using System.Data;
 using Dapper;
-using eBPS.Application.DTOs;
+using eBPS.Application.DTOs.Shared;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class OrganizationRepository : IOrganizationRepository
     {

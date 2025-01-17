@@ -1,10 +1,10 @@
-﻿using eBPS.Domain.Entities;
-using System.Data;
+﻿using System.Data;
 using Dapper;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Application.DTOs;
+using eBPS.Domain.Entities.Shared;
+using eBPS.Application.DTOs.Shared;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class RoleRepository : IRoleRepository
     {

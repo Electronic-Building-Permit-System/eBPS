@@ -1,8 +1,7 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 using eBPS.Application.Interfaces;
-using eBPS.Application.Services;
+using eBPS.Application.Services.Shared;
 using eBPS.Server.Controllers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

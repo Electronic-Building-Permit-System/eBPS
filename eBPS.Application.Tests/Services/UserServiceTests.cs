@@ -1,9 +1,9 @@
 ﻿using Moq;
-using eBPS.Application.DTOs;
 using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Application.Services;
-using eBPS.Domain.Entities;
+using eBPS.Domain.Entities.Shared;
+using eBPS.Application.DTOs.Shared;
+using eBPS.Application.Services.Shared;
 
 namespace eBPS.Application.Tests.Services
 {

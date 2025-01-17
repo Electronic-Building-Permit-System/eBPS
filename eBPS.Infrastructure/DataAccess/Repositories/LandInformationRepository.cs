@@ -1,7 +1,6 @@
 ﻿using Dapper;
-using eBPS.Application.DTOs;
+using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -42,10 +41,10 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     @SquareMeter,
                     @SquareFeet
                 )";
-            // Add the applicationId to each house owner DTO
-            foreach (var owner in landInformation)
+            // Add the applicationId to each land information DTO
+            foreach (var landInfo in landInformation)
             {
-                owner.ApplicationId = applicationId;
+                landInfo.ApplicationId = applicationId;
             }
 
             await connection.ExecuteAsync(query, landInformation);

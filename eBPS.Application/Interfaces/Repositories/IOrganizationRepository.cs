@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 
 namespace eBPS.Application.Interfaces.Repositories
 {

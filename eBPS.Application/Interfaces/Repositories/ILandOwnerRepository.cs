@@ -1,5 +1,6 @@
 ﻿
-using eBPS.Application.DTOs;
+
+using eBPS.Application.DTOs.BuildingApplication;
 
 namespace eBPS.Application.Interfaces.Repositories
 {

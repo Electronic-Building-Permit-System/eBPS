@@ -1,8 +1,10 @@
 ﻿using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Services;
+using eBPS.Application.Services.Shared;
 using eBPS.Infrastructure.DataAccess;
 using eBPS.Infrastructure.DataAccess.Repositories;
+using eBPS.Infrastructure.DataAccess.Repositories.Shared;
 using eBPS.Infrastructure.Interfaces;
 using eBPS.Infrastructure.Wrappers;
 using Microsoft.Data.SqlClient;

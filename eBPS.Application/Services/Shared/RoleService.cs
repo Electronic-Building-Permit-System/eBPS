@@ -1,7 +1,7 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 using eBPS.Application.Interfaces.Repositories;
 
-namespace eBPS.Application.Services
+namespace eBPS.Application.Services.Shared
 {
     public interface IRoleService
     {

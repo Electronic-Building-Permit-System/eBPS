@@ -3,7 +3,7 @@ using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces.Repositories;
 using System.Data;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class LandscapeTypeRepository : ILandscapeTypeRepository
     {
@@ -14,7 +14,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             _dbConnection = dbConnection;
         }
 
-       
+
         public async Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType()
         {
             const string query = "SELECT Id, Description FROM LandscapeType WHERE IsActive = 1";

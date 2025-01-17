@@ -1,6 +1,6 @@
-﻿namespace eBPS.Application.DTOs
+﻿namespace eBPS.Application.DTOs.Shared
 {
-    public class RolesDTO
+    public class OrganizationDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

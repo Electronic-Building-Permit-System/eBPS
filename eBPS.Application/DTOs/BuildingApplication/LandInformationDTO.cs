@@ -4,6 +4,7 @@ namespace eBPS.Application.DTOs.BuildingApplication
 {
     public class LandInformationDTO
     {
+        public int? ApplicationId { get; set; }
         [Required]
         public string MapSheet { get; set; }
 

@@ -1,8 +1,8 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 using eBPS.Application.Interfaces.Repositories;
 using Microsoft.AspNetCore.Http;
 
-namespace eBPS.Application.Services
+namespace eBPS.Application.Services.Shared
 {
     public interface IOrganizationService
     {

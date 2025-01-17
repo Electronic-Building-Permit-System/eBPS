@@ -1,10 +1,10 @@
-﻿using eBPS.Domain.Entities;
-using eBPS.Application.Interfaces;
+﻿using eBPS.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using eBPS.Domain.Entities.Shared;
 
 namespace eBPS.Infrastructure.Services
 {
