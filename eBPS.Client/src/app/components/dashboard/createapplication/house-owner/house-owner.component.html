@@ -3,7 +3,7 @@
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Salutation</mat-label>
-                <mat-select formControlName="Salutation">
+                <mat-select formControlName="salutation">
                     <mat-option value="Mr">Mr</mat-option>
                     <mat-option value="Ms">Ms</mat-option>
                     <mat-option value="Mrs">Mrs</mat-option>
@@ -11,35 +11,31 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Name</mat-label>
-                <input matInput formControlName="Name" />
+                <input matInput formControlName="houseOwnerName" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Father's Name</mat-label>
-                <input matInput formControlName="FatherName" />
+                <input matInput formControlName="fatherName" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Grand Father's Name</mat-label>
-                <input matInput formControlName="GrandFatherName" />
+                <input matInput formControlName="grandFatherName" />
             </mat-form-field>
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Applicants Nationality</mat-label>
-                <mat-select formControlName="ApplicantNationality">
-                    <mat-option value="Mr">Nepal</mat-option>
-                    <mat-option value="Ms">India</mat-option>
-                    <mat-option value="Mrs">China</mat-option>
-                  </mat-select>
+                <mat-label>Citizenship No.</mat-label>
+                <input matInput formControlName="address" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Citizenship No.</mat-label>
-                <input matInput formControlName="CitizenshipNo" />
+                <input matInput formControlName="citizenshipNumber" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Issue District</mat-label>
-                <mat-select formControlName="issueDistrict">
+                <mat-select formControlName="citizenshipIssueDistrict">
                     <mat-option *ngFor="let purpose of issueDistrict" [value]="purpose.id">
                         {{ purpose.description }}</mat-option>  
                   </mat-select>
@@ -48,15 +44,15 @@
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Issue Date</mat-label>
-                <input matInput formControlName="IssueDate" placeholder="YYYY-MM-DD"/>
+                <input matInput formControlName="citizenshipIssueDate" placeholder="YYYY-MM-DD"/>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Tole</mat-label>
-                <input matInput formControlName="Tole" />
+                <input matInput formControlName="tole" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Ward No.</mat-label>
-                <mat-select formControlName="ward">
+                <mat-select formControlName="wardNumber">
                     <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
                         {{ purpose.wardNumber }}</mat-option> 
                   </mat-select>
@@ -65,11 +61,11 @@
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Phone</mat-label>
-                <input matInput formControlName="Phone" />
+                <input matInput formControlName="phoneNumber" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>E-mail</mat-label>
-                <input matInput formControlName="Email" />
+                <input matInput formControlName="email" />
             </mat-form-field>
         </div>
       <div class="add-remove-button">

@@ -1,5 +1,6 @@
 ﻿using Dapper;
-using eBPS.Application.DTOs;
+using eBPS.Application.DTOs.BuildingApplication;
+using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
@@ -22,6 +23,12 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             using var connection = new SqlConnection(connectionString);
             const string query = "SELECT ApplicantName FROM BuildingApplication";
             return await connection.QueryAsync<BuildingApplicationDTO>(query);
+        }
+        public async Task<BuildingApplication> GetBuildingApplicationById(int id, string connectionString)
+        {
+            using var connection = new SqlConnection(connectionString);
+            const string query = "SELECT * FROM BuildingApplication where Id=@Id";
+            return await connection.QueryFirstOrDefaultAsync<BuildingApplication>(query, new { Id = id });
         }
 
         public async Task AddBuildingApplicationAsync(BuildingApplication buildingApplication, string connectionString)

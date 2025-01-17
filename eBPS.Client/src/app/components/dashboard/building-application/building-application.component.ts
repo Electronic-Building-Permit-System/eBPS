@@ -12,7 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ApplicationService } from '../../../services/shared/application/application.service';
+import { ApplicationService } from '../../../services/application/application.service';
 @Component({
   selector: 'app-building-application',
   imports: [MatTableModule,

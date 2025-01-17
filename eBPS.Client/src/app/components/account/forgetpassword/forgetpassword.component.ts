@@ -8,9 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { EmailService } from '../../../services/shared/email/email.service';
-
-
+import { EmailService } from '../../../services/email/email.service';
 
 @Component({
   selector: 'app-forgetpassword',

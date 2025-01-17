@@ -6,7 +6,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { EventEmitter } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('LandOwnerComponent', () => {

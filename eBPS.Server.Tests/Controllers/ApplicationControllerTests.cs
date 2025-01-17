@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Services;
 using eBPS.Server.Controllers;
 using Microsoft.AspNetCore.Mvc;

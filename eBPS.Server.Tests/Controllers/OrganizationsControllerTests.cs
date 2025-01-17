@@ -1,9 +1,9 @@
 ﻿using Moq;
 using eBPS.Server.Controllers;
 using eBPS.Application.Services;
-using eBPS.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using eBPS.Application.DTOs;
 
 namespace eBPS.Tests
 {
