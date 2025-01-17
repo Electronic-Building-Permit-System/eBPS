@@ -8,12 +8,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { CreateapplicationComponent } from './createapplication.component';
-import { ApplicationService } from '../../services/shared/application/application.service';
+import { CreateApplicationComponent } from './createapplication.component';
+import { ApplicationService } from '../../../services/shared/application/application.service';
 
 describe('CreateapplicationComponent', () => {
-  let component: CreateapplicationComponent;
-  let fixture: ComponentFixture<CreateapplicationComponent>;
+  let component: CreateApplicationComponent;
+  let fixture: ComponentFixture<CreateApplicationComponent>;
   let mockApplicationService: jasmine.SpyObj<ApplicationService>;
   let mockRouter: jasmine.SpyObj<Router>;
 
@@ -23,7 +23,7 @@ describe('CreateapplicationComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        CreateapplicationComponent, // Import the standalone component
+        CreateApplicationComponent, // Import the standalone component
         ReactiveFormsModule,
         MatStepperModule,
         MatFormFieldModule,
@@ -38,7 +38,7 @@ describe('CreateapplicationComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateapplicationComponent);
+    fixture = TestBed.createComponent(CreateApplicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

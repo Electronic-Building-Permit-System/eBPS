@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ApplicationService } from '../../../../services/shared/application/application.service';
+import { ApplicationService } from '../../../../services/application/application.service';
 
 @Component({
   selector: 'app-applicant-details',

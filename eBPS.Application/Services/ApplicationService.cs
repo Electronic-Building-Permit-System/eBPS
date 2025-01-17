@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 namespace eBPS.Application.Services
@@ -13,7 +13,7 @@ namespace eBPS.Application.Services
         Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone();
         Task<IEnumerable<LandscapeTypeDTO>> GetActiveLandscapeType();
         Task<IEnumerable<TransactionTypeDTO>> GetActiveTransactionType();
-        Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict();
+        Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict();
 
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
@@ -36,7 +36,7 @@ namespace eBPS.Application.Services
         private readonly ILandUseSubZoneRepository _landUseSubZoneRepository;
         private readonly IHouseOwnerRepository _houseOwnerRepository;
         private readonly ILandscapeTypeRepository _landscapeTypeRepository;
-        private readonly IIssueDistrictRepository _issueDistrictRepository;
+        private readonly IDistrictRepository _issueDistrictRepository;
         private readonly ITransactionTypeRepository _transactionTypeRepository;
         private readonly ILandInformationRepository _landInformationRepository;
         private readonly ICharkillaRepository _charkillaRepository;
@@ -44,7 +44,7 @@ namespace eBPS.Application.Services
 
 
         public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
-           IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IIssueDistrictRepository issueDistrictRepository,  
+           IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IDistrictRepository issueDistrictRepository,  
             ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,ILandOwnerRepository landOwnerRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
@@ -102,7 +102,7 @@ namespace eBPS.Application.Services
         {
             return await _transactionTypeRepository.GetActiveTransactionType();
         }
-        public async Task<IEnumerable<IssueDistrictDTO>> GetActiveIssueDistrict()
+        public async Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict()
         {
             return await _issueDistrictRepository.GetActiveIssueDistrict();
             
@@ -120,43 +120,43 @@ namespace eBPS.Application.Services
                 var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
                 var buildingApplication = new BuildingApplication
                 {
-                    Salutation = buildingApplicationDTO.Salutation,
-                    ApplicantName = buildingApplicationDTO.ApplicantName,
-                    ApplicationNumber = buildingApplicationDTO.ApplicationNumber,
-                    FatherName = buildingApplicationDTO.FatherName,
-                    GrandFatherName = buildingApplicationDTO.GrandFatherName,
-                    Tole = buildingApplicationDTO.Tole,
-                    CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
-                    CitizenshipIssueDate = DateTime.Now,
-                    CitizenshipIssueDistrict = buildingApplicationDTO.CitizenshipIssueDistrict,
-                    PhoneNumber = buildingApplicationDTO.PhoneNumber,
-                    Email = buildingApplicationDTO.Email,
-                    WardNumber = buildingApplicationDTO.WardNumber,
-                    Address = buildingApplicationDTO.Address,
-                    HouseNumber = buildingApplicationDTO.HouseNumber,
-                    ApplicantPhotoPath = "test",
-                    TransactionType = buildingApplicationDTO.TransactionType,
-                    BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
-                    NBCClass = buildingApplicationDTO.NBCClass,
-                    StructureType = buildingApplicationDTO.StructureType,
-                    LandUseZone = buildingApplicationDTO.LandUseZone,
-                    LandUseSubZone = buildingApplicationDTO.LandUseSubZone,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = buildingApplicationDTO.CreatedBy,
-                    OrganizationId = buildingApplicationDTO.OrganizationId,
-                    TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
-                    TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
-                    TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
-                    TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
-                    TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
-                    TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
-                    LandLongitude = buildingApplicationDTO.LandLongitude,
-                    LandLatitude = buildingApplicationDTO.LandLatitude,
-                    LandSawikWard = buildingApplicationDTO.LandSawikWard,
-                    LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
-                    LandToleName = buildingApplicationDTO.LandToleName,
-                    LandWard = buildingApplicationDTO.LandWard,
-                    IsDeleted = buildingApplicationDTO.IsDeleted
+                    //Salutation = buildingApplicationDTO.ApplicantDetails.Salutation,
+                    //ApplicantName = buildingApplicationDTO.ApplicantDetails.ApplicantName,
+                    //ApplicantNumber = buildingApplicationDTO.ApplicantNumber,
+                    //FatherName = buildingApplicationDTO.ApplicantDetails.FatherName,
+                    //GrandFatherName = buildingApplicationDTO.ApplicantDetails.GrandFatherName,
+                    //Tole = buildingApplicationDTO.Tole,
+                    //CitizenshipNumber = buildingApplicationDTO.CitizenshipNumber,
+                    //CitizenshipIssueDate = DateTime.Now,
+                    //CitizenshipIssueDistrict = DateTime.Now,
+                    //PhoneNumber = buildingApplicationDTO.PhoneNumber,
+                    //Email = buildingApplicationDTO.Email,
+                    //WardNumber = buildingApplicationDTO.WardNumber,
+                    //Address = buildingApplicationDTO.Address,
+                    //HouseNumber = buildingApplicationDTO.HouseNumber,
+                    //ApplicantPhotoPath = buildingApplicationDTO.ApplicantPhotoPath,
+                    //TransactionType = buildingApplicationDTO.TransactionType,
+                    //BuildingPurpose = buildingApplicationDTO.BuildingPurpose,
+                    //NBCClass = buildingApplicationDTO.NBCClass,
+                    //StructureType = buildingApplicationDTO.StructureType,
+                    //LandUseZone = buildingApplicationDTO.LandUseZone,
+                    //LandUseSubZone = buildingApplicationDTO.LandUseSubZone,
+                    //CreatedDate = DateTime.Now,
+                    //CreatedBy = buildingApplicationDTO.CreatedBy,
+                    //OrganizationId = buildingApplicationDTO.OrganizationId,
+                    //TotalLandInRopani = buildingApplicationDTO.TotalLandInRopani,
+                    //TotalLandInAana = buildingApplicationDTO.TotalLandInAana,
+                    //TotalLandInPaisa = buildingApplicationDTO.TotalLandInPaisa,
+                    //TotalLandInDaam = buildingApplicationDTO.TotalLandInDaam,
+                    //TotalLandInSquareMeter = buildingApplicationDTO.TotalLandInSquareMeter,
+                    //TotalLandInSquareFeet = buildingApplicationDTO.TotalLandInSquareFeet,
+                    //LandLongitude = buildingApplicationDTO.LandLongitude,
+                    //LandLatitude = buildingApplicationDTO.LandLatitude,
+                    //LandSawikWard = buildingApplicationDTO.LandSawikWard,
+                    //LandSawikGabisa = buildingApplicationDTO.LandSawikGabisa,
+                    //LandToleName = buildingApplicationDTO.LandToleName,
+                    //LandWard = buildingApplicationDTO.LandWard,
+                    //IsDeleted = buildingApplicationDTO.IsDeleted
                 };
 
                 await _buildingApplicationRepository.AddBuildingApplicationAsync(buildingApplication, connectionString);

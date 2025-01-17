@@ -3,7 +3,11 @@ using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Services;
 using eBPS.Infrastructure.DataAccess;
 using eBPS.Infrastructure.DataAccess.Repositories;
+using eBPS.Infrastructure.Interfaces;
+using eBPS.Infrastructure.Wrappers;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace eBPS.Infrastructure.Services
 {
@@ -22,7 +26,7 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<ILandUseZoneRepository, LandUseZoneRepository>();
             services.AddScoped<ILandscapeTypeRepository, LandscapeTypeRepository>();
             services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
-            services.AddScoped<IIssueDistrictRepository, IssueDistrictRepository>();
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
             services.AddScoped<IBuildingApplicationRepository, BuildingApplicationRepository>();
             services.AddScoped<ILandUseSubZoneRepository, LandUseSubZoneRepository>();
             services.AddScoped<IHouseOwnerRepository, HouseOwnerRepository>();
@@ -35,13 +39,15 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ISmtpClientWrapper, SmtpClientWrapper>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IApplicationService, ApplicationService>();
 
             // Register any other infrastructure services (like logging, caching, etc.)
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IUnitOfWork>(_ => new UnitOfWork(connectionString));
+            services.AddTransient<IDbConnection>(provider => new SqlConnection(connectionString));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
