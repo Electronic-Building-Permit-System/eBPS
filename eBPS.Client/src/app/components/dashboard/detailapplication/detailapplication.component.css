@@ -1,0 +1,77 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: center; /* Center align the label and value */
+  align-items: center;
+  margin: 8px 0;
+  font-size: 1rem;
+  gap: 8px; /* Add spacing between label and value */
+}
+
+.details-overview-title {
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  font-size: 1.4rem;  /* Increase font size */
+  font-weight: bold; /* Make it bold */
+  color: black;  /* Use a vibrant color (Bootstrap Primary Blue) */
+  text-align: center;  /* Center the title */
+  margin-bottom: 20px;  /* Add spacing below the title */
+  border-bottom: 2px solid #0d6efd;  /* Add an underline effect */
+  padding-bottom: 10px; /* Space between text and underline */
+  letter-spacing: 1px;  /* Slightly increase letter spacing */
+}
+
+.big-card {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background-color: #ebebef;
+}
+
+mat-card-title {
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 16px 0;
+  text-align: center;
+  color: #050505;
+}
+
+.label {
+  font-family: 'Roboto', sans-serif;
+  /* Use Roboto font */
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+  margin-left: 60px;
+}
+
+.value {
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  flex: 1;
+}
+
+.cards-row {
+  display: flex;
+  justify-content: space-around; /* Distribute cards evenly in the row */
+  gap: 16px; /* Add spacing between cards */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  margin-bottom: 24px;
+}
+
+.detail-card {
+  width: 45%; /* Take up 45% of the row width for two cards */
+  max-width: 100%;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border: solid 1px#0d6efd;
+}
