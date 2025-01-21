@@ -1,77 +1,75 @@
-.detail-container {
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.form-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+  margin-top: 2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 10px;
+  flex: 1 1 30%;  /* Ensures equal div size with a small gap */
+  min-width: 280px; /* Minimum width for smaller screens */
+  margin-bottom: 1rem; /* Space between form groups */
 }
 
-.info-row {
-  display: flex;
-  justify-content: center; /* Center align the label and value */
-  align-items: center;
-  margin: 8px 0;
-  font-size: 1rem;
-  gap: 8px; /* Add spacing between label and value */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #555;
 }
 
-.details-overview-title {
-  font-family: 'Roboto', sans-serif; /* Use Roboto font */
-  font-size: 1.4rem;  /* Increase font size */
-  font-weight: bold; /* Make it bold */
-  color: black;  /* Use a vibrant color (Bootstrap Primary Blue) */
-  text-align: center;  /* Center the title */
-  margin-bottom: 20px;  /* Add spacing below the title */
-  border-bottom: 2px solid #0d6efd;  /* Add an underline effect */
-  padding-bottom: 10px; /* Space between text and underline */
-  letter-spacing: 1px;  /* Slightly increase letter spacing */
-}
-
-.big-card {
+.form-input {
   width: 100%;
-  max-width: 100%;
-  padding: 16px;
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  background-color: #ebebef;
-}
-
-mat-card-title {
-  font-family: 'Roboto', sans-serif; /* Use Roboto font */
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 16px 0;
-  text-align: center;
-  color: #050505;
-}
-
-.label {
-  font-family: 'Roboto', sans-serif;
-  /* Use Roboto font */
-  font-weight: bold;
-  flex: 1;
-  text-align: left;
-  margin-left: 60px;
-}
-
-.value {
-  font-family: 'Roboto', sans-serif; /* Use Roboto font */
-  flex: 1;
-}
-
-.cards-row {
-  display: flex;
-  justify-content: space-around; /* Distribute cards evenly in the row */
-  gap: 16px; /* Add spacing between cards */
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
-  margin-bottom: 24px;
-}
-
-.detail-card {
-  width: 45%; /* Take up 45% of the row width for two cards */
-  max-width: 100%;
-  padding: 16px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
   background-color: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border: solid 1px#0d6efd;
+  color: #333;
+}
+
+
+
+.form-input input:disabled {
+  background-color: #eaeaea;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column; /* Stacks form fields in a column on small screens */
+  }
 }

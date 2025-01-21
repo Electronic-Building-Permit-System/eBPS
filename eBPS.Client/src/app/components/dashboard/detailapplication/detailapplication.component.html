@@ -1,234 +1,77 @@
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <app-navbar></app-navbar>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <div class="form-container">
+    <h1 class="form-title">Application Form</h1>
 
-<div class="detail-container">
-  <mat-card class="big-card">
-    <mat-card-title class="details-overview-title">Application Details</mat-card-title>
-    <mat-card-content>
-      <!-- Row 1 -->
-      <div class="cards-row">
-        <mat-card class="detail-card">
-          <mat-card-title>Applicant Details</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Name:</span>
-              <span class="value">Reeza Khadgi</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Ward:</span>
-              <span class="value">04</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Address:</span>
-              <span class="value">Birgunj-4, Nepal</span>
-            </div>
-            <div class="info-row">
-              <span class="label">House Number:</span>
-              <span class="value">11</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Phone:</span>
-              <span class="value">9825244893</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Email:</span>
-              <span class="value">reezagmail.com</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="detail-card">
-          <mat-card-title>Application Details</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Transaction Type:</span>
-              <span class="value">Industrial</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Building Purpose:</span>
-              <span class="value">Commercial</span>
-            </div>
-            <div class="info-row">
-              <span class="label">NBC Class:</span>
-              <span class="value">Class B</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Land Use Zone:</span>
-              <span class="value">Residential Zone</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+    <!-- Section: Applicant Details -->
+    <h2 class="section-title">Applicant Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="name">Name:</label>
+        <div class="form-input">Reeza Khadgi</div>
       </div>
-
-      <!-- Row 2 -->
-      <div class="cards-row">
-        <mat-card class="detail-card">
-          <mat-card-title>Land Information</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Map Sheet:</span>
-              <span class="value">Sheet A</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Land Parcel:</span>
-              <span class="value">Parcel 123</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Ropani:</span>
-              <span class="value">3</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Aana:</span>
-              <span class="value">2</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Paisa:</span>
-              <span class="value">1</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Daam:</span>
-              <span class="value">4</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Square Feet:</span>
-              <span class="value">4356</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Square Meter:</span>
-              <span class="value">404</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="detail-card">
-          <mat-card-title>Land Owner Details</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Land Owner Type:</span>
-              <span class="value">Individual</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Name:</span>
-              <span class="value">John Doe</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Father's Name:</span>
-              <span class="value">Michael Doe</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Grandfather's Name:</span>
-              <span class="value">Richard Doe</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Citizenship Number:</span>
-              <span class="value">123456789</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Issue District:</span>
-              <span class="value">Birgunj</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Issue Date:</span>
-              <span class="value">2076-06-11</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Address:</span>
-              <span class="value">Birgunj-5</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Phone:</span>
-              <span class="value">9812345678</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+      <div class="form-group">
+        <label class="form-label" for="ward">Ward:</label>
+        <div class="form-input">04</div>
       </div>
-
-      <!-- Row 3 -->
-      <div class="cards-row">
-        <mat-card class="detail-card">
-          <mat-card-title>House Owner Details</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Name:</span>
-              <span class="value">Sangeet Neupane</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Type:</span>
-              <span class="value">Commercial</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Father's Name:</span>
-              <span class="value">Purushottam Neupane</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Grandfather's Name:</span>
-              <span class="value">Something Neupane</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Citizenship Number:</span>
-              <span class="value">12-25-459-35</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Issue District:</span>
-              <span class="value">Sarlahi</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Issue Date:</span>
-              <span class="value">2076-06-11</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Tole:</span>
-              <span class="value">Haripur</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Ward Number:</span>
-              <span class="value">05</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Phone:</span>
-              <span class="value">9844279877</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Email:</span>
-              <span class="value">sangeetgmail.com</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
-     
-        <mat-card class="detail-card">
-          <mat-card-title>Charkilla Information</mat-card-title>
-          <mat-card-content>
-            <div class="info-row">
-              <span class="label">Direction:</span>
-              <span class="value">North</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Side:</span>
-              <span class="value">Left</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Road Name:</span>
-              <span class="value">Main Road</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Landscape Type:</span>
-              <span class="value">Flat</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Road Length:</span>
-              <span class="value">200 meters</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Existing ROW:</span>
-              <span class="value">6m</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Actual Setback:</span>
-              <span class="value">2m</span>
-            </div>
-          </mat-card-content>
-        </mat-card>
+      <div class="form-group">
+        <label class="form-label" for="address">Address:</label>
+        <div class="form-input">Birgunj-4, Nepal</div>
       </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+      <div class="form-group">
+        <label class="form-label" for="house-number">House Number:</label>
+        <div class="form-input">11</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone:</label>
+        <div class="form-input">9825244893</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email:</label>
+        <div class="form-input">reezagmail.com</div>
+      </div>
+    </div>
+
+    <!-- Section: Application Details -->
+    <h2 class="section-title">Application Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="transaction-type">Transaction Type:</label>
+        <div class="form-input">Industrial</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="building-purpose">Building Purpose:</label>
+        <div class="form-input">Commercial</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="nbc-class">NBC Class:</label>
+        <div class="form-input">Class B</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="land-use-zone">Land Use Zone:</label>
+        <div class="form-input">Residential Zone</div>
+      </div>
+    </div>
+
+    <!-- Section: Land Information -->
+    <h2 class="section-title">Land Information</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="map-sheet">Map Sheet:</label>
+        <div class="form-input">Sheet A</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="land-parcel">Land Parcel:</label>
+        <div class="form-input">Parcel 123</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="square-feet">Square Feet:</label>
+        <div class="form-input">4356</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="square-meter">Square Meter:</label>
+        <div class="form-input">404</div>
+      </div>
+    </div>
+  </div>
