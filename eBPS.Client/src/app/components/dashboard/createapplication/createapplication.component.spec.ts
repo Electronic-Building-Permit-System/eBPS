@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { CreateApplicationComponent } from './createapplication.component';
-import { ApplicationService } from '../../../services/shared/application/application.service';
+import { ApplicationService } from '../../../services/application/application.service';
 
 describe('CreateapplicationComponent', () => {
   let component: CreateApplicationComponent;
