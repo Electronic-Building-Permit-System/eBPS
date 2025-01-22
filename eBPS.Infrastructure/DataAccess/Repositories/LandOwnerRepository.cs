@@ -18,7 +18,6 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
         {
             using var connection = new SqlConnection(connectionString);
             var query = @"INSERT INTO LandOwner (
-                        
                         ApplicationId,
                         Salutation,
                         LandOwnerType,
@@ -35,7 +34,6 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                         Address
                     )
                     VALUES (
-                       
                         @ApplicationId,
                         @Salutation,
                         @LandOwnerType,

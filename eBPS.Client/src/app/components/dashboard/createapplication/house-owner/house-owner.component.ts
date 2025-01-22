@@ -2,19 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ApplicationService } from '../../../../services/application/application.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-house-owner',
-  imports: [  CommonModule,
+  imports: [CommonModule,
       ReactiveFormsModule,
       MatFormFieldModule,
       MatInputModule,
-      MatButtonModule, MatOptionModule, MatSelectModule],
+      MatButtonModule, MatOptionModule, MatSelectModule, MatNativeDateModule, MatDatepickerModule],
   templateUrl: './house-owner.component.html',
   styleUrl: './house-owner.component.css'
 })

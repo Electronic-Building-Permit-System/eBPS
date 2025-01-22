@@ -33,17 +33,16 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     StandardSetback,
                     Kitta
                 ) VALUES (
-                    
                     @ApplicationId,
                     @Direction,
                     @Side,
-                    @LandscapeTypeId,
+                    @LandscapeType,
                     @CharkillaName,
                     @RoadId,
                     @IsGLD,
                     @RoadLength,
-                    @ProposedROW,
-                    @ExistingROW,
+                    @ProposedRow,
+                    @ExistingRow,
                     @ActualSetback,
                     @StandardSetback,
                     @Kitta

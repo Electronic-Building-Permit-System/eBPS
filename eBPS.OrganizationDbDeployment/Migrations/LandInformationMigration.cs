@@ -17,7 +17,8 @@ namespace eBPS.OrganizationDbDeployment.Migrations
            .WithColumn("Paisa").AsDecimal().NotNullable()
            .WithColumn("Daam").AsDecimal().NotNullable()
            .WithColumn("SquareMeter").AsDecimal().NotNullable()
-           .WithColumn("SquareFeet").AsDecimal().NotNullable();
+           .WithColumn("SquareFeet").AsDecimal().NotNullable()
+           .WithColumn("Remarks").AsString(int.MaxValue).Nullable();
 
             Create.ForeignKey("FK_LandInformation_BuildingApplication")
                 .FromTable("LandInformation").ForeignColumn("ApplicationId")

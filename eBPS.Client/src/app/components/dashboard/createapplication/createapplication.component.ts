@@ -77,16 +77,29 @@ export class CreateApplicationComponent {
       landUseZone: ['', Validators.required],
       landUseSubZone: ['', Validators.required],
       structureType: ['', Validators.required],
+      landLongitude: ['', Validators.required],
+      landLatitude: ['', Validators.required],
+      landSawikWard: ['', Validators.required],
+      landSawikGabisa: ['', Validators.required],
+      landToleName: ['', Validators.required],
+      wardNumber: ['', Validators.required],
     });
 
     this.applicantDetailsForm = this.fb.group({
       salutation: ['', Validators.required],
       applicantName: ['', Validators.required],
+      applicationNumber: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      grandFatherName: ['', Validators.required],
+      tole: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
+      citizenshipNumber: ['', Validators.required],
+      citizenshipIssueDate: ['', Validators.required],
+      citizenshipIssueDistrict: ['', Validators.required],
       wardNumber: ['', Validators.required],
       address: ['', Validators.required],
       houseNumber: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
     });
 
     this.landInformationForm = this.fb.array([]);
@@ -108,8 +121,8 @@ export class CreateApplicationComponent {
 
   addNewLandInformationForm() {
     const landInfoForm = this.fb.group({
-      mapSheet: ['', Validators.required],
-      landParcel: ['', Validators.required],
+      mapSheetNumber: ['', Validators.required],
+      landParcelNumber: ['', Validators.required],
       ropani: [0, Validators.required],
       aana: [0, Validators.required],
       paisa: [0, Validators.required],
@@ -145,6 +158,7 @@ export class CreateApplicationComponent {
     const formGroup = this.fb.group({
       salutation: ['', Validators.required],
       houseOwnerName: ['', Validators.required],
+      houseOwnerType: ['', Validators.required],
       fatherName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
@@ -164,10 +178,14 @@ export class CreateApplicationComponent {
       direction: ['', Validators.required],
       landscapeType: ['', Validators.required],
       side: ['', Validators.required],
-      roadName: ['', Validators.required],
+      charkillaName: ['', Validators.required],
       roadLength: ['', Validators.required],
       existingRow: ['', Validators.required],
+      proposedRow: ['', Validators.required],
       actualSetback: ['', Validators.required],
+      standardSetback: ['', Validators.required],
+      roadId: ['', Validators.required],
+      kitta: ['', Validators.required],
     });
     this.charkillaForm.push(formGroup);
   }

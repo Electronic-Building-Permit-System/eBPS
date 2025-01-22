@@ -28,14 +28,14 @@ namespace eBPS.Domain.Entities
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int OrganizationId { get; set; }
-        public decimal TotalLandInRopani { get; set; }
-        public decimal TotalLandInAana { get; set; }
-        public decimal TotalLandInPaisa { get; set; }
-        public decimal TotalLandInDaam { get; set; }
-        public decimal TotalLandInSquareMeter { get; set; }
-        public decimal TotalLandInSquareFeet { get; set; }
-        public decimal LandLongitude { get; set; }
-        public decimal LandLatitude { get; set; }
+        public double TotalLandInRopani { get; set; }
+        public double TotalLandInAana { get; set; }
+        public double TotalLandInPaisa { get; set; }
+        public double TotalLandInDaam { get; set; }
+        public double TotalLandInSquareMeter { get; set; }
+        public double TotalLandInSquareFeet { get; set; }
+        public double LandLongitude { get; set; }
+        public double LandLatitude { get; set; }
         public int LandSawikWard { get; set; }
         public string LandSawikGabisa { get; set; }
         public string LandToleName { get; set; }

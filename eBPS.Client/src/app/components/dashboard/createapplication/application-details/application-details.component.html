@@ -48,6 +48,40 @@
           </mat-select>       
       </mat-form-field>
     </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Logitude</mat-label>
+          <input matInput formControlName="landLongitude" />       
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Latitude</mat-label>
+          <input matInput formControlName="landLatitude" />       
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Sawik Ward</mat-label>
+          <mat-select formControlName="landSawikWard">
+            <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                {{ purpose.wardNumber }}</mat-option> 
+          </mat-select>       
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Sawik Gabisa</mat-label>
+          <input matInput formControlName="landSawikGabisa" />       
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Tole Name</mat-label>
+          <input matInput formControlName="landToleName" />       
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item"> 
+        <mat-label>Ward Number</mat-label>
+        <mat-select formControlName="wardNumber">
+            <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                {{ purpose.wardNumber }}</mat-option> 
+        </mat-select>
+      </mat-form-field>
+    </div>
     <div class="stepper-actions">
       <button mat-button matStepperNext>Next</button>
     </div>

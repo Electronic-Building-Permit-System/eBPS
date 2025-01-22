@@ -8,10 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ApplicationService } from '../../../../services/application/application.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-applicant-details',
-  imports: [CommonModule,MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatStepperModule],
+  imports: [CommonModule,MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, ReactiveFormsModule, MatStepperModule, MatNativeDateModule, MatDatepickerModule],
   templateUrl: './applicant-details.component.html',
   styleUrl: './applicant-details.component.css'
 })

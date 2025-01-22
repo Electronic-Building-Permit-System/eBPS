@@ -20,6 +20,7 @@ export class ApplicationDetailsComponent {
   structureType: { id: number; description: string }[] = [];
   transactionType: { id: number; description: string }[] = [];
   landUseZone: { id: number; description: string }[] = [];
+  ward: { id: number; wardNumber: string }[] = [];
   @Input() firstFormGroup!: FormGroup;
   nbcClass: { id: number; description: string }[] = [];
   landUseSubZone: { id: number; description: string }[] = [];
@@ -33,6 +34,7 @@ export class ApplicationDetailsComponent {
       this.fetchLandUseSubZone();
       this.fetchLandUseZone();
       this.fetchTransactionType();
+      this.fetchWard();
     }  
     
     fetchBuildingPurpose() {
@@ -63,6 +65,11 @@ export class ApplicationDetailsComponent {
     fetchLandUseSubZone(){
       this.applicationService.getLandUseSubZone().subscribe((data: { id: number; description: string }[]) => {
         this.landUseSubZone = data;
-    });
-}
+      });
+    }
+    fetchWard() {
+      this.applicationService.getWard().subscribe((data: { id: number; wardNumber: string }[]) => {
+        this.ward = data;
+      });
+    }
 }

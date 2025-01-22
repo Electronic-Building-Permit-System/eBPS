@@ -9,8 +9,8 @@ namespace eBPS.Application.DTOs.BuildingApplication
     public class HouseOwnerDTO
     {
         public int Id { get; set; }
-        public int ApplicationId { get; set; }
-        public string Salutation { get; set; }
+        public int? ApplicationId { get; set; }
+        public int Salutation { get; set; }
         public int HouseOwnerType { get; set; }
         public string HouseOwnerName { get; set; }
         public string? HouseOwnerPhotoPath { get; set; }

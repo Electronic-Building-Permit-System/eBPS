@@ -1,9 +1,14 @@
 export interface CharkillaModel {
     direction: string;
     side: string;
-    roadName: string;
-    landscapeType: string | number; // Assuming this is an ID
+    landscapeType: string | number;
+    charkillaName: string;
+    roadId: number;
+    isGLD: boolean;
     roadLength: number;
-    existingRow: string;
-    actualSetback: string;
+    proposedRow: number;
+    existingRow: number;
+    actualSetback: number;
+    standardSetback: number;
+    kitta: string;
   }

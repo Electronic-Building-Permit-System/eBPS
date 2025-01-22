@@ -4,13 +4,20 @@
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Salutation</mat-label>
                 <mat-select formControlName="salutation">
-                    <mat-option value="Mr">Mr</mat-option>
-                    <mat-option value="Ms">Ms</mat-option>
-                    <mat-option value="Mrs">Mrs</mat-option>
+                    <mat-option value=1>Mr</mat-option>
+                    <mat-option value=2>Ms</mat-option>
+                    <mat-option value=3>Mrs</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>House Owner Type</mat-label>
+                <mat-select formControlName="houseOwnerType">
+                    <mat-option value=1>Self</mat-option>
+                    <mat-option value=2>Combined</mat-option>
                   </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Name</mat-label>
+                <mat-label>House Owner Name</mat-label>
                 <input matInput formControlName="houseOwnerName" />
             </mat-form-field>
         </div>
@@ -26,7 +33,7 @@
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Citizenship No.</mat-label>
+                <mat-label>Address</mat-label>
                 <input matInput formControlName="address" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
@@ -43,15 +50,23 @@
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item">
-                <mat-label>Issue Date</mat-label>
-                <input matInput formControlName="citizenshipIssueDate" placeholder="YYYY-MM-DD"/>
+                <mat-label>Citizenship Issue Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="citizenshipIssueDate"
+                  placeholder="MM-DD-YYYY" 
+                  readonly
+                />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Tole</mat-label>
                 <input matInput formControlName="tole" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Ward No.</mat-label>
+                <mat-label>Ward Number</mat-label>
                 <mat-select formControlName="wardNumber">
                     <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
                         {{ purpose.wardNumber }}</mat-option> 
@@ -69,7 +84,7 @@
             </mat-form-field>
         </div>
       <div class="add-remove-button">
-        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)" [disabled]="houseOwnerForm.controls.length === 1">
           Remove
         </button>
         <button mat-raised-button color="primary" (click)="onAddForm()">
