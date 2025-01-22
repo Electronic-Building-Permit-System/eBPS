@@ -33,16 +33,18 @@ body {
 
 .form-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-wrap: wrap; /* Allows wrapping if there isn't enough space */
+  gap: 1rem; /* Adds spacing between the items */
+  justify-content: space-between; /* Ensures items are evenly spaced */
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  flex: 1 1 30%;  /* Ensures equal div size with a small gap */
-  min-width: 280px; /* Minimum width for smaller screens */
-  margin-bottom: 1rem; /* Space between form groups */
+  flex: 1 1 30%; /* Makes three equal boxes per row */
+  max-width: 24%; /* Ensures the boxes do not exceed 30% of the row width */
+  margin-bottom: 1rem;
+  margin-right: 23px;
 }
 
 .form-label {
@@ -61,15 +63,12 @@ body {
   color: #333;
 }
 
-
-
-.form-input input:disabled {
-  background-color: #eaeaea;
-  cursor: not-allowed;
-}
-
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column; /* Stacks form fields in a column on small screens */
+  }
+  .form-group {
+    max-width: 100%; /* Full-width fields on smaller screens */
+    flex: 1 1 100%;
   }
 }
