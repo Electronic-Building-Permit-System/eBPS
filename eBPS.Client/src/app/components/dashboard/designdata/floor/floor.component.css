@@ -1,0 +1,53 @@
+/* Make the table responsive */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  .button-group {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .button-group button {
+    margin: 5px;
+  }
+  
+  /* Make the form fields more responsive */
+  table.form-table th, table.form-table td {
+    text-align: center;
+    padding: 8px;
+  }
+  
+  input[matInput] {
+    width: 100%;
+    max-width: 150px;
+  }
+  
+  /* Style for smaller screens */
+  @media (max-width: 768px) {
+    table.form-table {
+      font-size: 12px; /* Reduce font size for mobile */
+    }
+  
+    input[matInput] {
+      max-width: 100px;
+    }
+  
+    .button-group button {
+      width: 100%; /* Full width for buttons on small screens */
+    }
+  }
+  
+  /* Style for larger screens */
+  @media (min-width: 768px) {
+    table.form-table {
+      font-size: 14px; /* Default font size */
+    }
+  
+    input[matInput] {
+      max-width: 200px;
+    }
+  }
+  

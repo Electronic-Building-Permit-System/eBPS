@@ -39,7 +39,7 @@ export class DesigndataComponent {
 
   createFloorGroup(): FormGroup {
     return this._formBuilder.group({
-      salutation: ['', Validators.required]
+     
       
     });
   }

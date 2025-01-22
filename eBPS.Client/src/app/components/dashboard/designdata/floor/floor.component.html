@@ -1,14 +1,85 @@
-<div *ngFor="let form of floorForm.controls; let i = index">
-    <form [formGroup]="getFormGroup(form)">
-        <div class="form-row">
-          <mat-form-field appearance="fill" class="flex-item">
-            <mat-label>Salutation</mat-label>
-            <mat-select formControlName="salutation">
-              <mat-option value="1">Mr</mat-option>
-              <mat-option value="2">Ms</mat-option>
-              <mat-option value="3">Mrs</mat-option>
-            </mat-select>
-          </mat-form-field>
-           
-        </div>
-    </form></div>
+
+  <table class="form-table table-responsive" border="1">
+    <thead>
+      <tr>
+        <th rowspan="4">SN</th>
+        <th rowspan="4">Floor Name</th>
+        <th colspan="6">Floor Area</th>
+        <th rowspan="2" colspan="2">Total Floor Area (SQ.M)</th>
+      </tr>
+      <tr>
+        <th colspan="4">Existing</th>
+        <th colspan="2">Proposed (New Construction)</th>
+      </tr>
+      <tr>
+        <th colspan="2">Other Building</th>
+        <th colspan="2">Previous Permitted Storey</th>
+        <th rowspan="2">Non Countable</th>
+        <th rowspan="2">Countable</th>
+        <th rowspan="2">Total (Taxable)</th>
+        <th rowspan="2">Total</th>
+      </tr>
+      <tr>
+        <th>Non Countable</th>
+        <th>Countable</th>
+        <th>Non Countable</th>
+        <th>Countable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let form of floorForm.controls; let sn = index" [formGroup]="getFormGroup(form)">
+        
+        <td *ngIf="sn !== 0">{{ sn  }}</td>
+        
+       
+        <td>{{ sn === 0 ? '' : form.value.floorName }}</td> 
+    
+        
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="NonCountableExisting" placeholder="Enter value" />
+        </td>
+    
+        
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="CountableExisting" placeholder="Enter value" />
+        </td>
+    
+        
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="NonCountablePermitted" placeholder="Enter value" />
+        </td>
+    
+
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="CountablePermitted" placeholder="Enter value" />
+        </td>
+    
+
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="NonCountableProposed" placeholder="Enter value" />
+        </td>
+    
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="CountableProposed" placeholder="Enter value" />
+        </td>
+    
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="TotalTaxable" placeholder="Enter value" />
+        </td>
+    
+        <td *ngIf="sn !== 0">
+          <input matInput formControlName="Total" placeholder="Enter value" />
+        </td>
+      </tr>
+    </tbody>
+    
+  </table>
+  <div class="button-group">
+    <button mat-raised-button color="primary" >Add Floor</button>
+    <br>
+    <br>
+    <button mat-raised-button color="warn">Remove Floor</button>
+  </div>
+  
+
+ 
