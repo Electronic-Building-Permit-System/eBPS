@@ -107,7 +107,7 @@ namespace eBPS.Application.Services
                     GrandFatherName = buildingApplicationDTO.ApplicantDetails.GrandFatherName,
                     Tole = buildingApplicationDTO.ApplicantDetails.Tole,
                     CitizenshipNumber = buildingApplicationDTO.ApplicantDetails.CitizenshipNumber,
-                    CitizenshipIssueDate = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDate,
+                    //CitizenshipIssueDate = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDate,
                     CitizenshipIssueDistrict = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDistrict,
                     PhoneNumber = buildingApplicationDTO.ApplicantDetails.PhoneNumber,
                     Email = buildingApplicationDTO.ApplicantDetails.Email,

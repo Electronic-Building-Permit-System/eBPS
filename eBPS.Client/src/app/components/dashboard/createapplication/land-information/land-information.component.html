@@ -1,89 +1,110 @@
 <div *ngFor="let form of landInformationForm.controls; let i = index">
-    <div [formGroup]="asFormGroup(form)" class="dynamic-form-group">
-        <div class="form-row">
-            <mat-form-field appearance="fill" class="flex-item">
-                <mat-label>Map Sheet Number</mat-label>
-                <input matInput formControlName="mapSheetNumber" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Land Parcel Number</mat-label>
-                <input matInput formControlName="landParcelNumber" />
-            </mat-form-field>
-        </div>
-        <div class="form-row">
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Ropani</mat-label>
-                <input matInput formControlName="ropani" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Aana</mat-label>
-                <input matInput formControlName="aana" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Paisa</mat-label>
-                <input matInput formControlName="paisa" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Daam</mat-label>
-                <input matInput formControlName="daam" />
-            </mat-form-field>
-        </div>
-        <div class="form-row">
-            <mat-form-field appearance="fill" class="flex-item">
-                <mat-label>Square Feet</mat-label>
-                <input matInput formControlName="squareFeet" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Square Meter</mat-label>
-                <input matInput formControlName="squareMeter" />
-            </mat-form-field>
-        </div>
-        <div class="form-row">
-            <mat-form-field appearance="fill" class="flex-item"> 
-                <mat-label>Remarks</mat-label>
-                <textarea  matInput formControlName="remarks" rows="4"></textarea>
-            </mat-form-field>
-        </div>
-      <div class="add-remove-button">
-        <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
-          Remove
-        </button>
-        <button mat-raised-button color="primary" (click)="onAddForm()">
-          Add New
-        </button>
-      </div>
+  <div [formGroup]="asFormGroup(form)" class="dynamic-form-group">
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Map Sheet Number</mat-label>
+        <input matInput formControlName="mapSheetNumber" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Land Parcel Number</mat-label>
+        <input matInput formControlName="landParcelNumber" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Ropani</mat-label>
+        <input matInput formControlName="ropani" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Aana</mat-label>
+        <input matInput formControlName="aana" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Paisa</mat-label>
+        <input matInput formControlName="paisa" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Daam</mat-label>
+        <input matInput formControlName="daam" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Square Feet</mat-label>
+        <input matInput formControlName="squareFeet" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Square Meter</mat-label>
+        <input matInput formControlName="squareMeter" appDecimalOnly />
+        <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+          Must be a valid decimal number
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput formControlName="remarks" rows="4"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="add-remove-button">
+      <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+        Remove
+      </button>
+      <button mat-raised-button color="primary" (click)="onAddForm()">
+        Add New
+      </button>
     </div>
   </div>
-  <!-- Attractive Totals Display -->
-  <mat-card>
-    <mat-card-title>Total Land Area</mat-card-title>
-    <mat-card-content>
-      <div class="totals-container">
-        <div class="total-item">
-          <mat-label>Total Ropani:</mat-label>
-          <span>{{ totals.totalRopani }}</span>
-        </div>
-        <div class="total-item">
-          <mat-label>Total Aana:</mat-label>
-          <span>{{ totals.totalAana }}</span>
-        </div>
-        <div class="total-item">
-          <mat-label>Total Paisa:</mat-label>
-          <span>{{ totals.totalPaisa }}</span>
-        </div>
-        <div class="total-item">
-          <mat-label>Total Daam:</mat-label>
-          <span>{{ totals.totalDaam }}</span>
-        </div>
-        <div class="total-item">
-            <mat-label>Total Square Feet:</mat-label>
-            <span>{{ totals.totalSquareFeet }}</span>
-          </div>
-          <div class="total-item">
-            <mat-label>Total Square Meter:</mat-label>
-            <span>{{ totals.totalSquareMeter }}</span>
-          </div>
+</div>
+<!-- Attractive Totals Display -->
+<mat-card>
+  <mat-card-title>Total Land Area</mat-card-title>
+  <mat-card-content>
+    <div class="totals-container">
+      <div class="total-item">
+        <mat-label>Total Ropani:</mat-label>
+        <span>{{ totals.totalRopani }}</span>
       </div>
-    </mat-card-content>
-  </mat-card>
-  
+      <div class="total-item">
+        <mat-label>Total Aana:</mat-label>
+        <span>{{ totals.totalAana }}</span>
+      </div>
+      <div class="total-item">
+        <mat-label>Total Paisa:</mat-label>
+        <span>{{ totals.totalPaisa }}</span>
+      </div>
+      <div class="total-item">
+        <mat-label>Total Daam:</mat-label>
+        <span>{{ totals.totalDaam }}</span>
+      </div>
+      <div class="total-item">
+        <mat-label>Total Square Feet:</mat-label>
+        <span>{{ totals.totalSquareFeet }}</span>
+      </div>
+      <div class="total-item">
+        <mat-label>Total Square Meter:</mat-label>
+        <span>{{ totals.totalSquareMeter }}</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="stepper-actions">
+  <button mat-button matStepperPrevious>Back</button>
+  <button mat-button matStepperNext>Next</button>
+</div>

@@ -18,5 +18,6 @@ namespace eBPS.Domain.Entities
         public decimal Daam { get; set; }
         public decimal SquareMeter { get; set; }
         public decimal SquareFeet { get; set; }
+        public string Remarks { get; set; }
     }
 }

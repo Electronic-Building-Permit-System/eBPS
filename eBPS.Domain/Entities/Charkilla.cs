@@ -16,7 +16,7 @@ namespace eBPS.Domain.Entities
         public string CharkillaName { get; set; }
         public int RoadId { get; set; }
         public bool IsGLD { get; set; }
-        public string RoadLength { get; set; }
+        public decimal RoadLength { get; set; }
         public decimal ProposedROW { get; set; }
         public decimal ExistingROW { get; set; }
         public decimal ActualSetback { get; set; }

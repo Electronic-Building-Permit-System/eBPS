@@ -8,21 +8,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ApplicationService } from '../../../../services/application/application.service';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
 
 @Component({
   selector: 'app-charkilla',
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule, MatOptionModule, MatCheckboxModule, MatSelectModule],
+    MatButtonModule,
+    MatOptionModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatStepperModule,
+    DecimalOnlyDirective
+  ],
   templateUrl: './charkilla.component.html',
-  styleUrl: './charkilla.component.css'
+  styleUrl: './charkilla.component.css',
 })
 export class CharkillaComponent {
   landscapeType: { id: number; description: string }[] = [];
- @Input() charkillaForm!: FormArray;
+  @Input() charkillaForm!: FormArray;
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();
 
@@ -37,15 +45,15 @@ export class CharkillaComponent {
   onRemoveForm(index: number) {
     this.removeForm.emit(index); // Notify parent to remove a form
   }
-  constructor(private applicationService: ApplicationService){}
-        ngOnInit(): void {
-          this.fetchLandscapeType();
-      
-        } 
-        fetchLandscapeType() {
-          this.applicationService.getLandscapeType().subscribe((data: { id: number; description: string }[]) => {
-            this.landscapeType = data;
-          });
-        }
-        
+  constructor(private applicationService: ApplicationService) {}
+  ngOnInit(): void {
+    this.fetchLandscapeType();
+  }
+  fetchLandscapeType() {
+    this.applicationService
+      .getLandscapeType()
+      .subscribe((data: { id: number; description: string }[]) => {
+        this.landscapeType = data;
+      });
+  }
 }

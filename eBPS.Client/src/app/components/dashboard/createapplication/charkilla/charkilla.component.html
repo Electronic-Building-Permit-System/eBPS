@@ -39,26 +39,41 @@
           </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
               <mat-label>Road Length</mat-label>
-              <input matInput formControlName="roadLength" />
+              <input matInput formControlName="roadLength" appDecimalOnly />
+              <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+                Must be a valid decimal number
+              </mat-error>
           </mat-form-field>
              
         </div>
         <div class="form-row">
             <mat-form-field appearance="fill" class="flex-item"> 
               <mat-label> Proposed Row</mat-label>
-              <input matInput formControlName="proposedRow" />
+              <input matInput formControlName="proposedRow" appDecimalOnly />
+              <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+                Must be a valid decimal number
+              </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label> Existing Row</mat-label>
-                <input matInput formControlName="existingRow" />
+                <input matInput formControlName="existingRow" appDecimalOnly />
+                <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+                  Must be a valid decimal number
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
                 <mat-label>Actual Setback</mat-label>
-                <input matInput formControlName="actualSetback" />
+                <input matInput formControlName="actualSetback" appDecimalOnly />
+                <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+                  Must be a valid decimal number
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
               <mat-label>Standard Setback</mat-label>
-              <input matInput formControlName="standardSetback" />
+              <input matInput formControlName="standardSetback" appDecimalOnly />
+              <mat-error *ngIf="form.get('landLongitude')?.hasError('pattern')">
+                Must be a valid decimal number
+              </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item"> 
               <mat-label>Kitta</mat-label>
@@ -73,6 +88,10 @@
           Add New
         </button>
       </div>
+    </div>
+    <div class="stepper-actions">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </div>
   </div>
   

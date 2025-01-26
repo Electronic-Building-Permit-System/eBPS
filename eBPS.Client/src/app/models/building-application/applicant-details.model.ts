@@ -6,7 +6,7 @@ export interface ApplicantDetailsModel {
     grandFatherName: string;
     tole : string;
     citizenshipNumber: string;
-    citizenshipIssueDate: Date;
+    citizenshipIssueDate: any;
     citizenshipIssueDistrict: number;
     phoneNumber: string;
     email: string;

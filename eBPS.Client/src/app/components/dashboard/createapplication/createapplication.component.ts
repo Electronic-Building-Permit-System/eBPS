@@ -47,6 +47,7 @@ import { ApplicationService } from '../../../services/application/application.se
   styleUrls: ['./createapplication.component.css']
 })
 export class CreateApplicationComponent {
+  decimalValidator = Validators.pattern(/^\d*\.?\d+$/);
   isLinear = true;
   applicationDetailsForm!: FormGroup;
   applicantDetailsForm!: FormGroup;
@@ -54,13 +55,13 @@ export class CreateApplicationComponent {
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
-
+  
   totals: LandTotals = { totalRopani: 0, totalAana: 0, totalPaisa: 0, totalDaam: 0, totalSquareFeet: 0, totalSquareMeter: 0 };
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
   ) {}
 
   ngOnInit() {
@@ -70,6 +71,7 @@ export class CreateApplicationComponent {
   }
 
   private initializeForms() {
+    
     this.applicationDetailsForm = this.fb.group({
       transactionType: ['', Validators.required],
       buildingPurpose: ['', Validators.required],
@@ -77,8 +79,8 @@ export class CreateApplicationComponent {
       landUseZone: ['', Validators.required],
       landUseSubZone: ['', Validators.required],
       structureType: ['', Validators.required],
-      landLongitude: ['', Validators.required],
-      landLatitude: ['', Validators.required],
+      landLongitude: ['', [Validators.required, this.decimalValidator]],
+      landLatitude: ['', [Validators.required, this.decimalValidator]],
       landSawikWard: ['', Validators.required],
       landSawikGabisa: ['', Validators.required],
       landToleName: ['', Validators.required],
@@ -95,7 +97,7 @@ export class CreateApplicationComponent {
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
       citizenshipNumber: ['', Validators.required],
-      citizenshipIssueDate: ['', Validators.required],
+      citizenshipIssueDate: [''],
       citizenshipIssueDistrict: ['', Validators.required],
       wardNumber: ['', Validators.required],
       address: ['', Validators.required],
@@ -123,12 +125,12 @@ export class CreateApplicationComponent {
     const landInfoForm = this.fb.group({
       mapSheetNumber: ['', Validators.required],
       landParcelNumber: ['', Validators.required],
-      ropani: [0, Validators.required],
-      aana: [0, Validators.required],
-      paisa: [0, Validators.required],
-      daam: [0, Validators.required],
-      squareFeet: [0, Validators.required],
-      squareMeter: [0, Validators.required],
+      ropani: ['', [Validators.required, this.decimalValidator]],
+      aana: ['', [Validators.required, this.decimalValidator]],
+      paisa: ['', [Validators.required, this.decimalValidator]],
+      daam: ['', [Validators.required, this.decimalValidator]],
+      squareFeet: ['', [Validators.required, this.decimalValidator]],
+      squareMeter: ['', [Validators.required, this.decimalValidator]],
       remarks: ['', Validators.required],
     });
     landInfoForm.valueChanges.subscribe(() => this.updateTotals());
@@ -179,11 +181,11 @@ export class CreateApplicationComponent {
       landscapeType: ['', Validators.required],
       side: ['', Validators.required],
       charkillaName: ['', Validators.required],
-      roadLength: ['', Validators.required],
-      existingRow: ['', Validators.required],
-      proposedRow: ['', Validators.required],
-      actualSetback: ['', Validators.required],
-      standardSetback: ['', Validators.required],
+      roadLength: ['', [Validators.required, this.decimalValidator]],
+      existingRow: ['', [Validators.required, this.decimalValidator]],
+      proposedRow: ['', [Validators.required, this.decimalValidator]],
+      actualSetback: ['', [Validators.required, this.decimalValidator]],
+      standardSetback: ['', [Validators.required, this.decimalValidator]],
       roadId: ['', Validators.required],
       kitta: ['', Validators.required],
     });
@@ -226,7 +228,10 @@ export class CreateApplicationComponent {
     const landInformation: LandInformationModel[] = this.landInformationForm.controls.map(group => group.value);
     const landOwners: LandOwnerModel[] = this.landOwnerForm.controls.map(group => group.value);
     const charkilla: CharkillaModel[] = this.charkillaForm.controls.map(group => group.value);
-
+    const applicantDetails: ApplicantDetailsModel = this.applicationDetailsForm.value;
+    if (applicantDetails.citizenshipIssueDate) {
+      applicantDetails.citizenshipIssueDate = applicantDetails.citizenshipIssueDate.toISOString(); // Convert to ISO 8601
+    }
     return {
       applicationDetails: this.applicationDetailsForm.value as ApplicationDetailsModel,
       applicantDetails: this.applicantDetailsForm.value as ApplicantDetailsModel,

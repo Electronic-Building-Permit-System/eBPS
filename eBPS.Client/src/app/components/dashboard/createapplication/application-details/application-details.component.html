@@ -50,12 +50,18 @@
     </div>
     <div class="form-row">
       <mat-form-field class="flex-item" appearance="fill">
-          <mat-label>Land Logitude</mat-label>
-          <input matInput formControlName="landLongitude" />       
+          <mat-label>Land Longitude</mat-label>
+          <input matInput formControlName="landLongitude" appDecimalOnly />       
+          <mat-error *ngIf="firstFormGroup.get('landLongitude')?.hasError('pattern')">
+            Must be a valid decimal number
+          </mat-error>
       </mat-form-field>
       <mat-form-field class="flex-item" appearance="fill">
           <mat-label>Land Latitude</mat-label>
-          <input matInput formControlName="landLatitude" />       
+          <input matInput formControlName="landLatitude" appDecimalOnly />  
+          <mat-error *ngIf="firstFormGroup.get('landLongitude')?.hasError('pattern')">
+            Must be a valid decimal number
+          </mat-error>     
       </mat-form-field>
     </div>
     <div class="form-row">

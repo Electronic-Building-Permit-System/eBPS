@@ -55,7 +55,7 @@
         matInput
         [matDatepicker]="picker"
         formControlName="citizenshipIssueDate"
-        placeholder="MM-DD-YYYY" 
+        placeholder="YYYY/MM/DD" 
         readonly
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -65,6 +65,13 @@
       <mat-label>Citizenship Issue District</mat-label>
       <input matInput formControlName="citizenshipIssueDistrict" required />
     </mat-form-field> 
+    <mat-form-field appearance="fill" class="flex-item"> 
+      <mat-label>Citizenship Issue District</mat-label>
+      <mat-select formControlName="citizenshipIssueDistrict">
+          <mat-option *ngFor="let district of issueDistrict" [value]="district.id">
+              {{ district.description }}</mat-option>  
+        </mat-select>
+  </mat-form-field>
   </div>
 
   <div class="form-row">
