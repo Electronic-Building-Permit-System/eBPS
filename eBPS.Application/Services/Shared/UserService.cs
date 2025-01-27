@@ -74,7 +74,9 @@ namespace eBPS.Application.Services.Shared
                     PhoneNumber = userDto.PhoneNumber,
                     PasswordHash = passwordHash,
                     IsActive = true,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    LastLoginOrgId = userDto.OrgIds.First(),
+                    LastLoginRoleId = userDto.RoleIds.First(),
                 };
 
                 // Save the user to the database

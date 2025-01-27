@@ -24,6 +24,7 @@ import { LandTotals } from '../../../models/building-application/land-area-total
 import { LandOwnerModel } from '../../../models/building-application/land-owner.model';
 import { CharkillaModel } from '../../../models/building-application/charkilla.model';
 import { ApplicationService } from '../../../services/application/application.service';
+import NepaliDate from 'nepali-date-converter';
 
 @Component({
   selector: 'app-createapplication',
@@ -97,7 +98,7 @@ export class CreateApplicationComponent {
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
       citizenshipNumber: ['', Validators.required],
-      citizenshipIssueDate: [''],
+      citizenshipIssueDate: [NepaliDate.now(), Validators.required],
       citizenshipIssueDistrict: ['', Validators.required],
       wardNumber: ['', Validators.required],
       address: ['', Validators.required],
@@ -228,9 +229,13 @@ export class CreateApplicationComponent {
     const landInformation: LandInformationModel[] = this.landInformationForm.controls.map(group => group.value);
     const landOwners: LandOwnerModel[] = this.landOwnerForm.controls.map(group => group.value);
     const charkilla: CharkillaModel[] = this.charkillaForm.controls.map(group => group.value);
-    const applicantDetails: ApplicantDetailsModel = this.applicationDetailsForm.value;
+    const applicantDetails: ApplicantDetailsModel = this.applicantDetailsForm.value;
     if (applicantDetails.citizenshipIssueDate) {
-      applicantDetails.citizenshipIssueDate = applicantDetails.citizenshipIssueDate.toISOString(); // Convert to ISO 8601
+      applicantDetails.citizenshipIssueDate = applicantDetails.citizenshipIssueDate.toJsDate(); // Convert to ISO 8601
+      console.log('test', applicantDetails.citizenshipIssueDate);
+      const nepaliDate = new NepaliDate(applicantDetails.citizenshipIssueDate);
+      console.log('Nepali date:', nepaliDate.format('YYYY-MM-DD'));
+      applicantDetails.citizenshipIssueDateBS = nepaliDate.format('YYYY-MM-DD'); // Example format
     }
     return {
       applicationDetails: this.applicationDetailsForm.value as ApplicationDetailsModel,

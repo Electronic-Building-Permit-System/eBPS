@@ -10,7 +10,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ApplicationService } from '../../../../services/application/application.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
-import { NepaliDateAdapter } from '../../../../services/nepali-date-adapter';
+import { NepaliDateAdapter } from '../../../../services/nepali-date/nepali-date-adapter';
 
 @Component({
   selector: 'app-applicant-details',

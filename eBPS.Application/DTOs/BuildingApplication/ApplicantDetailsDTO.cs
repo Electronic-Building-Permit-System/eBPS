@@ -11,7 +11,8 @@ namespace eBPS.Application.DTOs.BuildingApplication
         public string GrandFatherName { get; set; } 
         public string Tole { get; set; } 
         public string CitizenshipNumber { get; set; } 
-        public object CitizenshipIssueDate { get; set; } 
+        public DateTime CitizenshipIssueDate { get; set; } 
+        public string CitizenshipIssueDateBS { get; set; } 
         public int CitizenshipIssueDistrict { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }

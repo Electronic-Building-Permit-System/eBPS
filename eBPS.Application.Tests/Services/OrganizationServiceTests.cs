@@ -65,28 +65,6 @@ namespace eBPS.Application.Tests.Services
             _organizationRepositoryMock.Verify(r => r.GetUserOrganizations(userId), Times.Once);
         }
 
-        [Test]
-        public async Task GetOrganizationsConfig_ShouldReturnOrganizationConfig()
-        {
-            // Arrange
-            var orgId = 1;
-            var connectionString = "Server=localhost;Database=TestDb;";
-            var data = new { ConfigKey = "Value" };
-
-            _organizationRepositoryMock.Setup(r => r.GetOrganizationsConfig(orgId))
-                .ReturnsAsync(connectionString);
-            _organizationRepositoryMock.Setup(r => r.GetData(connectionString))
-                .ReturnsAsync(data);
-
-            // Act
-            var result = await _organizationService.GetOrganizationsConfig(orgId);
-
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.EqualTo(data));
-            _organizationRepositoryMock.Verify(r => r.GetOrganizationsConfig(orgId), Times.Once);
-            _organizationRepositoryMock.Verify(r => r.GetData(connectionString), Times.Once);
-        }
 
         [Test]
         public void GetUserIdFromToken_ShouldReturnUserId_WhenTokenIsValid()

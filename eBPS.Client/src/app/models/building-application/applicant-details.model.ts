@@ -7,6 +7,7 @@ export interface ApplicantDetailsModel {
     tole : string;
     citizenshipNumber: string;
     citizenshipIssueDate: any;
+    citizenshipIssueDateBS: string;
     citizenshipIssueDistrict: number;
     phoneNumber: string;
     email: string;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import NepaliDate from 'nepali-date-converter';
+import { getNumDaysInMonth } from './date-config-map';
 
 @Injectable({ providedIn: 'root' })
 export class NepaliDateAdapter extends DateAdapter<NepaliDate> {
@@ -9,8 +10,9 @@ export class NepaliDateAdapter extends DateAdapter<NepaliDate> {
   }
 
   getNumDaysInMonth(date: NepaliDate): number {
-    const daysInMonth = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
-    return daysInMonth[date.getMonth()];
+    const year: number = date.getYear();
+    const month: number = date.getMonth();
+    return getNumDaysInMonth(year, month);
   }
 
   parse(value: any): NepaliDate | null {

@@ -18,6 +18,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationService } from '../../../services/application/application.service';
+import { TransactionTypeDescriptions, TransactionTypeEnum } from '../../../enums/transaction-type-enum';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 @Component({
   selector: 'app-building-application',
   imports: [
@@ -32,6 +34,7 @@ import { ApplicationService } from '../../../services/application/application.se
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './building-application.component.html',
   styleUrl: './building-application.component.css',
@@ -44,10 +47,12 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
   buildingApplication: any[] = [];
 
   // Columns to display in the table
-  displayedColumns: string[] = ['applicantName'];
+  displayedColumns: string[] = ['applicantName', 'applicationNumber', 'wardNumber', 'transactionType','edit','detail'];
 
   // ViewChild to reference paginator
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  @ViewChild(MatSort) sort: MatSort | null = null;
+
 
   constructor(
     private router: Router,
@@ -64,6 +69,9 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   /**
@@ -72,9 +80,12 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
   fetchBuildingApplication(): void {
     this.applicationService.getBuildingApplication().subscribe(
       (
-        data: { applicantName: string }[]) => {
-          debugger
-        this.buildingApplication = data;
+        data: { applicantName: string, applicationNumber: string, wardNumber: number, transactionType: number }[]) => {
+        const transformedData = data.map(item => ({
+          ...item,
+          transactionTypeDescription: TransactionTypeDescriptions[item.transactionType] || "Unknown"
+        }));
+        this.buildingApplication = transformedData;
         this.dataSource.data = this.buildingApplication; // Bind data to MatTableDataSource
       },
       (error) => {

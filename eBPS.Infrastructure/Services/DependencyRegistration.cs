@@ -44,12 +44,15 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<ISmtpClientWrapper, SmtpClientWrapper>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IUserContextService, UserContextService>();
+
 
             // Register any other infrastructure services (like logging, caching, etc.)
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IDbConnection>(provider => new SqlConnection(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddHttpContextAccessor();
         }
     }
 }

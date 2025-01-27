@@ -24,6 +24,7 @@ namespace eBPS.Tests.Application.Services
         private Mock<ILandInformationRepository> _landInformationRepositoryMock;
         private Mock<ICharkillaRepository> _charkillaRepositoryMock;
         private Mock<ILandOwnerRepository> _landOwnerRepositoryMock;
+        private Mock<IUserContextService> _userContext;
 
         private IApplicationService _applicationService;
 
@@ -45,6 +46,7 @@ namespace eBPS.Tests.Application.Services
             _landInformationRepositoryMock = new Mock<ILandInformationRepository>();
             _charkillaRepositoryMock = new Mock<ICharkillaRepository>();
             _landOwnerRepositoryMock = new Mock<ILandOwnerRepository>();
+            _userContext = new Mock<IUserContextService>();
 
             _applicationService = new ApplicationService(
                 _buildingPurposeRepositoryMock.Object,
@@ -61,7 +63,8 @@ namespace eBPS.Tests.Application.Services
                 _houseOwnerRepositoryMock.Object,
                 _landInformationRepositoryMock.Object,
                 _charkillaRepositoryMock.Object,
-                _landOwnerRepositoryMock.Object
+                _landOwnerRepositoryMock.Object,
+                _userContext.Object
             );
         }
 

@@ -1,8 +1,10 @@
 ﻿using eBPS.Application.DTOs.BuildingApplication;
+using eBPS.Application.DTOs.BuildingApplication.Dashboard;
 using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+
 namespace eBPS.Application.Services
 {
     public class ApplicationService : IApplicationService
@@ -22,11 +24,14 @@ namespace eBPS.Application.Services
         private readonly ILandInformationRepository _landInformationRepository;
         private readonly ICharkillaRepository _charkillaRepository;
         private readonly ILandOwnerRepository _landOwnerRepository;
+        private readonly IUserContextService _userContext;
 
-
-        public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
-           IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IDistrictRepository issueDistrictRepository,  
-            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,ILandOwnerRepository landOwnerRepository)
+        public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, 
+            ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository, IOrganizationRepository organizationRepository, 
+            IBuildingApplicationRepository buildingApplicationRepository, IDistrictRepository issueDistrictRepository, ITransactionTypeRepository transactionTypeRepository, 
+            ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, 
+            IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,
+            ILandOwnerRepository landOwnerRepository, IUserContextService userContext)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -43,6 +48,7 @@ namespace eBPS.Application.Services
             _landInformationRepository = landInformationRepository;
             _charkillaRepository = charkillaRepository;
             _landOwnerRepository = landOwnerRepository;
+            _userContext = userContext;
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -66,7 +72,7 @@ namespace eBPS.Application.Services
         {
             return await _landUseSubZoneRepository.GetActiveLandUseSubZone();
         }   
-        public async Task<IEnumerable<BuildingApplicationDTO>> GetActiveBuildingApplication()
+        public async Task<IEnumerable<ApplicationDTO>> GetActiveBuildingApplication()
         {
             return await _buildingApplicationRepository.GetBuildingApplicationList();
         }
@@ -88,7 +94,7 @@ namespace eBPS.Application.Services
             
         }
         
-        public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()
+        public async Task<IEnumerable<ApplicationDTO>> GetBuildingApplicationList()
         {
             return await _buildingApplicationRepository.GetBuildingApplicationList();
         }
@@ -96,7 +102,7 @@ namespace eBPS.Application.Services
         {        
             try
             {
-                var orgId = 1;
+                var orgId = _userContext.GetOrgId();
                 var connectionString = await _organizationRepository.GetOrganizationsConfig(orgId);
                 var buildingApplication = new BuildingApplication
                 {
@@ -107,7 +113,7 @@ namespace eBPS.Application.Services
                     GrandFatherName = buildingApplicationDTO.ApplicantDetails.GrandFatherName,
                     Tole = buildingApplicationDTO.ApplicantDetails.Tole,
                     CitizenshipNumber = buildingApplicationDTO.ApplicantDetails.CitizenshipNumber,
-                    //CitizenshipIssueDate = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDate,
+                    CitizenshipIssueDate = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDate,
                     CitizenshipIssueDistrict = buildingApplicationDTO.ApplicantDetails.CitizenshipIssueDistrict,
                     PhoneNumber = buildingApplicationDTO.ApplicantDetails.PhoneNumber,
                     Email = buildingApplicationDTO.ApplicantDetails.Email,
