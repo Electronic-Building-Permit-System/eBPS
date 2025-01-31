@@ -193,7 +193,7 @@ export class CreateApplicationComponent {
     this.charkillaForm.push(formGroup);
   }
 
-  private updateTotals() {
+  updateTotals() {
     this.totals = { ...this.totals, ...this.applicationService.calculateTotals(this.landInformationForm.controls) };
   }
 
@@ -214,6 +214,7 @@ export class CreateApplicationComponent {
         next: response => {
           console.log('Application created successfully:', response);
           alert('Form submitted successfully!');
+          this.navigateToDashboard();
         },
         error: error => {
           console.error('Error creating application:', error);
@@ -224,7 +225,7 @@ export class CreateApplicationComponent {
     }
   }
 
-  private prepareFormData(): BuildingApplicationData {
+  prepareFormData(): BuildingApplicationData {
     const houseOwners: HouseOwnerModel[] = this.houseOwnerForm.controls.map(group => group.value);
     const landInformation: LandInformationModel[] = this.landInformationForm.controls.map(group => group.value);
     const landOwners: LandOwnerModel[] = this.landOwnerForm.controls.map(group => group.value);
@@ -235,7 +236,7 @@ export class CreateApplicationComponent {
       console.log('test', applicantDetails.citizenshipIssueDate);
       const nepaliDate = new NepaliDate(applicantDetails.citizenshipIssueDate);
       console.log('Nepali date:', nepaliDate.format('YYYY-MM-DD'));
-      applicantDetails.citizenshipIssueDateBS = nepaliDate.format('YYYY-MM-DD'); // Example format
+      applicantDetails.citizenshipIssueDateBS = nepaliDate.format('YYYY-MM-DD');
     }
     return {
       applicationDetails: this.applicationDetailsForm.value as ApplicationDetailsModel,

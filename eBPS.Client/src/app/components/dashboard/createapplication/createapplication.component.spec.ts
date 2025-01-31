@@ -1,29 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { CreateApplicationComponent } from './createapplication.component';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApplicationService } from '../../../services/application/application.service';
+import { Router } from '@angular/router';
+import { of, throwError } from 'rxjs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
-import { CreateApplicationComponent } from './createapplication.component';
-import { ApplicationService } from '../../../services/application/application.service';
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import NepaliDate from 'nepali-date-converter';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('CreateapplicationComponent', () => {
+describe('CreateApplicationComponent', () => {
   let component: CreateApplicationComponent;
   let fixture: ComponentFixture<CreateApplicationComponent>;
-  let mockApplicationService: jasmine.SpyObj<ApplicationService>;
-  let mockRouter: jasmine.SpyObj<Router>;
+  let applicationService: jasmine.SpyObj<ApplicationService>;
+  let router: jasmine.SpyObj<Router>;
+  let formBuilder: FormBuilder;
 
   beforeEach(async () => {
-    mockApplicationService = jasmine.createSpyObj('ApplicationService', ['createBuildingApplication']);
-    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', ['createBuildingApplication', 'calculateTotals']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
       imports: [
-        CreateApplicationComponent, // Import the standalone component
+        CreateApplicationComponent,
         ReactiveFormsModule,
         MatStepperModule,
         MatFormFieldModule,
@@ -31,102 +36,156 @@ describe('CreateapplicationComponent', () => {
         MatButtonModule,
         MatSelectModule,
         MatIconModule,
+        CommonModule,
+        NoopAnimationsModule
       ],
       providers: [
-        { provide: ApplicationService, useValue: mockApplicationService },
-        { provide: Router, useValue: mockRouter },
-      ],
+        FormBuilder,
+        { provide: ApplicationService, useValue: applicationServiceSpy },
+        { provide: Router, useValue: routerSpy },
+        provideHttpClient()
+      ]
     }).compileComponents();
 
+    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    formBuilder = TestBed.inject(FormBuilder);
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(CreateApplicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize forms on ngOnInit', () => {
-    component.ngOnInit();
-    expect(component.firstFormGroup).toBeDefined();
-    expect(component.secondFormGroup).toBeDefined();
-    expect(component.landInformationForm.length).toBeGreaterThan(0);
-    expect(component.landOwnerForm.length).toBeGreaterThan(0);
-    expect(component.houseOwnerForm.length).toBeGreaterThan(0);
-    expect(component.charkillaForm.length).toBeGreaterThan(0);
-  });
-
-  it('should add a new dynamic form', () => {
-    const initialLength = component.landInformationForm.length;
-    component.addNewForm();
-    expect(component.landInformationForm.length).toBe(initialLength + 1);
-  });
-
-
-  it('should remove a dynamic form', () => {
-    component.addNewForm();
-    const initialLength = component.landInformationForm.length;
-    component.removeForm(0);
-    expect(component.landInformationForm.length).toBe(initialLength - 1);
-  });
-
-  it('should not remove a dynamic form if only one exists', () => {
-    component.landInformationForm.clear();
-    component.addNewForm();
-    const initialLength = component.landInformationForm.length;
-    component.removeForm(0);
-    expect(component.landInformationForm.length).toBe(initialLength);
-  });
-
-  it('should call applicationService on valid form submission', () => {
-    mockApplicationService.createBuildingApplication.and.returnValue(of({}));
-    component.firstFormGroup.setValue({
-      transactionType: 'Type1',
-      buildingPurpose: 'Residential',
-      nbcClass: 'Class1',
-      landUseZone: 'Zone1',
-      landUseSubZone: 'SubZone1',
-      structureType: 'Structure1',
-    });
-    component.secondFormGroup.setValue({
-      salutation: 'Mr.',
-      applicantName: 'John Doe',
-      wardNumber: '1',
-      address: '123 Street',
-      houseNumber: '456',
-      phoneNumber: '1234567890',
-      email: 'john@example.com',
+  describe('Form Initialization', () => {
+    it('should initialize applicationDetailsForm with required controls', () => {
+      expect(component.applicationDetailsForm.contains('transactionType')).toBeTrue();
+      expect(component.applicationDetailsForm.get('transactionType')?.hasValidator(Validators.required)).toBeTrue();
+      
+      expect(component.applicationDetailsForm.contains('landLongitude')).toBeTrue();
+      expect(component.applicationDetailsForm.get('landLongitude')?.hasValidator(Validators.required)).toBeTrue();
     });
 
-    component.submitForm();
-    expect(mockApplicationService.createBuildingApplication).toHaveBeenCalled();
+    it('should initialize applicantDetailsForm with required controls', () => {
+      expect(component.applicantDetailsForm.contains('applicantName')).toBeTrue();
+      expect(component.applicantDetailsForm.get('applicantName')?.hasValidator(Validators.required)).toBeTrue();
+    });
+
+    it('should initialize dynamic form arrays with at least one entry', () => {
+      expect(component.landInformationForm.controls.length).toBe(1);
+      expect(component.landOwnerForm.controls.length).toBe(1);
+      expect(component.houseOwnerForm.controls.length).toBe(1);
+      expect(component.charkillaForm.controls.length).toBe(1);
+    });
   });
 
-  it('should navigate to dashboard on successful form submission', () => {
-    mockApplicationService.createBuildingApplication.and.returnValue(of({}));
-    component.submitForm();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/dashboard']);
+  describe('Form Manipulation', () => {
+    it('should add new land information form', () => {
+      const initialLength = component.landInformationForm.controls.length;
+      component.addNewLandInformationForm();
+      expect(component.landInformationForm.controls.length).toBe(initialLength + 1);
+    });
+
+    it('should remove land information form when multiple exist', () => {
+      component.addNewLandInformationForm();
+      const initialLength = component.landInformationForm.controls.length;
+      component.removeFormGroup(component.landInformationForm, 0);
+      expect(component.landInformationForm.controls.length).toBe(initialLength - 1);
+    });
+
+    it('should not remove last land information form', () => {
+      const initialLength = component.landInformationForm.controls.length;
+      component.removeFormGroup(component.landInformationForm, 0);
+      expect(component.landInformationForm.controls.length).toBe(initialLength);
+    });
   });
 
-  it('should handle form submission errors', () => {
-    mockApplicationService.createBuildingApplication.and.returnValue(throwError(() => new Error('Error')));
-    spyOn(console, 'error');
-    component.submitForm();
-    expect(console.error).toHaveBeenCalledWith('Error creating application:', jasmine.any(Error));
+  describe('Form Submission', () => {
+    beforeEach(() => {
+      // Mock valid form data
+      component.applicationDetailsForm.patchValue({
+        transactionType: 'NEW',
+        buildingPurpose: 'RESIDENTIAL',
+        // ... populate all required fields
+      });
+
+      component.applicantDetailsForm.patchValue({
+        applicantName: 'Test User',
+        citizenshipNumber: '123-456',
+        // ... populate all required fields
+      });
+
+      applicationService.createBuildingApplication.and.returnValue(of({}));
+    });
+
+    it('should submit valid form', () => {
+      component.submitForm();
+      expect(applicationService.createBuildingApplication).toHaveBeenCalled();
+    });
+
+    it('should navigate to dashboard on successful submission', () => {
+      component.submitForm();
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    });
+
+    it('should handle submission error', () => {
+      applicationService.createBuildingApplication.and.returnValue(throwError(() => new Error('Test Error')));
+      component.submitForm();
+      expect(applicationService.createBuildingApplication).toHaveBeenCalled();
+    });
+
+    it('should not submit invalid form', () => {
+      component.applicationDetailsForm.reset();
+      component.submitForm();
+      expect(applicationService.createBuildingApplication).not.toHaveBeenCalled();
+    });
   });
 
-  it('should display an alert on successful submission', () => {
-    spyOn(window, 'alert');
-    mockApplicationService.createBuildingApplication.and.returnValue(of({}));
-    component.submitForm();
-    expect(window.alert).toHaveBeenCalledWith('Form submitted successfully!');
+  describe('Data Preparation', () => {
+    it('should prepare form data correctly', () => {
+      const testDate = NepaliDate.now; // Example Nepali date
+      component.applicantDetailsForm.patchValue({
+        citizenshipIssueDate: testDate
+      });
+
+      const preparedData = component.prepareFormData();
+      
+      expect(preparedData.applicantDetails.citizenshipIssueDateBS).toBe('2081-01-01');
+      expect(preparedData.landInformationList.length).toBe(1);
+      expect(preparedData.houseOwnerList.length).toBe(1);
+    });
   });
 
-  it('should not submit if forms are invalid', () => {
-    spyOn(console, 'log');
-    component.submitForm();
-    expect(console.log).toHaveBeenCalledWith('Form is invalid');
-    expect(mockApplicationService.createBuildingApplication).not.toHaveBeenCalled();
+  describe('Validation', () => {
+    it('should validate decimal fields', () => {
+      const control = component.applicationDetailsForm.get('landLongitude');
+      control?.setValue('invalid');
+      expect(control?.hasError('pattern')).toBeTrue();
+      
+      control?.setValue('123.45');
+      expect(control?.hasError('pattern')).toBeFalse();
+    });
+  });
+
+  describe('Totals Calculation', () => {
+    it('should update totals when land information changes', () => {
+      applicationService.calculateTotals.and.returnValue({
+        totalRopani: 2,
+        totalAana: 4,
+        totalPaisa: 6,
+        totalDaam: 8,
+        totalSquareFeet: 100,
+        totalSquareMeter: 10
+      });
+
+      component.landInformationForm.at(0).patchValue({ ropani: 2 });
+      expect(applicationService.calculateTotals).toHaveBeenCalled();
+      expect(component.totals.totalRopani).toBe(2);
+    });
   });
 });

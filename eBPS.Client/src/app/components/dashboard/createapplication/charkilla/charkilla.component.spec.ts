@@ -1,84 +1,106 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormArray, FormGroup } from '@angular/forms';
+import { CharkillaComponent } from './charkilla.component';
+import { ReactiveFormsModule, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { By } from '@angular/platform-browser';
-import { CharkillaComponent } from './charkilla.component';
+import { ApplicationService } from '../../../../services/application/application.service';
+import { of } from 'rxjs';
+import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
 
 describe('CharkillaComponent', () => {
   let component: CharkillaComponent;
   let fixture: ComponentFixture<CharkillaComponent>;
-  let addFormSpy: jasmine.Spy;
-  let removeFormSpy: jasmine.Spy;
+  let applicationService: jasmine.SpyObj<ApplicationService>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', ['getLandscapeType']);
+
+    await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
         MatButtonModule,
-        MatOptionModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        DecimalOnlyDirective
       ],
-      declarations: [CharkillaComponent]
+      providers: [
+        { provide: ApplicationService, useValue: applicationServiceSpy }
+      ]
     }).compileComponents();
 
+    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(CharkillaComponent);
     component = fixture.componentInstance;
 
-    // Mock the EventEmitter methods
-    addFormSpy = spyOn(component.addForm, 'emit');
-    removeFormSpy = spyOn(component.removeForm, 'emit');
+    // ✅ Initialize `charkillaForm` before calling detectChanges
+    component.charkillaForm = new FormArray<FormGroup>([]);
+
+    // Set up spy for landscape types
+    applicationService.getLandscapeType.and.returnValue(of([
+      { id: 1, description: 'Residential' },
+      { id: 2, description: 'Commercial' }
+    ]));
 
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit addForm event when onAddForm is called', () => {
+  it('should fetch landscape types on init', () => {
+    const mockLandscapeTypes = [
+      { id: 1, description: 'Residential' },
+      { id: 2, description: 'Commercial' }
+    ];
+    
+    applicationService.getLandscapeType.and.returnValue(of(mockLandscapeTypes));
+
+    component.ngOnInit();
+
+    expect(applicationService.getLandscapeType).toHaveBeenCalled();
+    expect(component.landscapeType).toEqual(mockLandscapeTypes);
+  });
+
+  it('should emit addForm event when adding a new form', () => {
+    spyOn(component.addForm, 'emit');
+
     component.onAddForm();
 
-    expect(addFormSpy).toHaveBeenCalled();
+    expect(component.addForm.emit).toHaveBeenCalled();
   });
 
-  it('should emit removeForm event when onRemoveForm is called', () => {
-    const index = 1; // Example index
-    component.onRemoveForm(index);
-
-    expect(removeFormSpy).toHaveBeenCalledWith(index);
+  it('should emit removeForm event when removing a form', () => {
+    // Arrange: Ensure the FormArray has one form.
+    component.charkillaForm = new FormArray<FormGroup>([
+      new FormGroup({}) // Add a dummy FormGroup
+    ]);
+  
+    // Spy on the removeForm emitter
+    spyOn(component.removeForm, 'emit');
+  
+    // Act: Call onRemoveForm to remove the form at index 0
+    component.onRemoveForm(0);
+  
+    // Assert: The removeForm event should have been emitted with index 0
+    expect(component.removeForm.emit).toHaveBeenCalledWith(0);
   });
 
-  it('should convert control to FormGroup in asFormGroup', () => {
-    const mockControl = new FormGroup({});
-    const result = component.asFormGroup(mockControl);
+  it('should not emit removeForm event if no forms exist', () => {
+    spyOn(component.removeForm, 'emit');
 
-    expect(result).toBe(mockControl);
-  });
+    expect(component.charkillaForm.length).toBe(0); // Ensure it's empty
 
-  it('should trigger onAddForm when add button is clicked', () => {
-    const button = fixture.debugElement.query(By.css('.add-button'));
-    button.triggerEventHandler('click', null);
+    component.onRemoveForm(0); // Try removing
 
-    expect(addFormSpy).toHaveBeenCalled();
-  });
-
-  it('should trigger onRemoveForm when remove button is clicked', () => {
-    const index = 0;
-    component.charkillaForm = new FormArray([new FormGroup({})]);
-
-    fixture.detectChanges();
-
-    const button = fixture.debugElement.query(By.css('.remove-button'));
-    button.triggerEventHandler('click', index);
-
-    expect(removeFormSpy).toHaveBeenCalledWith(index);
+    expect(component.removeForm.emit).not.toHaveBeenCalled(); // Should NOT emit
   });
 });

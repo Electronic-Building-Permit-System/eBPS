@@ -43,7 +43,9 @@ export class CharkillaComponent {
   }
 
   onRemoveForm(index: number) {
-    this.removeForm.emit(index); // Notify parent to remove a form
+    if (this.charkillaForm.length > 0) {
+      this.removeForm.emit(index); // Only emit if there are forms
+    }
   }
   constructor(private applicationService: ApplicationService) {}
   ngOnInit(): void {
