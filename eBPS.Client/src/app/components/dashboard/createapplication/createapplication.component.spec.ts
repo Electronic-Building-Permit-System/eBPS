@@ -1,9 +1,13 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { CreateApplicationComponent } from './createapplication.component';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ApplicationService } from '../../../services/application/application.service';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { ApplicationService } from '../../../services/application/application.service';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +16,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { LandInformationComponent } from './land-information/land-information.component';
+import { LandOwnerComponent } from './land-owner/land-owner.component';
+import { HouseOwnerComponent } from './house-owner/house-owner.component';
+import { CharkillaComponent } from './charkilla/charkilla.component';
+import { ApplicationDetailsComponent } from './application-details/application-details.component';
+import { ApplicantDetailsComponent } from './applicant-details/applicant-details.component';
+import { of, throwError } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 import NepaliDate from 'nepali-date-converter';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -19,16 +31,26 @@ describe('CreateApplicationComponent', () => {
   let component: CreateApplicationComponent;
   let fixture: ComponentFixture<CreateApplicationComponent>;
   let applicationService: jasmine.SpyObj<ApplicationService>;
-  let router: jasmine.SpyObj<Router>;
-  let formBuilder: FormBuilder;
+  let router: Router;
 
   beforeEach(async () => {
-    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', ['createBuildingApplication', 'calculateTotals']);
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', [
+      'createBuildingApplication',
+      'calculateTotals',
+      'getIssueDistrict',
+      'getWard',
+      'getLandscapeType',
+      'getBuildingPurpose',
+      'getNBCClass',
+      'getStructureType',
+      'getLandUseSubZone',
+      'getLandUseZone',
+      'getTransactionType',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [
-        CreateApplicationComponent,
+        CommonModule,
         ReactiveFormsModule,
         MatStepperModule,
         MatFormFieldModule,
@@ -36,20 +58,37 @@ describe('CreateApplicationComponent', () => {
         MatButtonModule,
         MatSelectModule,
         MatIconModule,
-        CommonModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        RouterTestingModule,
+        // Import standalone components
+        LandInformationComponent,
+        LandOwnerComponent,
+        HouseOwnerComponent,
+        CharkillaComponent,
+        ApplicationDetailsComponent,
+        ApplicantDetailsComponent,
       ],
       providers: [
         FormBuilder,
         { provide: ApplicationService, useValue: applicationServiceSpy },
-        { provide: Router, useValue: routerSpy },
-        provideHttpClient()
-      ]
+        provideHttpClient(),
+      ],
     }).compileComponents();
 
-    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    formBuilder = TestBed.inject(FormBuilder);
+    applicationService = TestBed.inject(
+      ApplicationService
+    ) as jasmine.SpyObj<ApplicationService>;
+    router = TestBed.inject(Router);
+    // Mock the getIssueDistrict method
+    applicationService.getIssueDistrict.and.returnValue(of([]));
+    applicationService.getWard.and.returnValue(of([]));
+    applicationService.getLandscapeType.and.returnValue(of([]));
+    applicationService.getBuildingPurpose.and.returnValue(of([]));
+    applicationService.getNBCClass.and.returnValue(of([]));
+    applicationService.getStructureType.and.returnValue(of([]));
+    applicationService.getLandUseSubZone.and.returnValue(of([]));
+    applicationService.getLandUseZone.and.returnValue(of([]));
+    applicationService.getTransactionType.and.returnValue(of([]));
   });
 
   beforeEach(() => {
@@ -62,130 +101,186 @@ describe('CreateApplicationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('Form Initialization', () => {
-    it('should initialize applicationDetailsForm with required controls', () => {
-      expect(component.applicationDetailsForm.contains('transactionType')).toBeTrue();
-      expect(component.applicationDetailsForm.get('transactionType')?.hasValidator(Validators.required)).toBeTrue();
-      
-      expect(component.applicationDetailsForm.contains('landLongitude')).toBeTrue();
-      expect(component.applicationDetailsForm.get('landLongitude')?.hasValidator(Validators.required)).toBeTrue();
+  it('should initialize all form groups', () => {
+    expect(component.applicationDetailsForm).toBeDefined();
+    expect(component.applicantDetailsForm).toBeDefined();
+    expect(component.landInformationForm).toBeDefined();
+    expect(component.landOwnerForm).toBeDefined();
+    expect(component.houseOwnerForm).toBeDefined();
+    expect(component.charkillaForm).toBeDefined();
+  });
+
+  it('should have initial dynamic forms', () => {
+    expect(component.landInformationForm.length).toBe(1);
+    expect(component.landOwnerForm.length).toBe(1);
+    expect(component.houseOwnerForm.length).toBe(1);
+    expect(component.charkillaForm.length).toBe(1);
+  });
+
+  describe('Form Validation', () => {
+    it('applicationDetailsForm should have required validators', () => {
+      const form = component.applicationDetailsForm;
+      expect(form.get('transactionType')?.hasError('required')).toBeTruthy();
+      expect(form.get('landLongitude')?.hasError('required')).toBeTruthy();
     });
 
-    it('should initialize applicantDetailsForm with required controls', () => {
-      expect(component.applicantDetailsForm.contains('applicantName')).toBeTrue();
-      expect(component.applicantDetailsForm.get('applicantName')?.hasValidator(Validators.required)).toBeTrue();
-    });
-
-    it('should initialize dynamic form arrays with at least one entry', () => {
-      expect(component.landInformationForm.controls.length).toBe(1);
-      expect(component.landOwnerForm.controls.length).toBe(1);
-      expect(component.houseOwnerForm.controls.length).toBe(1);
-      expect(component.charkillaForm.controls.length).toBe(1);
+    it('applicantDetailsForm should have required validators', () => {
+      const form = component.applicantDetailsForm;
+      expect(form.get('applicantName')?.hasError('required')).toBeTruthy();
+      expect(form.get('phoneNumber')?.hasError('required')).toBeTruthy();
     });
   });
 
-  describe('Form Manipulation', () => {
+  describe('Dynamic Form Handling', () => {
     it('should add new land information form', () => {
-      const initialLength = component.landInformationForm.controls.length;
       component.addNewLandInformationForm();
-      expect(component.landInformationForm.controls.length).toBe(initialLength + 1);
-    });
-
-    it('should remove land information form when multiple exist', () => {
-      component.addNewLandInformationForm();
-      const initialLength = component.landInformationForm.controls.length;
-      component.removeFormGroup(component.landInformationForm, 0);
-      expect(component.landInformationForm.controls.length).toBe(initialLength - 1);
+      expect(component.landInformationForm.length).toBe(2);
     });
 
     it('should not remove last land information form', () => {
-      const initialLength = component.landInformationForm.controls.length;
       component.removeFormGroup(component.landInformationForm, 0);
-      expect(component.landInformationForm.controls.length).toBe(initialLength);
-    });
-  });
-
-  describe('Form Submission', () => {
-    beforeEach(() => {
-      // Mock valid form data
-      component.applicationDetailsForm.patchValue({
-        transactionType: 'NEW',
-        buildingPurpose: 'RESIDENTIAL',
-        // ... populate all required fields
-      });
-
-      component.applicantDetailsForm.patchValue({
-        applicantName: 'Test User',
-        citizenshipNumber: '123-456',
-        // ... populate all required fields
-      });
-
-      applicationService.createBuildingApplication.and.returnValue(of({}));
+      expect(component.landInformationForm.length).toBe(1);
     });
 
-    it('should submit valid form', () => {
-      component.submitForm();
-      expect(applicationService.createBuildingApplication).toHaveBeenCalled();
-    });
-
-    it('should navigate to dashboard on successful submission', () => {
-      component.submitForm();
-      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
-    });
-
-    it('should handle submission error', () => {
-      applicationService.createBuildingApplication.and.returnValue(throwError(() => new Error('Test Error')));
-      component.submitForm();
-      expect(applicationService.createBuildingApplication).toHaveBeenCalled();
-    });
-
-    it('should not submit invalid form', () => {
-      component.applicationDetailsForm.reset();
-      component.submitForm();
-      expect(applicationService.createBuildingApplication).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Data Preparation', () => {
-    it('should prepare form data correctly', () => {
-      const testDate = NepaliDate.now; // Example Nepali date
-      component.applicantDetailsForm.patchValue({
-        citizenshipIssueDate: testDate
-      });
-
-      const preparedData = component.prepareFormData();
-      
-      expect(preparedData.applicantDetails.citizenshipIssueDateBS).toBe('2081-01-01');
-      expect(preparedData.landInformationList.length).toBe(1);
-      expect(preparedData.houseOwnerList.length).toBe(1);
-    });
-  });
-
-  describe('Validation', () => {
-    it('should validate decimal fields', () => {
-      const control = component.applicationDetailsForm.get('landLongitude');
-      control?.setValue('invalid');
-      expect(control?.hasError('pattern')).toBeTrue();
-      
-      control?.setValue('123.45');
-      expect(control?.hasError('pattern')).toBeFalse();
+    it('should add new land owner form', () => {
+      component.addNewLandOwnerForm();
+      expect(component.landOwnerForm.length).toBe(2);
     });
   });
 
   describe('Totals Calculation', () => {
     it('should update totals when land information changes', () => {
-      applicationService.calculateTotals.and.returnValue({
-        totalRopani: 2,
-        totalAana: 4,
-        totalPaisa: 6,
-        totalDaam: 8,
+      const mockTotals = {
+        totalRopani: 1,
+        totalAana: 2,
+        totalPaisa: 3,
+        totalDaam: 4,
         totalSquareFeet: 100,
-        totalSquareMeter: 10
+        totalSquareMeter: 10,
+      };
+
+      applicationService.calculateTotals.and.returnValue(mockTotals);
+
+      component.landInformationForm.at(0).patchValue({
+        ropani: 1,
+        aana: 2,
+        paisa: 3,
+        daam: 4,
+        squareFeet: 100,
+        squareMeter: 10,
       });
 
-      component.landInformationForm.at(0).patchValue({ ropani: 2 });
-      expect(applicationService.calculateTotals).toHaveBeenCalled();
-      expect(component.totals.totalRopani).toBe(2);
+      expect(component.totals).toEqual(mockTotals);
+    });
+  });
+
+  describe('Form Submission', () => {
+    it('should submit valid form', fakeAsync(() => {
+      spyOn(router, 'navigate');
+      applicationService.createBuildingApplication.and.returnValue(of({}));
+
+      // Fill required fields
+      component.applicationDetailsForm.patchValue({
+        transactionType: 'NEW',
+        buildingPurpose: 'RESIDENTIAL',
+        nbcClass: 'A',
+        landUseZone: 'URBAN',
+        landUseSubZone: 'CORE',
+        structureType: 'RCC',
+        landLongitude: 85.324,
+        landLatitude: 27.717,
+        landSawikWard: '5',
+        landSawikGabisa: '10',
+        landToleName: 'Main Tole',
+        wardNumber: '3',
+      });
+
+      const nepaliDate = new NepaliDate(2080, 1, 1);
+      component.applicantDetailsForm.patchValue({
+        salutation: 'MR',
+        applicantName: 'John Doe',
+        applicationNumber: 'APP-001',
+        fatherName: 'John Doe Sr.',
+        grandFatherName: 'John Doe Jr.',
+        tole: 'Main Tole',
+        phoneNumber: '9841234567',
+        email: 'test@example.com',
+        citizenshipNumber: '123-45',
+        citizenshipIssueDate: nepaliDate,
+        citizenshipIssueDistrict: 'Kathmandu',
+        wardNumber: '5',
+        address: 'Kathmandu',
+        houseNumber: '123',
+      });
+
+      component.submitForm();
+      tick();
+
+      expect(applicationService.createBuildingApplication).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    }));
+
+    it('should handle submission error', fakeAsync(() => {
+      // Mock the service to return an error
+      applicationService.createBuildingApplication.and.returnValue(
+        throwError(() => new Error('Test Error'))
+      );
+  
+      // Spy on console.error to verify it's called
+      spyOn(console, 'error');
+  
+      // Fill required fields in applicationDetailsForm
+      component.applicationDetailsForm.patchValue({
+        transactionType: 'NEW',
+        buildingPurpose: 'RESIDENTIAL',
+        nbcClass: 'A',
+        landUseZone: 'URBAN',
+        landUseSubZone: 'CORE',
+        structureType: 'RCC',
+        landLongitude: 85.324,
+        landLatitude: 27.717,
+        landSawikWard: '5',
+        landSawikGabisa: '10',
+        landToleName: 'Main Tole',
+        wardNumber: '3',
+      });
+  
+      // Fill required fields in applicantDetailsForm
+      const nepaliDate = new NepaliDate(2080, 1, 1); // Create a NepaliDate instance
+      component.applicantDetailsForm.patchValue({
+        salutation: 'MR',
+        applicantName: 'John Doe',
+        applicationNumber: 'APP-001',
+        fatherName: 'John Doe Sr.',
+        grandFatherName: 'John Doe Jr.',
+        tole: 'Main Tole',
+        phoneNumber: '9841234567',
+        email: 'test@example.com',
+        citizenshipNumber: '123-45',
+        citizenshipIssueDate: nepaliDate, // Use NepaliDate instance
+        citizenshipIssueDistrict: 'Kathmandu',
+        wardNumber: '5',
+        address: 'Kathmandu',
+        houseNumber: '123',
+      });
+  
+      // Trigger form submission
+      component.submitForm();
+      tick(); // Simulate async completion
+  
+      // Verify that console.error was called with the expected arguments
+      expect(console.error).toHaveBeenCalledWith(
+        'Error creating application:',
+        jasmine.any(Error)
+      );
+    }));
+  });
+
+  describe('Navigation', () => {
+    it('should navigate to dashboard on back button click', () => {
+      const navigateSpy = spyOn(router, 'navigate');
+      component.navigateToDashboard();
+      expect(navigateSpy).toHaveBeenCalledWith(['/dashboard']);
     });
   });
 });

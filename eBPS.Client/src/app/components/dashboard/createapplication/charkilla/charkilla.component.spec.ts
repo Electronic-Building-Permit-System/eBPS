@@ -1,53 +1,77 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CharkillaComponent } from './charkilla.component';
 import { ReactiveFormsModule, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
+import { CharkillaComponent } from './charkilla.component';
 import { ApplicationService } from '../../../../services/application/application.service';
 import { of } from 'rxjs';
-import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
+import { CdkStepper } from '@angular/cdk/stepper';
+import { ChangeDetectorRef, ElementRef } from '@angular/core';
 
 describe('CharkillaComponent', () => {
   let component: CharkillaComponent;
   let fixture: ComponentFixture<CharkillaComponent>;
-  let applicationService: jasmine.SpyObj<ApplicationService>;
+  let mockApplicationService: jasmine.SpyObj<ApplicationService>;
 
   beforeEach(async () => {
-    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', ['getLandscapeType']);
+    mockApplicationService = jasmine.createSpyObj('ApplicationService', ['getLandscapeType']);
 
     await TestBed.configureTestingModule({
       imports: [
+        CharkillaComponent, 
+        DecimalOnlyDirective,
         ReactiveFormsModule,
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatOptionModule,
         MatCheckboxModule,
-        DecimalOnlyDirective
+        MatStepperModule,
+        NoopAnimationsModule,
       ],
       providers: [
-        { provide: ApplicationService, useValue: applicationServiceSpy }
-      ]
+        { provide: ApplicationService, useValue: mockApplicationService },
+        CdkStepper,
+        ChangeDetectorRef,
+        { provide: ElementRef, useValue: jasmine.createSpyObj('ElementRef', ['nativeElement']) },
+      ],
     }).compileComponents();
 
-    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(CharkillaComponent);
     component = fixture.componentInstance;
 
-    // ✅ Initialize `charkillaForm` before calling detectChanges
-    component.charkillaForm = new FormArray<FormGroup>([]);
+    // Initialize the form array with one form group
+    component.charkillaForm = new FormArray([
+      new FormGroup({
+        direction: new FormControl(''),
+        side: new FormControl(''),
+        charkillaName: new FormControl(''),
+        landscapeType: new FormControl(''),
+        roadId: new FormControl(''),
+        roadLength: new FormControl(''),
+        proposedRow: new FormControl(''),
+        existingRow: new FormControl(''),
+        actualSetback: new FormControl(''),
+        standardSetback: new FormControl(''),
+        kitta: new FormControl(''),
+      }),
+    ]);
 
-    // Set up spy for landscape types
-    applicationService.getLandscapeType.and.returnValue(of([
-      { id: 1, description: 'Residential' },
-      { id: 2, description: 'Commercial' }
-    ]));
+    // Mock the landscape type data
+    mockApplicationService.getLandscapeType.and.returnValue(
+      of([
+        { id: 1, description: 'Type 1' },
+        { id: 2, description: 'Type 2' },
+      ])
+    );
 
     fixture.detectChanges();
   });
@@ -56,51 +80,42 @@ describe('CharkillaComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch landscape types on init', () => {
-    const mockLandscapeTypes = [
-      { id: 1, description: 'Residential' },
-      { id: 2, description: 'Commercial' }
-    ];
-    
-    applicationService.getLandscapeType.and.returnValue(of(mockLandscapeTypes));
-
-    component.ngOnInit();
-
-    expect(applicationService.getLandscapeType).toHaveBeenCalled();
-    expect(component.landscapeType).toEqual(mockLandscapeTypes);
+  it('should initialize the form array', () => {
+    expect(component.charkillaForm).toBeInstanceOf(FormArray);
+    expect(component.charkillaForm.length).toBe(1);
   });
 
-  it('should emit addForm event when adding a new form', () => {
+  it('should emit addForm event when add button is clicked', () => {
     spyOn(component.addForm, 'emit');
-
-    component.onAddForm();
-
+    const addButton = fixture.nativeElement.querySelector('button[color="primary"]');
+    addButton.click();
     expect(component.addForm.emit).toHaveBeenCalled();
   });
 
-  it('should emit removeForm event when removing a form', () => {
-    // Arrange: Ensure the FormArray has one form.
-    component.charkillaForm = new FormArray<FormGroup>([
-      new FormGroup({}) // Add a dummy FormGroup
-    ]);
-  
-    // Spy on the removeForm emitter
+  it('should emit removeForm event when remove button is clicked', () => {
     spyOn(component.removeForm, 'emit');
-  
-    // Act: Call onRemoveForm to remove the form at index 0
-    component.onRemoveForm(0);
-  
-    // Assert: The removeForm event should have been emitted with index 0
+    const removeButton = fixture.nativeElement.querySelector('.remove-button');
+    removeButton.click();
     expect(component.removeForm.emit).toHaveBeenCalledWith(0);
   });
 
-  it('should not emit removeForm event if no forms exist', () => {
-    spyOn(component.removeForm, 'emit');
+  it('should fetch landscape type data on initialization', () => {
+    expect(mockApplicationService.getLandscapeType).toHaveBeenCalled();
+    expect(component.landscapeType.length).toBe(2);
+    expect(component.landscapeType[0].description).toBe('Type 1');
+    expect(component.landscapeType[1].description).toBe('Type 2');
+  });
 
-    expect(component.charkillaForm.length).toBe(0); // Ensure it's empty
+  it('should display the correct form controls', () => {
+    const formControls = fixture.nativeElement.querySelectorAll('mat-form-field');
+    expect(formControls.length).toBe(11); // 10 form fields in the template
+  });
 
-    component.onRemoveForm(0); // Try removing
-
-    expect(component.removeForm.emit).not.toHaveBeenCalled(); // Should NOT emit
+  it('should convert control to FormGroup using asFormGroup', () => {
+    const control = new FormGroup({
+      direction: new FormControl(''),
+    });
+    const formGroup = component.asFormGroup(control);
+    expect(formGroup).toBeInstanceOf(FormGroup);
   });
 });

@@ -4,7 +4,6 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatNativeDateModule,
-  MatOption,
   MatOptionModule,
 } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
