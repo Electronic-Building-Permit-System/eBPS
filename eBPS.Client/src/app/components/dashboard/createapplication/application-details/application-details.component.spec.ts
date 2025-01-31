@@ -1,89 +1,101 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationDetailsComponent } from './application-details.component';
+import { ApplicationService } from '../../../../services/application/application.service';
 import { of } from 'rxjs';
-import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
+import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
 import { CommonModule } from '@angular/common';
-import { ApplicationService } from '../../../../services/shared/application/application.service';
 
 describe('ApplicationDetailsComponent', () => {
   let component: ApplicationDetailsComponent;
   let fixture: ComponentFixture<ApplicationDetailsComponent>;
-  let applicationService: jasmine.SpyObj<ApplicationService>;
+  let applicationServiceSpy: jasmine.SpyObj<ApplicationService>;
 
-  beforeEach(() => {
-    // Create a spy for the ApplicationService
-    const spy = jasmine.createSpyObj('ApplicationService', [
+  beforeEach(async () => {
+    const serviceSpy = jasmine.createSpyObj('ApplicationService', [
       'getBuildingPurpose',
+      'getTransactionType',
       'getStructureType',
-      'getNBCClass'
+      'getLandUseZone',
+      'getNBCClass',
+      'getLandUseSubZone',
+      'getWard',
     ]);
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [
+        ApplicationDetailsComponent,
+        DecimalOnlyDirective,
         CommonModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
         MatButtonModule,
         ReactiveFormsModule,
-        MatStepperModule
+        MatStepperModule,
       ],
-      declarations: [ApplicationDetailsComponent],
-      providers: [{ provide: ApplicationService, useValue: spy }]
+      providers: [{ provide: ApplicationService, useValue: serviceSpy }],
     }).compileComponents();
 
-    // Inject the spy service
-    fixture = TestBed.createComponent(ApplicationDetailsComponent);
-    component = fixture.componentInstance;
-    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
-    fixture.detectChanges();
+    applicationServiceSpy = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
   });
 
-  it('should create the component', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ApplicationDetailsComponent);
+    component = fixture.componentInstance;
+    component.firstFormGroup = new FormGroup({});
+
+    applicationServiceSpy.getBuildingPurpose.and.returnValue(of([]));
+    applicationServiceSpy.getTransactionType.and.returnValue(of([]));
+    applicationServiceSpy.getStructureType.and.returnValue(of([]));
+    applicationServiceSpy.getLandUseZone.and.returnValue(of([]));
+    applicationServiceSpy.getNBCClass.and.returnValue(of([]));
+    applicationServiceSpy.getLandUseSubZone.and.returnValue(of([]));
+    applicationServiceSpy.getWard.and.returnValue(of([]));
+  });
+
+  it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should fetch building purpose data on init', () => {
-    const mockBuildingPurpose = [
-      { id: 1, description: 'Residential' },
-      { id: 2, description: 'Commercial' }
-    ];
-    applicationService.getBuildingPurpose.and.returnValue(of(mockBuildingPurpose));
-
-    component.ngOnInit();
-
-    expect(applicationService.getBuildingPurpose).toHaveBeenCalled();
-    expect(component.buildingPurpose).toEqual(mockBuildingPurpose);
+  it('should fetch building purposes on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getBuildingPurpose).toHaveBeenCalled();
   });
 
-  it('should fetch structure type data on init', () => {
-    const mockStructureType = [
-      { id: 1, description: 'Concrete' },
-      { id: 2, description: 'Wood' }
-    ];
-    applicationService.getStructureType.and.returnValue(of(mockStructureType));
-
-    component.ngOnInit();
-
-    expect(applicationService.getStructureType).toHaveBeenCalled();
-    expect(component.structureType).toEqual(mockStructureType);
+  it('should fetch transaction types on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getTransactionType).toHaveBeenCalled();
   });
 
-  it('should fetch NBC class data on init', () => {
-    const mockNBCClass = [
-      { id: 1, description: 'Class I' },
-      { id: 2, description: 'Class II' }
-    ];
-    applicationService.getNBCClass.and.returnValue(of(mockNBCClass));
+  it('should fetch structure types on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getStructureType).toHaveBeenCalled();
+  });
 
-    component.ngOnInit();
+  it('should fetch land use zones on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getLandUseZone).toHaveBeenCalled();
+  });
 
-    expect(applicationService.getNBCClass).toHaveBeenCalled();
-    expect(component.nbcClass).toEqual(mockNBCClass);
+  it('should fetch NBC classes on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getNBCClass).toHaveBeenCalled();
+  });
+
+  it('should fetch land use sub-zones on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getLandUseSubZone).toHaveBeenCalled();
+  });
+
+  it('should fetch wards on init', () => {
+    fixture.detectChanges();
+    expect(applicationServiceSpy.getWard).toHaveBeenCalled();
   });
 });

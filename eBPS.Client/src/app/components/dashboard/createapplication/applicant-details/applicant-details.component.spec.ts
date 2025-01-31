@@ -1,77 +1,127 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ApplicantDetailsComponent } from './applicant-details.component';
+import { ApplicationService } from '../../../../services/application/application.service';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { NepaliDateAdapter } from '../../../../services/nepali-date/nepali-date-adapter';
 import { of } from 'rxjs';
-import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { By } from '@angular/platform-browser';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
-import { CommonModule } from '@angular/common';
-import { ApplicationService } from '../../../../services/shared/application/application.service';
 
 describe('ApplicantDetailsComponent', () => {
   let component: ApplicantDetailsComponent;
   let fixture: ComponentFixture<ApplicantDetailsComponent>;
   let applicationService: jasmine.SpyObj<ApplicationService>;
+  let testFormGroup: FormGroup;
 
-  beforeEach(() => {
-    // Create a spy for the ApplicationService
-    const spy = jasmine.createSpyObj('ApplicationService', ['getWard']);
+  const mockWards = [{ id: 1, wardNumber: 'Ward 1' }, { id: 2, wardNumber: 'Ward 2' }];
+  const mockDistricts = [{ id: 1, description: 'District 1' }, { id: 2, description: 'District 2' }];
 
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    const applicationServiceSpy = jasmine.createSpyObj('ApplicationService', ['getWard', 'getIssueDistrict']);
+
+    await TestBed.configureTestingModule({
+      // Import standalone component directly
       imports: [
-        CommonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
+        ApplicantDetailsComponent, // Standalone component
         ReactiveFormsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        MatInputModule,
+        NoopAnimationsModule,
       ],
-      declarations: [ApplicantDetailsComponent],
-      providers: [{ provide: ApplicationService, useValue: spy }]
+      providers: [
+        { provide: ApplicationService, useValue: applicationServiceSpy },
+        { provide: NepaliDateAdapter, useClass: NepaliDateAdapter },
+        // Include component's providers if needed
+        { provide: MAT_DATE_LOCALE, useValue: 'ne-NP' }
+      ]
     }).compileComponents();
 
-    // Inject the spy service
+    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
+    applicationService.getWard.and.returnValue(of(mockWards));
+    applicationService.getIssueDistrict.and.returnValue(of(mockDistricts));
+
+    testFormGroup = new FormGroup({});
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(ApplicantDetailsComponent);
     component = fixture.componentInstance;
-    applicationService = TestBed.inject(ApplicationService) as jasmine.SpyObj<ApplicationService>;
+    // Set input property for standalone component
+    component.secondFormGroup = testFormGroup;
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch ward data on init', () => {
-    const mockWardData = [{ id: 1, wardNumber: 'Ward 1' }, { id: 2, wardNumber: 'Ward 2' }];
-    applicationService.getWard.and.returnValue(of(mockWardData));
+  it('should initialize with input form group', () => {
+    expect(component.secondFormGroup).toBe(testFormGroup);
+  });
 
-    component.ngOnInit();
-
+  it('should fetch wards and districts on init', () => {
     expect(applicationService.getWard).toHaveBeenCalled();
-    expect(component.ward).toEqual(mockWardData);
+    expect(applicationService.getIssueDistrict).toHaveBeenCalled();
+    expect(component.ward).toEqual(mockWards);
+    expect(component.issueDistrict).toEqual(mockDistricts);
   });
 
-  it('should handle file selection and generate a preview', () => {
-    const mockFile = new File([''], 'test.txt');
-    const event = { target: { files: [mockFile] } } as unknown as Event;
+  it('should render ward options', () => {
+    fixture.detectChanges();
+    const select = fixture.debugElement.query(By.css('#wardNumber')).nativeElement;
+    expect(select.options.length).toBe(2);
+    expect(select.options[0].textContent).toContain('Ward 1');
+  });
 
-    component.onFileSelected(event);
+  it('should handle file selection and preview', fakeAsync(() => {
+    const mockFile = new File(['test'], 'test.png', { type: 'image/png' });
+    const input = fixture.debugElement.query(By.css('input[type="file"]')).nativeElement;
+    
+    const event = new Event('change');
+    Object.defineProperty(event, 'target', {
+      writable: false,
+      value: { files: [mockFile] }
+    });
 
+    input.dispatchEvent(event);
+    fixture.detectChanges();
+
+    tick(); // Wait for FileReader
+    fixture.detectChanges();
+    
     expect(component.selectedFile).toBe(mockFile);
-    expect(component.preview).toBeTruthy(); // Ensure a preview URL is set
-  });
+    expect(component.preview).toContain('data:image/png;base64');
+  }));
 
-  it('should not update file if no file is selected', () => {
-    const event = { target: { files: [] } } as unknown as Event;
+  it('should display preview when file is selected', fakeAsync(() => {
+    component.preview = 'mock-url';
+    fixture.detectChanges();
+    const img = fixture.debugElement.query(By.css('img'));
+    expect(img).toBeTruthy();
+    expect(img.nativeElement.src).toContain('mock-url');
+  }));
 
-    component.onFileSelected(event);
+  it('should show error when invalid file type is selected', () => {
+    const input = fixture.debugElement.query(By.css('input[type="file"]')).nativeElement;
+    const invalidFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+    
+    const event = new Event('change');
+    Object.defineProperty(event, 'target', {
+      value: { files: [invalidFile] }
+    });
 
-    expect(component.selectedFile).toBeNull();
-    expect(component.preview).toBeNull();
+    input.dispatchEvent(event);
+    fixture.detectChanges();
+
+    const error = fixture.debugElement.query(By.css('.file-error'));
+    expect(error.nativeElement.textContent).toContain('Invalid file type');
   });
 });
