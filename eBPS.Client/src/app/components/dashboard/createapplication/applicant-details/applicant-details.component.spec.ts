@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CommonModule } from '@angular/common';
-import { ApplicationService } from '../../../../services/shared/application/application.service';
+import { ApplicationService } from '../../../../services/application/application.service';
 
 describe('ApplicantDetailsComponent', () => {
   let component: ApplicantDetailsComponent;
