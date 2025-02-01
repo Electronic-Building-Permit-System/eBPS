@@ -144,7 +144,21 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        
+        [HttpGet("get-detail-application-list")]
+        public async Task<IActionResult> GetDetailApplicationList()
+        {
+            try
+            {
+                var detailApplicationList = await _applicationService.GetDetailApplicationList();
+                return Ok(detailApplicationList);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
         [HttpGet("get-landscape-type")]
         public async Task<IActionResult> GetActiveLandscapeType()
         {

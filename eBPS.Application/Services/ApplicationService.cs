@@ -16,6 +16,7 @@ namespace eBPS.Application.Services
         Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict();
 
         Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList();
+        Task<IEnumerable<DetailApplicationDTO>> GetDetailApplicationList();
         Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO);
         Task EditBuildingApplication(int id, BuildingApplicationDTO buildingApplicationDTO);
         Task CreateHouseOwner(List<HouseOwnerDTO> houseOwnerDTO, int applicationId);
@@ -41,12 +42,14 @@ namespace eBPS.Application.Services
         private readonly ITransactionTypeRepository _transactionTypeRepository;
         private readonly ILandInformationRepository _landInformationRepository;
         private readonly ICharkillaRepository _charkillaRepository;
-         private readonly ILandOwnerRepository _landOwnerRepository;
+        private readonly ILandOwnerRepository _landOwnerRepository;
+        private readonly IDetailApplicationRepository _detailApplicationRepository;
 
 
         public ApplicationService( IBuildingPurposeRepository buildingPurposeRepository, IStructureTypeRepository structureTypeRepository, INBCClassRepository nbcClassRepository, ILandscapeTypeRepository landscapeTypeRepository, IWardRepository wardRepository,
            IOrganizationRepository organizationRepository, IBuildingApplicationRepository buildingApplicationRepository, IDistrictRepository issueDistrictRepository,  
-            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,ILandOwnerRepository landOwnerRepository)
+            ITransactionTypeRepository transactionTypeRepository, ILandUseSubZoneRepository landUseSubZoneRepository, ILandUseZoneRepository landUseZoneRepository, IHouseOwnerRepository houseOwnerRepository, ILandInformationRepository landInformationRepository, ICharkillaRepository charkillaRepository,ILandOwnerRepository landOwnerRepository,
+            IDetailApplicationRepository detailApplicationRepository)
         {
             _buildingPurposeRepository = buildingPurposeRepository;
             _structureTypeRepository = structureTypeRepository;
@@ -61,9 +64,10 @@ namespace eBPS.Application.Services
             _landUseZoneRepository = landUseZoneRepository;
             _houseOwnerRepository = houseOwnerRepository;
             _landInformationRepository = landInformationRepository;
-            _charkillaRepository = charkillaRepository;
-            
+            _charkillaRepository = charkillaRepository;            
             _landOwnerRepository = landOwnerRepository;
+            _detailApplicationRepository= detailApplicationRepository;
+
         }
         
         public async Task<IEnumerable<BuildingPurposeDTO>> GetActiveBuildingPurpose()
@@ -112,6 +116,10 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()
         {
             return await _buildingApplicationRepository.GetBuildingApplicationList();
+        }
+        public async Task<IEnumerable<DetailApplicationDTO>> GetDetailApplicationList()
+        {
+            return await _detailApplicationRepository.GetDetailApplicationList();
         }
         public async Task CreateBuildingApplication(BuildingApplicationDTO buildingApplicationDTO)
         {        
