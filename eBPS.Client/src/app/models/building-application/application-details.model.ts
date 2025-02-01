@@ -5,5 +5,11 @@ export interface ApplicationDetailsModel {
     landUseZone: string;
     landUseSubZone: string;
     structureType: string;
+    landLongitude: number;
+    landLatitude: number;
+    landSawikWard: number;
+    landSawikGabisa: string;
+    landToleName: string;
+    landWard: number;
   }
   

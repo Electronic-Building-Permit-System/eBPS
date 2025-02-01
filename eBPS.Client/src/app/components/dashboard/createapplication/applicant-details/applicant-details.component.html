@@ -3,17 +3,37 @@
     <mat-form-field appearance="fill" class="flex-item">
       <mat-label>Salutation</mat-label>
       <mat-select formControlName="salutation">
-        <mat-option value="1">Mr</mat-option>
-        <mat-option value="2">Ms</mat-option>
-        <mat-option value="3">Mrs</mat-option>
+        <mat-option value=1>Mr</mat-option>
+        <mat-option value=2>Ms</mat-option>
+        <mat-option value=3>Mrs</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="flex-item" appearance="fill">
       <mat-label>Applicant Name</mat-label>
       <input matInput formControlName="applicantName" required />
     </mat-form-field>  
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Application Number</mat-label>
+      <input matInput formControlName="applicationNumber" required />
+    </mat-form-field>  
   </div>
+
   <div class="form-row">
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Father's Name</mat-label>
+      <input matInput formControlName="fatherName" required />
+    </mat-form-field>  
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>GrandFather's Name</mat-label>
+      <input matInput formControlName="grandFatherName" required />
+    </mat-form-field>  
+  </div>
+
+  <div class="form-row">
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Tole</mat-label>
+      <input matInput formControlName="tole" required />
+    </mat-form-field> 
     <mat-form-field class="flex-item" appearance="fill">
       <mat-label>Phone Number</mat-label>
       <input matInput formControlName="phoneNumber" required />
@@ -23,9 +43,40 @@
       <input matInput formControlName="email" required />
     </mat-form-field> 
   </div>
+
+  <div class="form-row">
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Citizenship Number</mat-label>
+      <input matInput formControlName="citizenshipNumber" required />
+    </mat-form-field> 
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Citizenship Issue Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="citizenshipIssueDate"
+        placeholder="YYYY/MM/DD" 
+        readonly
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> 
+    <mat-form-field class="flex-item" appearance="fill">
+      <mat-label>Citizenship Issue District</mat-label>
+      <input matInput formControlName="citizenshipIssueDistrict" required />
+    </mat-form-field> 
+    <mat-form-field appearance="fill" class="flex-item"> 
+      <mat-label>Citizenship Issue District</mat-label>
+      <mat-select formControlName="citizenshipIssueDistrict">
+          <mat-option *ngFor="let district of issueDistrict" [value]="district.id">
+              {{ district.description }}</mat-option>  
+        </mat-select>
+  </mat-form-field>
+  </div>
+
   <div class="form-row">
     <mat-form-field appearance="fill" class="flex-item">
-      <mat-label>Ward no.</mat-label>
+      <mat-label>Ward Number</mat-label>
       <mat-select formControlName="wardNumber">
         <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
           {{ purpose.wardNumber }}</mat-option>
@@ -36,11 +87,11 @@
       <input matInput formControlName="address" required />
     </mat-form-field>  
     <mat-form-field appearance="fill" class="flex-item">
-      <mat-label>House no.</mat-label>
+      <mat-label>House Number</mat-label>
       <input matInput formControlName="houseNumber" />
-      
     </mat-form-field> 
   </div>
+
   <div class="form-row">
     <!-- File Upload -->
     <div class="file-upload">
@@ -57,12 +108,8 @@
       />
        <!-- Preview Image -->
     <img *ngIf="preview" [src]="preview" alt="Preview" class="preview-image" />
-  
     </div>
-  
   </div>
-
-   
     <div class="stepper-actions">
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>

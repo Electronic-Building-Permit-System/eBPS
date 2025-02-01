@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using eBPS.Application.DTOs.BuildingApplication;
+using eBPS.Application.DTOs.BuildingApplication.Dashboard;
 using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
@@ -17,12 +18,12 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task<IEnumerable<BuildingApplicationDTO>> GetBuildingApplicationList()
+        public async Task<IEnumerable<ApplicationDTO>> GetBuildingApplicationList()
         {
             var connectionString = "Server=.;Database=LalitpurEbps;Integrated Security=true;TrustServerCertificate=True;";
             using var connection = new SqlConnection(connectionString);
-            const string query = "SELECT ApplicantName FROM BuildingApplication";
-            return await connection.QueryAsync<BuildingApplicationDTO>(query);
+            const string query = "SELECT ApplicantName, ApplicationNumber, WardNumber, TransactionType FROM BuildingApplication";
+            return await connection.QueryAsync<ApplicationDTO>(query);
         }
         public async Task<BuildingApplication> GetBuildingApplicationById(int id, string connectionString)
         {

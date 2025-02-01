@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RoleService } from './role.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 describe('RoleService', () => {
   let service: RoleService;

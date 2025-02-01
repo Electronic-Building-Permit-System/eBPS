@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eBPS.Application.DTOs
+namespace eBPS.Application.DTOs.Shared
 {
     public class RegisterUserDTO
     {

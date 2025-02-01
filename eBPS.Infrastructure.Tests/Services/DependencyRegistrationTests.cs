@@ -3,12 +3,12 @@ using NUnit.Framework;
 using Microsoft.Extensions.DependencyInjection;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Interfaces;
-using eBPS.Application.Services;
 using eBPS.Infrastructure.DataAccess.Repositories;
 using eBPS.Infrastructure.Services;
 using eBPS.Infrastructure.DataAccess;
 using System;
 using Microsoft.OpenApi.Models;
+using eBPS.Application.Services.Shared;
 
 namespace eBPS.Infrastructure.Tests.Services
 {

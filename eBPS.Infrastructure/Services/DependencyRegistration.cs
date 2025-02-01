@@ -1,8 +1,10 @@
 ﻿using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Services;
+using eBPS.Application.Services.Shared;
 using eBPS.Infrastructure.DataAccess;
 using eBPS.Infrastructure.DataAccess.Repositories;
+using eBPS.Infrastructure.DataAccess.Repositories.Shared;
 using eBPS.Infrastructure.Interfaces;
 using eBPS.Infrastructure.Wrappers;
 using Microsoft.Data.SqlClient;
@@ -42,12 +44,15 @@ namespace eBPS.Infrastructure.Services
             services.AddScoped<ISmtpClientWrapper, SmtpClientWrapper>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IUserContextService, UserContextService>();
+
 
             // Register any other infrastructure services (like logging, caching, etc.)
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IDbConnection>(provider => new SqlConnection(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddHttpContextAccessor();
         }
     }
 }

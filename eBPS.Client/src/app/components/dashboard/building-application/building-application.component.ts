@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,16 +18,28 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationService } from '../../../services/application/application.service';
+import { TransactionTypeDescriptions, TransactionTypeEnum } from '../../../enums/transaction-type-enum';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 @Component({
   selector: 'app-building-application',
-  imports: [MatTableModule,
-    MatButtonModule, MatSidenavModule,
-    MatIconModule, CommonModule, MatListModule, MatToolbarModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatPaginatorModule],
+  imports: [
+    MatTableModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    CommonModule,
+    MatListModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule
+  ],
   templateUrl: './building-application.component.html',
-  styleUrl: './building-application.component.css'
+  styleUrl: './building-application.component.css',
 })
 export class BuildingApplicationComponent implements OnInit, AfterViewInit {
-
   // Data source for MatTable
   dataSource = new MatTableDataSource<any>([]);
 
@@ -30,12 +47,17 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
   buildingApplication: any[] = [];
 
   // Columns to display in the table
-  displayedColumns: string[] = ['applicantName']; 
+  displayedColumns: string[] = ['applicantName', 'applicationNumber', 'wardNumber', 'transactionType','edit','detail'];
 
   // ViewChild to reference paginator
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  @ViewChild(MatSort) sort: MatSort | null = null;
 
-  constructor(private router: Router, private applicationService: ApplicationService) {}
+
+  constructor(
+    private router: Router,
+    private applicationService: ApplicationService
+  ) {}
 
   ngOnInit(): void {
     // Fetch data when the component initializes
@@ -47,6 +69,9 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   /**
@@ -54,8 +79,13 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
    */
   fetchBuildingApplication(): void {
     this.applicationService.getBuildingApplication().subscribe(
-      (data: { applicantName: string }[]) => {
-        this.buildingApplication = data;
+      (
+        data: { applicantName: string, applicationNumber: string, wardNumber: number, transactionType: number }[]) => {
+        const transformedData = data.map(item => ({
+          ...item,
+          transactionTypeDescription: TransactionTypeDescriptions[item.transactionType] || "Unknown"
+        }));
+        this.buildingApplication = transformedData;
         this.dataSource.data = this.buildingApplication; // Bind data to MatTableDataSource
       },
       (error) => {
@@ -72,17 +102,19 @@ export class BuildingApplicationComponent implements OnInit, AfterViewInit {
   }
   opendesigndata() {
     this.router.navigate(['designdata']);
-    }
+  }
 
   /**
    * Filters the table data based on the input value.
    * @param event The keyboard event containing the filter value.
    */
   applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
     // Filter the data
-    this.dataSource.filterPredicate = (data, filter) => 
+    this.dataSource.filterPredicate = (data, filter) =>
       data.applicantName.toLowerCase().includes(filter);
     this.dataSource.filter = filterValue;
 

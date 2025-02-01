@@ -1,9 +1,10 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 using eBPS.Application.Interfaces;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Domain.Entities;
+using eBPS.Domain.Entities.Shared;
 
-namespace eBPS.Application.Services
+namespace eBPS.Application.Services.Shared
 {
     public interface IUserService
     {
@@ -73,7 +74,9 @@ namespace eBPS.Application.Services
                     PhoneNumber = userDto.PhoneNumber,
                     PasswordHash = passwordHash,
                     IsActive = true,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    LastLoginOrgId = userDto.OrgIds.First(),
+                    LastLoginRoleId = userDto.RoleIds.First(),
                 };
 
                 // Save the user to the database

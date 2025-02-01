@@ -52,7 +52,6 @@ private apiUrl = environment.apiUrl;
     return this.http.post<any>(`${this.apiUrl}/api/application/create-building-application`, buildingApplication);
   }
   calculateTotals(landInformationControls: AbstractControl[]): LandTotals {
-    debugger
     let totals: LandTotals = {
       totalRopani: 0,
       totalAana: 0,

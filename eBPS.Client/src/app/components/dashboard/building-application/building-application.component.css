@@ -53,10 +53,19 @@
   .search-button mat-icon {
     color: white; /* White search icon */
   }
-  
-  .search-button:hover {
+
+  .search-button{
     background-color: #007bff; /* Slightly darker gray on hover */
   }
+  
+  .search-button:hover {
+    background-color: #115299; /* Slightly darker gray on hover */
+  }
+
+  mat-icon {
+    color: #007bff; /* Example: change icon color to an orange shade */
+  }
+  
   
   
  

@@ -1,10 +1,10 @@
 ﻿using Dapper;
-using eBPS.Domain.Entities;
 using eBPS.Application.Interfaces.Repositories;
 using System.Data;
 using eBPS.Application.Interfaces;
+using eBPS.Domain.Entities.Shared;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class UserRepository : IUserRepository
     {
@@ -37,7 +37,7 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
 
             await _unitOfWork.Connection.ExecuteAsync(query, userOrganizations, _unitOfWork.Transaction);
         }
-        
+
         public async Task UpdateLastLogin(int userId)
         {
             var query = @"UPDATE Users SET LastLoginAt = @LastLoginAt where Id = @UserId";

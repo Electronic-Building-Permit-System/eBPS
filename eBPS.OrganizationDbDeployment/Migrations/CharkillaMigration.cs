@@ -16,12 +16,12 @@ namespace eBPS.OrganizationDbDeployment.Migrations
            .WithColumn("CharkillaName").AsString().Nullable() // For Other Landscape except Roads/Main Roads
            .WithColumn("RoadId").AsInt32().Nullable()
            .WithColumn("IsGLD").AsBoolean().Nullable()
-           .WithColumn("RoadLength").AsString(20).Nullable()
+           .WithColumn("RoadLength").AsDecimal().Nullable()
            .WithColumn("ProposedROW").AsDecimal().Nullable()
            .WithColumn("ExistingROW").AsDecimal().Nullable()
            .WithColumn("ActualSetback").AsDecimal().NotNullable()
            .WithColumn("StandardSetback").AsDecimal().NotNullable()
-           .WithColumn("Kitta").AsDecimal().NotNullable();
+           .WithColumn("Kitta").AsString(20).NotNullable();
 
             Create.ForeignKey("FK_Charkilla_BuildingApplication")
                 .FromTable("Charkilla").ForeignColumn("ApplicationId")

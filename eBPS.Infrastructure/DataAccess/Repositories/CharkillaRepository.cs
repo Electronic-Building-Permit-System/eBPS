@@ -1,7 +1,6 @@
 ﻿using Dapper;
-using eBPS.Application.DTOs;
+using eBPS.Application.DTOs.BuildingApplication;
 using eBPS.Application.Interfaces.Repositories;
-using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -34,17 +33,16 @@ namespace eBPS.Infrastructure.DataAccess.Repositories
                     StandardSetback,
                     Kitta
                 ) VALUES (
-                    
                     @ApplicationId,
                     @Direction,
                     @Side,
-                    @LandscapeTypeId,
+                    @LandscapeType,
                     @CharkillaName,
                     @RoadId,
                     @IsGLD,
                     @RoadLength,
-                    @ProposedROW,
-                    @ExistingROW,
+                    @ProposedRow,
+                    @ExistingRow,
                     @ActualSetback,
                     @StandardSetback,
                     @Kitta

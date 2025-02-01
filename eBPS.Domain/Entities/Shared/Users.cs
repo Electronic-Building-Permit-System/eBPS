@@ -1,5 +1,4 @@
-﻿
-namespace eBPS.Domain.Entities
+﻿namespace eBPS.Domain.Entities.Shared
 {
     public class Users
     {
@@ -11,6 +10,8 @@ namespace eBPS.Domain.Entities
         public string PhoneNumber { get; set; }
         public string PasswordHash { get; set; }
         public bool IsActive { get; set; } = true;
+        public int LastLoginOrgId { get; set; }
+        public int LastLoginRoleId { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 

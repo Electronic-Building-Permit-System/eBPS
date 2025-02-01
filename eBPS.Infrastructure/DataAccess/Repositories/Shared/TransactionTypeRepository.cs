@@ -5,9 +5,9 @@ using eBPS.Domain.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
-    public class TransactionTypeRepository: ITransactionTypeRepository
+    public class TransactionTypeRepository : ITransactionTypeRepository
     {
         private readonly IDbConnection _dbConnection;
 

@@ -1,10 +1,10 @@
-﻿using eBPS.Domain.Entities;
-using eBPS.Application.Interfaces;
+﻿using eBPS.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using eBPS.Domain.Entities.Shared;
 
 namespace eBPS.Infrastructure.Services
 {
@@ -27,7 +27,9 @@ namespace eBPS.Infrastructure.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("userId", user.Id.ToString())
+                new Claim("userId", user.Id.ToString()),
+                new Claim("orgId", user.LastLoginOrgId.ToString()),
+                new Claim("roleId", user.LastLoginRoleId.ToString())
             };
 
             var token = new JwtSecurityToken(

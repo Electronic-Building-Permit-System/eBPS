@@ -1,4 +1,4 @@
-﻿using eBPS.Domain.Entities;
+﻿using eBPS.Domain.Entities.Shared;
 using eBPS.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;

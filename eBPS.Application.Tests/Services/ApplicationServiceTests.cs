@@ -1,8 +1,8 @@
 ﻿using Moq;
 using eBPS.Application.Interfaces.Repositories;
 using eBPS.Application.Services;
-using eBPS.Domain.Entities;
 using eBPS.Application.DTOs.BuildingApplication;
+using eBPS.Application.Interfaces;
 
 namespace eBPS.Tests.Application.Services
 {
@@ -21,6 +21,10 @@ namespace eBPS.Tests.Application.Services
         private Mock<ILandUseZoneRepository> _landUseZoneRepositoryMock;
         private Mock<ILandUseSubZoneRepository> _landUseSubZoneRepositoryMock;
         private Mock<IHouseOwnerRepository> _houseOwnerRepositoryMock;
+        private Mock<ILandInformationRepository> _landInformationRepositoryMock;
+        private Mock<ICharkillaRepository> _charkillaRepositoryMock;
+        private Mock<ILandOwnerRepository> _landOwnerRepositoryMock;
+        private Mock<IUserContextService> _userContext;
 
         private IApplicationService _applicationService;
 
@@ -39,6 +43,10 @@ namespace eBPS.Tests.Application.Services
             _landUseZoneRepositoryMock = new Mock<ILandUseZoneRepository>();
             _landUseSubZoneRepositoryMock = new Mock<ILandUseSubZoneRepository>();
             _houseOwnerRepositoryMock = new Mock<IHouseOwnerRepository>();
+            _landInformationRepositoryMock = new Mock<ILandInformationRepository>();
+            _charkillaRepositoryMock = new Mock<ICharkillaRepository>();
+            _landOwnerRepositoryMock = new Mock<ILandOwnerRepository>();
+            _userContext = new Mock<IUserContextService>();
 
             _applicationService = new ApplicationService(
                 _buildingPurposeRepositoryMock.Object,
@@ -52,7 +60,11 @@ namespace eBPS.Tests.Application.Services
                 _transactionTypeRepositoryMock.Object,
                 _landUseSubZoneRepositoryMock.Object,
                 _landUseZoneRepositoryMock.Object,
-                _houseOwnerRepositoryMock.Object
+                _houseOwnerRepositoryMock.Object,
+                _landInformationRepositoryMock.Object,
+                _charkillaRepositoryMock.Object,
+                _landOwnerRepositoryMock.Object,
+                _userContext.Object
             );
         }
 

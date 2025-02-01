@@ -1,4 +1,4 @@
-﻿using eBPS.Application.Services;
+﻿using eBPS.Application.Services.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers

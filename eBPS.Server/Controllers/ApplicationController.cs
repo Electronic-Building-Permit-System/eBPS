@@ -1,5 +1,5 @@
 ﻿using eBPS.Application.DTOs.BuildingApplication;
-using eBPS.Application.Services;
+using eBPS.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers
@@ -43,35 +43,6 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
-        [HttpPost("create-building-application")]
-        public async Task<IActionResult> CreateBuildingApplication([FromBody] BuildingApplicationDTO buildingApplicationDTO)
-        {
-            try
-            {
-                await _applicationService.CreateBuildingApplication(buildingApplicationDTO);
-                return Created("", new { Message = "Application registered successfully." });
-            }
-
-            catch (Exception ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-
-            }
-        }
-        [HttpPut("edit-building-application/{id}")]
-        public async Task<IActionResult> EditBuildingApplication(int id, [FromBody] BuildingApplicationDTO buildingApplicationDTO)
-        {
-            try
-            {
-                // Pass the ID and updated DTO to the service layer for processing
-                await _applicationService.EditBuildingApplication(id, buildingApplicationDTO);
-                return Ok(new { Message = "Application updated successfully." });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-        }
 
         [HttpGet("get-structure-type")]
         public async Task<IActionResult> GetActiveStructureType()
@@ -102,6 +73,7 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+
         [HttpGet("get-land-use-sub-zone")]
         public async Task<IActionResult> GetActiveLandUseSubZone()
         {
@@ -116,6 +88,7 @@ namespace eBPS.Server.Controllers
                 return StatusCode(500, "An error occurred while processing your request.");
             }
         }
+
         [HttpGet("get-land-use-zone")]
         public async Task<IActionResult> GetActiveLandUseZone()
         {
@@ -159,6 +132,7 @@ namespace eBPS.Server.Controllers
             }
         }
 
+        
         [HttpGet("get-landscape-type")]
         public async Task<IActionResult> GetActiveLandscapeType()
         {
@@ -201,6 +175,53 @@ namespace eBPS.Server.Controllers
             {
                 // Return a generic error response
                 return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        //For Building Application Form
+        [HttpGet("get-building-application-list")]
+        public async Task<IActionResult> GetBuildingApplicationList()
+        {
+            try
+            {
+                var buildingApplicationList = await _applicationService.GetBuildingApplicationList();
+                return Ok(buildingApplicationList);
+            }
+            catch (Exception ex)
+            {
+                // Return a generic error response
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpPost("create-building-application")]
+        public async Task<IActionResult> CreateBuildingApplication([FromBody] BuildingApplicationDTO buildingApplicationDTO)
+        {
+            try
+            {
+                await _applicationService.CreateBuildingApplication(buildingApplicationDTO);
+                return Created("", new { Message = "Application registered successfully." });
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+
+            }
+        }
+
+        [HttpPut("edit-building-application/{id}")]
+        public async Task<IActionResult> EditBuildingApplication(int id, [FromBody] BuildingApplicationDTO buildingApplicationDTO)
+        {
+            try
+            {
+                // Pass the ID and updated DTO to the service layer for processing
+                await _applicationService.EditBuildingApplication(id, buildingApplicationDTO);
+                return Ok(new { Message = "Application updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
             }
         }
     }

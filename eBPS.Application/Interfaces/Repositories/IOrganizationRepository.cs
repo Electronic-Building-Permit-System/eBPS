@@ -1,4 +1,4 @@
-﻿using eBPS.Application.DTOs;
+﻿using eBPS.Application.DTOs.Shared;
 
 namespace eBPS.Application.Interfaces.Repositories
 {
@@ -8,6 +8,5 @@ namespace eBPS.Application.Interfaces.Repositories
         Task<IEnumerable<OrganizationDTO>> GetActiveOrganizations();
         Task<IEnumerable<OrganizationDTO>> GetUserOrganizations(int userId);
         Task<string?> GetOrganizationsConfig(int orgId);
-        Task<object> GetData(string connectionString);
     }
 }

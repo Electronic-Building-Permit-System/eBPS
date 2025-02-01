@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { LandTotals } from '../../../../models/building-application/land-area-totals.model';
+import { MatStepperModule } from '@angular/material/stepper';
+import { DecimalOnlyDirective } from '../../../../directives/decimal-only.directive';
 
 @Component({
   selector: 'app-land-information',
@@ -16,15 +18,20 @@ import { LandTotals } from '../../../../models/building-application/land-area-to
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,MatCardModule, MatGridListModule, MatIconModule
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule,
+    MatStepperModule,
+    DecimalOnlyDirective
   ],
   templateUrl: './land-information.component.html',
-  styleUrl: './land-information.component.css'
+  styleUrl: './land-information.component.css',
 })
 export class LandInformationComponent {
   @Input() landInformationForm!: FormArray;
   @Input() totals!: LandTotals;
-  
+
   @Output() addForm = new EventEmitter<void>();
   @Output() removeForm = new EventEmitter<number>();
 

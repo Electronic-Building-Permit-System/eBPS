@@ -8,6 +8,7 @@ namespace eBPS.Application.DTOs.BuildingApplication
 {
     public class LandOwnerDTO
     {
+        public int? ApplicationId { get; set; }
         public string LandOwnerType { get; set; }
         public string Salutation { get; set; }
         public string LandOwnerName { get; set; }

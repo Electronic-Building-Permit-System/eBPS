@@ -3,7 +3,7 @@ using eBPS.Application.Interfaces.Repositories;
 using System.Data;
 using eBPS.Application.DTOs.BuildingApplication;
 
-namespace eBPS.Infrastructure.DataAccess.Repositories
+namespace eBPS.Infrastructure.DataAccess.Repositories.Shared
 {
     public class NBCClassRepository : INBCClassRepository
     {

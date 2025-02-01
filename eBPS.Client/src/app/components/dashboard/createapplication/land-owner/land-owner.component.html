@@ -4,16 +4,16 @@
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Land Owner Type</mat-label>
                 <mat-select formControlName="landOwnerType">
-                    <mat-option value="self">Self</mat-option>
-                    <mat-option value="other">Other</mat-option>
+                    <mat-option value=1>Self</mat-option>
+                    <mat-option value=2>Other</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item">
                 <mat-label>Salutation</mat-label>
                 <mat-select formControlName="salutation">
-                  <mat-option value="mr">Mr</mat-option>
-                  <mat-option value="ms">Ms</mat-option>
-                  <mat-option value="mrs">Mrs</mat-option>
+                  <mat-option value=1>Mr</mat-option>
+                  <mat-option value=2>Ms</mat-option>
+                  <mat-option value=3>Mrs</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -50,9 +50,17 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="flex-item">
-              <mat-label>Issue Date (BS)</mat-label>
-              <input matInput formControlName="citizenshipIssueDate" placeholder="YYYY-MM-DD" />
-            </mat-form-field>
+              <mat-label>Citizenship Issue Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="citizenshipIssueDate"
+                placeholder="MM-DD-YYYY" 
+                readonly
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
           </div>
         
           <div class="form-row">
@@ -91,5 +99,9 @@
                 Add New
             </button>
         </div>
+    </div>
+    <div class="stepper-actions">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </div>
 </div>

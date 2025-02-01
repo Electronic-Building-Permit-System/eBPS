@@ -1,5 +1,4 @@
-﻿
-namespace eBPS.Domain.Entities
+﻿namespace eBPS.Domain.Entities.Shared
 {
     public class Roles
     {

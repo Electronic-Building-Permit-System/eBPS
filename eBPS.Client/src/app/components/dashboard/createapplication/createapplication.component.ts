@@ -24,6 +24,7 @@ import { LandTotals } from '../../../models/building-application/land-area-total
 import { LandOwnerModel } from '../../../models/building-application/land-owner.model';
 import { CharkillaModel } from '../../../models/building-application/charkilla.model';
 import { ApplicationService } from '../../../services/application/application.service';
+import NepaliDate from 'nepali-date-converter';
 
 @Component({
   selector: 'app-createapplication',
@@ -47,6 +48,7 @@ import { ApplicationService } from '../../../services/application/application.se
   styleUrls: ['./createapplication.component.css']
 })
 export class CreateApplicationComponent {
+  decimalValidator = Validators.pattern(/^\d*\.?\d+$/);
   isLinear = true;
   applicationDetailsForm!: FormGroup;
   applicantDetailsForm!: FormGroup;
@@ -54,13 +56,13 @@ export class CreateApplicationComponent {
   landOwnerForm!: FormArray;
   houseOwnerForm!: FormArray;
   charkillaForm!: FormArray;
-
+  
   totals: LandTotals = { totalRopani: 0, totalAana: 0, totalPaisa: 0, totalDaam: 0, totalSquareFeet: 0, totalSquareMeter: 0 };
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
   ) {}
 
   ngOnInit() {
@@ -70,6 +72,7 @@ export class CreateApplicationComponent {
   }
 
   private initializeForms() {
+    
     this.applicationDetailsForm = this.fb.group({
       transactionType: ['', Validators.required],
       buildingPurpose: ['', Validators.required],
@@ -77,16 +80,29 @@ export class CreateApplicationComponent {
       landUseZone: ['', Validators.required],
       landUseSubZone: ['', Validators.required],
       structureType: ['', Validators.required],
+      landLongitude: ['', [Validators.required, this.decimalValidator]],
+      landLatitude: ['', [Validators.required, this.decimalValidator]],
+      landSawikWard: ['', Validators.required],
+      landSawikGabisa: ['', Validators.required],
+      landToleName: ['', Validators.required],
+      wardNumber: ['', Validators.required],
     });
 
     this.applicantDetailsForm = this.fb.group({
       salutation: ['', Validators.required],
       applicantName: ['', Validators.required],
+      applicationNumber: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      grandFatherName: ['', Validators.required],
+      tole: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
+      citizenshipNumber: ['', Validators.required],
+      citizenshipIssueDate: [NepaliDate.now(), Validators.required],
+      citizenshipIssueDistrict: ['', Validators.required],
       wardNumber: ['', Validators.required],
       address: ['', Validators.required],
       houseNumber: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
     });
 
     this.landInformationForm = this.fb.array([]);
@@ -108,14 +124,14 @@ export class CreateApplicationComponent {
 
   addNewLandInformationForm() {
     const landInfoForm = this.fb.group({
-      mapSheet: ['', Validators.required],
-      landParcel: ['', Validators.required],
-      ropani: [0, Validators.required],
-      aana: [0, Validators.required],
-      paisa: [0, Validators.required],
-      daam: [0, Validators.required],
-      squareFeet: [0, Validators.required],
-      squareMeter: [0, Validators.required],
+      mapSheetNumber: ['', Validators.required],
+      landParcelNumber: ['', Validators.required],
+      ropani: ['', [Validators.required, this.decimalValidator]],
+      aana: ['', [Validators.required, this.decimalValidator]],
+      paisa: ['', [Validators.required, this.decimalValidator]],
+      daam: ['', [Validators.required, this.decimalValidator]],
+      squareFeet: ['', [Validators.required, this.decimalValidator]],
+      squareMeter: ['', [Validators.required, this.decimalValidator]],
       remarks: ['', Validators.required],
     });
     landInfoForm.valueChanges.subscribe(() => this.updateTotals());
@@ -145,6 +161,7 @@ export class CreateApplicationComponent {
     const formGroup = this.fb.group({
       salutation: ['', Validators.required],
       houseOwnerName: ['', Validators.required],
+      houseOwnerType: ['', Validators.required],
       fatherName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       email: ['', Validators.required],
@@ -164,15 +181,19 @@ export class CreateApplicationComponent {
       direction: ['', Validators.required],
       landscapeType: ['', Validators.required],
       side: ['', Validators.required],
-      roadName: ['', Validators.required],
-      roadLength: ['', Validators.required],
-      existingRow: ['', Validators.required],
-      actualSetback: ['', Validators.required],
+      charkillaName: ['', Validators.required],
+      roadLength: ['', [Validators.required, this.decimalValidator]],
+      existingRow: ['', [Validators.required, this.decimalValidator]],
+      proposedRow: ['', [Validators.required, this.decimalValidator]],
+      actualSetback: ['', [Validators.required, this.decimalValidator]],
+      standardSetback: ['', [Validators.required, this.decimalValidator]],
+      roadId: ['', Validators.required],
+      kitta: ['', Validators.required],
     });
     this.charkillaForm.push(formGroup);
   }
 
-  private updateTotals() {
+  updateTotals() {
     this.totals = { ...this.totals, ...this.applicationService.calculateTotals(this.landInformationForm.controls) };
   }
 
@@ -193,6 +214,7 @@ export class CreateApplicationComponent {
         next: response => {
           console.log('Application created successfully:', response);
           alert('Form submitted successfully!');
+          this.navigateToDashboard();
         },
         error: error => {
           console.error('Error creating application:', error);
@@ -203,12 +225,19 @@ export class CreateApplicationComponent {
     }
   }
 
-  private prepareFormData(): BuildingApplicationData {
+  prepareFormData(): BuildingApplicationData {
     const houseOwners: HouseOwnerModel[] = this.houseOwnerForm.controls.map(group => group.value);
     const landInformation: LandInformationModel[] = this.landInformationForm.controls.map(group => group.value);
     const landOwners: LandOwnerModel[] = this.landOwnerForm.controls.map(group => group.value);
     const charkilla: CharkillaModel[] = this.charkillaForm.controls.map(group => group.value);
-
+    const applicantDetails: ApplicantDetailsModel = this.applicantDetailsForm.value;
+    if (applicantDetails.citizenshipIssueDate) {
+      applicantDetails.citizenshipIssueDate = applicantDetails.citizenshipIssueDate.toJsDate(); // Convert to ISO 8601
+      console.log('test', applicantDetails.citizenshipIssueDate);
+      const nepaliDate = new NepaliDate(applicantDetails.citizenshipIssueDate);
+      console.log('Nepali date:', nepaliDate.format('YYYY-MM-DD'));
+      applicantDetails.citizenshipIssueDateBS = nepaliDate.format('YYYY-MM-DD');
+    }
     return {
       applicationDetails: this.applicationDetailsForm.value as ApplicationDetailsModel,
       applicantDetails: this.applicantDetailsForm.value as ApplicantDetailsModel,
