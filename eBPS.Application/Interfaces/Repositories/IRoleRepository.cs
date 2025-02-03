@@ -1,5 +1,5 @@
-﻿using eBPS.Application.DTOs;
-using eBPS.Domain.Entities;
+﻿using eBPS.Application.DTOs.Shared;
+using eBPS.Domain.Entities.Shared;
 
 namespace eBPS.Application.Interfaces.Repositories
 {

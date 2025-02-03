@@ -1,5 +1,6 @@
-﻿using eBPS.Application.DTOs;
-using eBPS.Application.Services;
+﻿using eBPS.Application.DTOs.Shared;
+using eBPS.Application.Interfaces;
+using eBPS.Application.Services.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBPS.Server.Controllers

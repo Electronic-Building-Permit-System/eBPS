@@ -1,0 +1,74 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.form-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+  margin-top: 2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping if there isn't enough space */
+  gap: 1rem; /* Adds spacing between the items */
+  justify-content: space-between; /* Ensures items are evenly spaced */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 30%; /* Makes three equal boxes per row */
+  max-width: 24%; /* Ensures the boxes do not exceed 30% of the row width */
+  margin-bottom: 1rem;
+  margin-right: 23px;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column; /* Stacks form fields in a column on small screens */
+  }
+  .form-group {
+    max-width: 100%; /* Full-width fields on smaller screens */
+    flex: 1 1 100%;
+  }
+}

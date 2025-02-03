@@ -1,0 +1,107 @@
+<div *ngFor="let form of landOwnerForm.controls; let i = index">
+    <div [formGroup]="asFormGroup(form)" class="landOwnerForm">
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Land Owner Type</mat-label>
+                <mat-select formControlName="landOwnerType">
+                    <mat-option value=1>Self</mat-option>
+                    <mat-option value=2>Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Salutation</mat-label>
+                <mat-select formControlName="salutation">
+                  <mat-option value=1>Mr</mat-option>
+                  <mat-option value=2>Ms</mat-option>
+                  <mat-option value=3>Mrs</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="form-row">
+              <mat-form-field appearance="fill" class="flex-item">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="landOwnerName" placeholder="In English" />
+              </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Father's Name</mat-label>
+              <input matInput formControlName="fatherName" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Grandfather's Name</mat-label>
+              <input matInput formControlName="grandFatherName" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Citizenship No</mat-label>
+              <input matInput formControlName="citizenshipNumber" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Issue District</mat-label>
+              <mat-select formControlName="citizenshipIssueDistrict">
+                <mat-option *ngFor="let purpose of issueDistrict" [value]="purpose.id">
+                  {{ purpose.description }}</mat-option> 
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Citizenship Issue Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="citizenshipIssueDate"
+                placeholder="MM-DD-YYYY" 
+                readonly
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Tole</mat-label>
+              <input matInput formControlName="tole" placeholder="In English" />
+            </mat-form-field>
+          </div>
+        
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Ward Number</mat-label>
+              <mat-select formControlName="wardNumber">
+                <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                  {{ purpose.wardNumber }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phoneNumber" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-item">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" />
+            </mat-form-field>
+          </div>
+        <div class="add-remove-button">
+            <button mat-raised-button class="remove-button" (click)="onRemoveForm(i)">
+                Remove
+            </button>
+            <button mat-raised-button color="primary" (click)="onAddForm()">
+                Add New
+            </button>
+        </div>
+    </div>
+    <div class="stepper-actions">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+</div>

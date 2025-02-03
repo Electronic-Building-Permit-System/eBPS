@@ -1,4 +1,4 @@
-﻿using eBPS.Domain.Entities;
+﻿using eBPS.Domain.Entities.Shared;
 
 namespace eBPS.Application.Interfaces
 {

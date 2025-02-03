@@ -1,0 +1,95 @@
+<form [formGroup]="firstFormGroup">
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Transaction Type</mat-label>
+        <mat-select formControlName="transactionType">
+          <mat-option *ngFor="let purpose of transactionType" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+        <mat-label>Building Purpose</mat-label>
+        <mat-select formControlName="buildingPurpose">
+          <mat-option *ngFor="let purpose of buildingPurpose" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
+        </mat-select>    
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>NBC Class</mat-label>
+          <mat-select formControlName="nbcClass">
+            <mat-option *ngFor="let nbc of nbcClass" [value]="nbc.id">
+              {{ nbc.description }}</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+        <mat-label>Structure Type</mat-label>
+        <mat-select formControlName="structureType">
+          <mat-option *ngFor="let purpose of structureType" [value]="purpose.id">
+            {{ purpose.description }}</mat-option>
+        </mat-select>    
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Use Zone</mat-label>
+          <mat-select formControlName="landUseZone">
+            <mat-option *ngFor="let purpose of landUseZone" [value]="purpose.id">
+              {{ purpose.description }}</mat-option>
+          </mat-select> 
+      
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Use Sub Zone</mat-label>
+          <mat-select formControlName="landUseSubZone">
+            <mat-option *ngFor="let sub of landUseSubZone" [value]="sub.id">
+              {{ sub.description }}</mat-option>
+          </mat-select>       
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Longitude</mat-label>
+          <input matInput formControlName="landLongitude" appDecimalOnly />       
+          <mat-error *ngIf="firstFormGroup.get('landLongitude')?.hasError('pattern')">
+            Must be a valid decimal number
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Latitude</mat-label>
+          <input matInput formControlName="landLatitude" appDecimalOnly />  
+          <mat-error *ngIf="firstFormGroup.get('landLongitude')?.hasError('pattern')">
+            Must be a valid decimal number
+          </mat-error>     
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Sawik Ward</mat-label>
+          <mat-select formControlName="landSawikWard">
+            <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                {{ purpose.wardNumber }}</mat-option> 
+          </mat-select>       
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Sawik Gabisa</mat-label>
+          <input matInput formControlName="landSawikGabisa" />       
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Tole Name</mat-label>
+          <input matInput formControlName="landToleName" />       
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="flex-item"> 
+        <mat-label>Ward Number</mat-label>
+        <mat-select formControlName="wardNumber">
+            <mat-option *ngFor="let purpose of ward" [value]="purpose.id">
+                {{ purpose.wardNumber }}</mat-option> 
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="stepper-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+  
