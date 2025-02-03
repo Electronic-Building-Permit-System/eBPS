@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common'; 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
 import { EmailService } from '../../../services/email/email.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { EmailService } from '../../../services/email/email.service';
   standalone: true, 
   imports: [
     CommonModule, 
+    HomeNavbarComponent,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
