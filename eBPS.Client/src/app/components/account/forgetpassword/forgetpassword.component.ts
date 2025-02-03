@@ -7,7 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common'; 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeNavbarComponent } from '../../shared/home-navbar/home-navbar.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
 import { EmailService } from '../../../services/email/email.service';
 
 @Component({
@@ -16,7 +15,6 @@ import { EmailService } from '../../../services/email/email.service';
   imports: [
     CommonModule, 
     HomeNavbarComponent,
-    FooterComponent,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
