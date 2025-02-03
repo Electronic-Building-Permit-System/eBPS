@@ -18,7 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationService } from '../../../services/application/application.service';
-import { TransactionTypeDescriptions, TransactionTypeEnum } from '../../../enums/transaction-type-enum';
+import { TransactionTypeDescriptions } from '../../../enums/transaction-type-enum';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 @Component({
   selector: 'app-building-application',
