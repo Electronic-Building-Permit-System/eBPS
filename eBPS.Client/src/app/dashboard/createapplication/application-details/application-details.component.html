@@ -1,0 +1,61 @@
+<form [formGroup]="firstFormGroup">
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="flex-item">
+        <mat-label>Transaction Type</mat-label>
+        <mat-select formControlName="transactionType">
+          <mat-option value="creditCard">Credit Card</mat-option>
+          <mat-option value="paypal">PayPal</mat-option>
+          <mat-option value="bankTransfer">Bank Transfer</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+        <mat-label>Building Purpose</mat-label>
+        <mat-select formControlName="buildingPurpose">
+          <mat-option value="creditCard">Credit Card</mat-option>
+          <mat-option value="paypal">PayPal</mat-option>
+          <mat-option value="bankTransfer">Bank Transfer</mat-option>
+        </mat-select>    
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>NBC Class</mat-label>
+          <mat-select formControlName="nbcClass">
+            <mat-option value="creditCard">Credit Card</mat-option>
+            <mat-option value="paypal">PayPal</mat-option>
+            <mat-option value="bankTransfer">Bank Transfer</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+        <mat-label>Structure Type</mat-label>
+        <mat-select formControlName="structureType">
+          <mat-option value="creditCard">Credit Card</mat-option>
+          <mat-option value="paypal">PayPal</mat-option>
+          <mat-option value="bankTransfer">Bank Transfer</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Use Zone</mat-label>
+          <mat-select formControlName="landUseZone">
+            <mat-option value="creditCard">Credit Card</mat-option>
+            <mat-option value="paypal">PayPal</mat-option>
+            <mat-option value="bankTransfer">Bank Transfer</mat-option>
+          </mat-select>
+      
+      </mat-form-field>
+      <mat-form-field class="flex-item" appearance="fill">
+          <mat-label>Land Use Sub Zone</mat-label>
+          <mat-select formControlName="landUseSubZone">
+            <mat-option value="creditCard">Credit Card</mat-option>
+            <mat-option value="paypal">PayPal</mat-option>
+            <mat-option value="bankTransfer">Bank Transfer</mat-option>
+          </mat-select>    
+      </mat-form-field>
+    </div>
+    <div class="stepper-actions">
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+  
