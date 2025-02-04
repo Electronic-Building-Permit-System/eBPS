@@ -72,10 +72,6 @@ namespace eBPS.Application.Services
         {
             return await _landUseSubZoneRepository.GetActiveLandUseSubZone();
         }   
-        public async Task<IEnumerable<ApplicationDTO>> GetActiveBuildingApplication()
-        {
-            return await _buildingApplicationRepository.GetBuildingApplicationList();
-        }
         public async Task<IEnumerable<LandUseZoneDTO>> GetActiveLandUseZone()
         {
             return await _landUseZoneRepository.GetActiveLandUseZone();
@@ -91,9 +87,7 @@ namespace eBPS.Application.Services
         public async Task<IEnumerable<DistrictDTO>> GetActiveIssueDistrict()
         {
             return await _issueDistrictRepository.GetActiveIssueDistrict();
-            
         }
-        
         public async Task<IEnumerable<ApplicationDTO>> GetBuildingApplicationList()
         {
             return await _buildingApplicationRepository.GetBuildingApplicationList();
