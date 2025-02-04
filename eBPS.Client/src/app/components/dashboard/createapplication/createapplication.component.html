@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<div class="stepper-container">
+  <!-- Back Button -->
+  <button mat-button class="back-button" (click)="navigateToDashboard()">
+    <mat-icon>arrow_back</mat-icon> Home
+  </button>
+  <h1><img src="ebps.png" /></h1>
+  <h1>BUILDING PERMIT APPLICATION FORM</h1>
+  <mat-horizontal-stepper [linear]="true" #stepper="matStepper">
+    <!-- Step 1 -->
+    <mat-step
+      *ngIf="applicationDetailsForm"
+      [stepControl]="applicationDetailsForm"
+    >
+      <ng-template matStepLabel> Application Details </ng-template>
+      <app-application-details
+        [firstFormGroup]="applicationDetailsForm"
+      ></app-application-details>
+    </mat-step>
+
+    <!-- Step 2 -->
+    <mat-step *ngIf="applicantDetailsForm" [stepControl]="applicantDetailsForm">
+      <ng-template matStepLabel> Applicant Details </ng-template>
+      <app-applicant-details
+        [secondFormGroup]="applicantDetailsForm"
+      ></app-applicant-details>
+    </mat-step>
+
+    <!-- Step 3 -->
+    <mat-step [stepControl]="houseOwnerForm">
+      <ng-template matStepLabel>House Owner Type</ng-template>
+      <app-house-owner
+        [houseOwnerForm]="houseOwnerForm"
+        (addForm)="addNewHouseOwnerForm()"
+        (removeForm)="removeFormGroup(houseOwnerForm, $event)"
+      ></app-house-owner>
+    </mat-step>
+    <!-- Step 4 -->
+    <mat-step [stepControl]="landInformationForm">
+      <ng-template matStepLabel>Land Information</ng-template>
+      <app-land-information
+        [landInformationForm]="landInformationForm"
+        (addForm)="addNewLandInformationForm()"
+        (removeForm)="removeFormGroup(landInformationForm, $event)"
+        [totals]="totals"
+      ></app-land-information>
+    </mat-step>
+
+    <!-- Step 5 -->
+    <mat-step [stepControl]="landOwnerForm">
+      <ng-template matStepLabel>Land Owner Information</ng-template>
+      <app-land-owner
+        [landOwnerForm]="landOwnerForm"
+        (addForm)="addNewLandOwnerForm()"
+        (removeForm)="removeFormGroup(landOwnerForm, $event)"
+      ></app-land-owner>
+    </mat-step>
+
+    <!-- Step 6 -->
+    <mat-step [stepControl]="charkillaForm">
+      <ng-template matStepLabel>Charkilla Form</ng-template>
+      <app-charkilla
+        [charkillaForm]="charkillaForm"
+        (addForm)="addNewCharkillaForm()"
+        (removeForm)="removeFormGroup(charkillaForm, $event)"
+      ></app-charkilla>
+    </mat-step>
+
+    <!-- Step 7 -->
+    <mat-step>
+      <ng-template matStepLabel> Charkilla Details </ng-template>
+      <p>You have completed all the steps!</p>
+      <div class="stepper-actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="submitForm()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

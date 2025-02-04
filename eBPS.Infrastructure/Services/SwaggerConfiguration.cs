@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
@@ -8,9 +9,9 @@ namespace eBPS.Infrastructure.Services
     {
         public static void AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddSwaggerGen(c =>
             {
+                // Existing authorization settings
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -33,6 +34,9 @@ namespace eBPS.Infrastructure.Services
                         new string[] {}
                     }
                 });
+
+                // To help Swagger recognize IFormFile input and provide UI for file uploads:
+                c.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
             });
         }
     }

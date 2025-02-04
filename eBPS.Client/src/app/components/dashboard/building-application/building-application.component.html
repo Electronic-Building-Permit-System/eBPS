@@ -1,0 +1,78 @@
+<div class="table-container">
+  <!-- Button to open the application creation form -->
+  <button mat-raised-button color="accent" (click)="opencreateapplication()">
+    Application Type Form
+  </button>
+  <button mat-raised-button color="accent" (click)="opendesigndata()">
+    Design Data
+  </button>
+
+
+  <!-- Search Bar -->
+  <div class="custom-search-bar">
+    <div class="search-input-container">
+      <input
+        class="search-input"
+        type="text"
+        (keyup)="applyFilter($event)"
+        placeholder="Search Applicant"
+      />
+      <button class="search-button" mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table for displaying building applications -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
+    <!-- Applicant Name Column -->
+    <ng-container matColumnDef="applicantName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Applicant Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.applicantName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="applicationNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Application Number </th>
+      <td mat-cell *matCellDef="let element"> {{ element.applicationNumber }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="wardNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ward Number </th>
+      <td mat-cell *matCellDef="let element"> {{ element.wardNumber }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="transactionType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Transaction Type </th>
+      <td mat-cell *matCellDef="let element"> {{ element.transactionTypeDescription }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="detail">
+      <th mat-header-cell *matHeaderCellDef>Detail</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button><mat-icon>info</mat-icon></button>
+      </td>
+    </ng-container>
+    <!-- Header Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Data Row -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paginator for pagination controls -->
+  <mat-paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    showFirstLastButtons
+    aria-label="Table Pagination"
+    class="custom-paginator"
+  ></mat-paginator>
+</div>

@@ -1,30 +1,28 @@
 ﻿using eBPS.Application.Interfaces;
+using System.Data;
 
 namespace eBPS.Infrastructure.DataAccess
 {
-    using System.Data;
-    using Microsoft.Data.SqlClient;
-
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly string _connectionString;
+        private readonly IDbConnection _connection;
         private IDbTransaction _transaction;
 
-        public UnitOfWork(string connectionString)
+        // Constructor accepts IDbConnection for easier testing
+        public UnitOfWork(IDbConnection connection)
         {
-            _connectionString = connectionString;
-            Connection = new SqlConnection(_connectionString);
-            Connection.Open(); // Open the connection immediately
+            _connection = connection;
+            _connection.Open(); // Open the connection immediately
         }
 
-        public IDbConnection Connection { get; private set; }
+        public IDbConnection Connection => _connection;
         public IDbTransaction Transaction => _transaction;
 
         public async Task BeginTransactionAsync()
         {
             if (_transaction == null)
             {
-                _transaction = await Task.FromResult(Connection.BeginTransaction());
+                _transaction = await Task.FromResult(_connection.BeginTransaction());
             }
         }
 
@@ -51,8 +49,7 @@ namespace eBPS.Infrastructure.DataAccess
         public void Dispose()
         {
             _transaction?.Dispose();
-            Connection?.Dispose();
+            _connection?.Dispose();
         }
     }
-
 }

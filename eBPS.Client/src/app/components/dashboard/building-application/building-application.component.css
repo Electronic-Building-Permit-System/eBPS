@@ -1,0 +1,71 @@
+/* Container for the table */
+  .table-container {
+    margin: 20px 0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  }
+  
+  /*search bar*/
+  .custom-search-bar {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .search-input-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 50px; /* Rounded edges */
+    padding: 5px 10px; /* Inner padding for spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .search-input {
+    border: none; /* No border */
+    outline: none; /* Remove focus outline */
+    background: transparent; /* Transparent background */
+    font-size: 14px;
+    color: #6b6b6b; /* Subtle gray text */
+    padding: 5px 10px;
+    flex-grow: 1; /* Let input take available space */
+  }
+  
+  .search-input::placeholder {
+    color: #9c9c9c; /* Subtle placeholder color */
+  }
+  
+  .search-button {
+    background-color: #bdbdbd; /* Gray button background */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Circular button */
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 5px; 
+  }
+  
+  .search-button mat-icon {
+    color: white; /* White search icon */
+  }
+
+  .search-button{
+    background-color: #007bff; /* Slightly darker gray on hover */
+  }
+  
+  .search-button:hover {
+    background-color: #115299; /* Slightly darker gray on hover */
+  }
+
+  mat-icon {
+    color: #007bff; /* Example: change icon color to an orange shade */
+  }
+  
+  
+  
+ 
