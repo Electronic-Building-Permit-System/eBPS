@@ -3,6 +3,10 @@ using System.Data;
 using eBPS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Set the URL binding directly within the builder
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 // Retrieve the connection string from the configuration
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -14,9 +18,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.WithOrigins("*")
+        policy.WithOrigins("http://localhost:4200")  // Replace '*' with 'http://localhost:4200'
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
